@@ -4,7 +4,7 @@
 
 ## 다운로드
 
-[VCC 패키지 추가](https://crestudio.notion.site/MaterialOptimizer)
+[VCC 패키지 추가](http://macchiato.kr/docs/vrsuya/addon/VPM_Setup)
 
 [UnityPackage 다운로드](https://github.com/crestudio/MaterialOptimizer/releases)
 
