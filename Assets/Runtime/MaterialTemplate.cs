@@ -531,7 +531,7 @@ namespace com.vrsuya.materialoptimizer {
 
 		// 텍스쳐 프로퍼티
 
-		/// <summary>해당 UTS 머테리얼에서 텍스쳐 공유 프로퍼티 값을 일괄 변경합니다.</summary>
+		/// <summary>해당 텍스쳐에서 텍스쳐 공유 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateTexture2DSharedPropertys(Texture2D TargetTexture) {
 			bool IsDrity = false;
 			bool TargetStreamingMipmaps = true;
