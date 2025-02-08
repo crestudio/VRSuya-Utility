@@ -535,6 +535,7 @@ namespace com.vrsuya.materialoptimizer {
 		private void UpdateTexture2DSharedPropertys(Texture2D TargetTexture) {
 			bool IsDrity = false;
 			bool TargetStreamingMipmaps = true;
+			TextureImporterMipFilter TargetMipmap = TextureImporterMipFilter.KaiserFilter;
 			FilterMode TargetFilterMode = FilterMode.Trilinear;
 			int TargetAnisoLevel = 16;
 			int TargetMaxTextureSize = 1024;
@@ -572,6 +573,7 @@ namespace com.vrsuya.materialoptimizer {
 					TargetTextureImporter.isReadable = ExistisReadable;
 				}
 				if (TargetTextureImporter.streamingMipmaps != TargetStreamingMipmaps) { TargetTextureImporter.streamingMipmaps = TargetStreamingMipmaps; IsDrity = true; }
+				if (TargetTextureImporter.mipmapFilter != TargetMipmap) { TargetTextureImporter.mipmapFilter = TargetMipmap; IsDrity = true; }
 				if (TargetTextureImporter.filterMode != TargetFilterMode) { TargetTextureImporter.filterMode = TargetFilterMode; IsDrity = true; }
 				if (TargetTextureImporter.anisoLevel != TargetAnisoLevel) { TargetTextureImporter.anisoLevel = TargetAnisoLevel; IsDrity = true; }
 				if (UpdateMaxTextureSize && TargetTextureImporter.maxTextureSize != TargetMaxTextureSize) { TargetTextureImporter.maxTextureSize = TargetMaxTextureSize; IsDrity = true; }
