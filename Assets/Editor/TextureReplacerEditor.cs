@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEditor;
 
 /*
- * VRSuya MaterialOptimizer TextureReplacer
+ * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.materialoptimizer {
+namespace com.vrsuya.utility {
 
     [CustomEditor(typeof(TextureReplacer))]
     public class TextureReplacerEditor : Editor {

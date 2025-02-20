@@ -8,14 +8,14 @@ using UnityEditor.Animations;
 using UnityEngine;
 
 using VRC.SDK3.Avatars.Components;
-using static com.vrsuya.materialoptimizer.TextureReplacer;
+using static com.vrsuya.utility.TextureReplacer;
 
 /*
- * VRSuya MaterialOptimizer AssetProcessor
+ * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.materialoptimizer {
+namespace com.vrsuya.utility {
 
 	[ExecuteInEditMode]
 	[AddComponentMenu("")]

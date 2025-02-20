@@ -2,11 +2,11 @@
 using UnityEditor;
 
 /*
- * VRSuya MaterialOptimizer Template Editor
+ * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.materialoptimizer {
+namespace com.vrsuya.utility {
 
 	[CustomEditor(typeof(MaterialTemplate))]
 	public class MaterialTemplateEditor : Editor {

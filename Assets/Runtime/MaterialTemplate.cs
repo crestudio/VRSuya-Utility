@@ -7,11 +7,11 @@ using UnityEditor;
 using UnityEngine;
 
 /*
- * VRSuya MaterialOptimizer Template
+ * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.materialoptimizer {
+namespace com.vrsuya.utility {
 
 	[ExecuteInEditMode]
 	[AddComponentMenu("VRSuya/VRSuya Material Template")]

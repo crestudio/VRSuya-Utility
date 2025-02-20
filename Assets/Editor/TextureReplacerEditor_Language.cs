@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
 /*
- * VRSuya VRSuya MaterialOptimizer TextureReplacer Editor
+ * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.materialoptimizer {
+namespace com.vrsuya.utility {
 
 	public class LanguageHelper : TextureReplacerEditor {
 

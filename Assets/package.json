@@ -1,12 +1,12 @@
 {
-  "name": "com.vrsuya.materialoptimizer",
-  "version": "1.0.2",
-  "displayName": "VRSuya - MaterialOptimizer",
+  "name": "com.vrsuya.utility",
+  "version": "1.1.0",
+  "displayName": "VRSuya - Utility",
   "description": "VRChat Avatar Material Optimization Program",
   "unity": "2019.4",
-  "documentationUrl": "https://github.com/crestudio/MaterialOptimizer/blob/main/README.md",
-  "changelogUrl": "https://github.com/crestudio/MaterialOptimizer/blob/main/README.md",
-  "licensesUrl": "https://github.com/crestudio/MaterialOptimizer/blob/main/LICENSE",
+  "documentationUrl": "https://github.com/crestudio/VRSuya-Utility/blob/main/README.md",
+  "changelogUrl": "https://github.com/crestudio/VRSuya-Utility/blob/main/README.md",
+  "licensesUrl": "https://github.com/crestudio/VRSuya-Utility/blob/main/LICENSE",
   "keywords": [
     "VRSuya",
     "VRChat"
@@ -16,7 +16,7 @@
     "email": "crestudioplus@gmail.com",
     "url": "https://github.com/crestudio"
   },
-  "url": "https://github.com/crestudio/MaterialOptimizer",
+  "url": "https://github.com/crestudio/VRSuya-Utility",
   "repo": "https://server.macchiato.kr/vpm/vpm.json",
   "vpmDependencies": {
     "com.vrchat.avatars": ">=3.0.9"
