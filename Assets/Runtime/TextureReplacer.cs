@@ -6,6 +6,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+using static VRSuya.Core.Unity;
+
 /*
  * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
@@ -50,7 +52,8 @@ namespace com.vrsuya.utility {
 		public GameObject AvatarGameObject = null;
 		public Material[] AvatarMaterials = new Material[0];
 
-		public int UndoGroupIndex;
+		private readonly string UndoGroupName = "VRSuya TextureReplacer";
+		private int UndoGroupIndex;
 
 		// 컴포넌트 최초 로드시 동작
 		void OnEnable() {
@@ -62,11 +65,9 @@ namespace com.vrsuya.utility {
 		/// 본 프로그램의 메인 세팅 로직입니다.
 		/// </summary>
 		public void ChangeAvatarTextures() {
-			Undo.IncrementCurrentGroup();
-			Undo.SetCurrentGroupName("VRSuya Texture Replacer");
-			UndoGroupIndex = Undo.GetCurrentGroup();
 			TargetTextureList = CleanupAvatarTextureList();
 			if (AvatarMaterials.Length > 0 && TargetTextureList.Count > 0) ChangeTexture2Ds();
+			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			return;
 		}
 
@@ -147,8 +148,8 @@ namespace com.vrsuya.utility {
 							Texture ExistMaterialTexture = TargetMaterial.GetTexture(PropertyName);
 							if (ExistMaterialTexture is Texture2D) {
 								if (Array.Exists(TargetTexture2Ds, TargetTexture => ExistMaterialTexture == TargetTexture)) {
-									Undo.RecordObject(TargetMaterial, "Change Texture2D");
 									Texture2D newTexture2D = TargetTextureList
+									Undo.RecordObject(TargetMaterial, UndoGroupName);
 										.Where(TargetTextureExpression => ExistMaterialTexture == TargetTextureExpression.BeforeTexture)
 										.Select(TargetTextureExpression => TargetTextureExpression.AfterTexture).ToArray()[0];
 									TargetMaterial.SetTexture(PropertyName, newTexture2D);

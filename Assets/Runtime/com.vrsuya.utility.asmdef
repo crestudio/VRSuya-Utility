@@ -1,7 +1,9 @@
 {
     "name": "com.vrsuya.utility",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:0bae3e2f09a0c454da701a2e8b59d048"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
