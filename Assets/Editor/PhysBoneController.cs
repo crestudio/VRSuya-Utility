@@ -99,7 +99,7 @@ namespace com.vrsuya.utility {
 		public static void HidePhysBoneGizmo() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.showGizmos != false) {
+				if (TargetPhysBone.showGizmos) {
 					TargetPhysBone.showGizmos = false;
 					EditorUtility.SetDirty(TargetPhysBone);
 				}
@@ -113,7 +113,7 @@ namespace com.vrsuya.utility {
 		public static void ShowPhysBoneGizmo() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.showGizmos != true) {
+				if (!TargetPhysBone.showGizmos) {
 					TargetPhysBone.showGizmos = true;
 					EditorUtility.SetDirty(TargetPhysBone);
 				}
@@ -155,7 +155,7 @@ namespace com.vrsuya.utility {
 		public static void ChangePhysBoneAnimatedToTrue() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.isAnimated != true) {
+				if (!TargetPhysBone.isAnimated) {
 					TargetPhysBone.isAnimated = true;
 					EditorUtility.SetDirty(TargetPhysBone);
 				}
@@ -169,7 +169,7 @@ namespace com.vrsuya.utility {
 		public static void ChangePhysBoneAnimatedToFalse() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.isAnimated != false) {
+				if (TargetPhysBone.isAnimated) {
 					TargetPhysBone.isAnimated = false;
 					EditorUtility.SetDirty(TargetPhysBone);
 				}
@@ -183,7 +183,7 @@ namespace com.vrsuya.utility {
 		public static void DebugLogPhysBoneAnimateds() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.isAnimated == true) {
+				if (TargetPhysBone.isAnimated) {
 					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Is Animated : True");
 				} else {
 					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Is Animated : False");
@@ -197,7 +197,7 @@ namespace com.vrsuya.utility {
 		public static void ChangePhysBoneResetToTrue() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.resetWhenDisabled != true) {
+				if (!TargetPhysBone.resetWhenDisabled) {
 					TargetPhysBone.resetWhenDisabled = true;
 					EditorUtility.SetDirty(TargetPhysBone);
 				}
@@ -211,7 +211,7 @@ namespace com.vrsuya.utility {
 		public static void ChangePhysBoneResetToFalse() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.resetWhenDisabled != false) {
+				if (TargetPhysBone.resetWhenDisabled) {
 					TargetPhysBone.resetWhenDisabled = false;
 					EditorUtility.SetDirty(TargetPhysBone);
 				}
@@ -225,7 +225,7 @@ namespace com.vrsuya.utility {
 		public static void DebugLogPhysBoneResets() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.resetWhenDisabled == true) {
+				if (TargetPhysBone.resetWhenDisabled) {
 					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Reset When Disabled : True");
 				} else {
 					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Reset When Disabled : False");
