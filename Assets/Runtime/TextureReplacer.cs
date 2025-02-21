@@ -46,8 +46,8 @@ namespace com.vrsuya.utility {
 		}
 
 		[SerializeField]
-		public List<TextureExpression> AvatarTextureList = new List<TextureExpression>();
-		private List<TextureExpression> TargetTextureList = new List<TextureExpression>();
+		public List<TextureExpression> AvatarTextures = new List<TextureExpression>();
+		private List<TextureExpression> TargetTextures = new List<TextureExpression>();
 
 		public GameObject AvatarGameObject = null;
 		public Material[] AvatarMaterials = new Material[0];
@@ -56,7 +56,7 @@ namespace com.vrsuya.utility {
 		private int UndoGroupIndex;
 
 		// 컴포넌트 최초 로드시 동작
-		void OnEnable() {
+		private void OnEnable() {
 			RefreshAvatarProprety();
 			return;
 		}
@@ -64,10 +64,10 @@ namespace com.vrsuya.utility {
 		/// <summary>
 		/// 본 프로그램의 메인 세팅 로직입니다.
 		/// </summary>
-		public void ChangeAvatarTextures() {
-			TargetTextureList = CleanupAvatarTextureList();
-			if (AvatarMaterials.Length > 0 && TargetTextureList.Count > 0) ChangeTexture2Ds();
+		public void RequestUpdateAvatarTextures() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			TargetTextures = CleanupAvatarTextureList();
+			if (AvatarMaterials.Length > 0 && TargetTextures.Count > 0) ChangeTexture2Ds();
 			return;
 		}
 
@@ -77,7 +77,8 @@ namespace com.vrsuya.utility {
 				AvatarGameObject = this.gameObject;
 			}
 			AvatarMaterials = GetAvatarMaterials(AvatarGameObject);
-			AvatarTextureList = GetAvatarTextures(AvatarGameObject);
+			AvatarTextures = GetAvatarTextures(AvatarGameObject);
+			return;
 		}
 
 		/// <summary>주어진 GameObject가 사용하고 있는 텍스쳐를 추출합니다.</summary>
@@ -126,7 +127,7 @@ namespace com.vrsuya.utility {
 		/// <returns>서로 다른 값을 가진 Texture2D 리스트</returns>
 		private List<TextureExpression> CleanupAvatarTextureList() {
 			List<TextureExpression> newTargetTextureList = new List<TextureExpression>();
-			foreach (TextureExpression TargetExpression in AvatarTextureList) {
+			foreach (TextureExpression TargetExpression in AvatarTextures) {
 				if (TargetExpression.BeforeTexture != TargetExpression.AfterTexture) {
 					newTargetTextureList.Add(TargetExpression);
 				}
@@ -137,7 +138,7 @@ namespace com.vrsuya.utility {
 		/// <summary>주어진 머테리얼에서 규칙에 맞춰서 Texture2D를 변경합니다.</summary>
 		private void ChangeTexture2Ds() {
 			int ChangedCount = 0;
-			Texture2D[] TargetTexture2Ds = TargetTextureList.Select(TargetTexture => TargetTexture.BeforeTexture).ToArray();
+			Texture2D[] TargetTexture2Ds = TargetTextures.Select(TargetTexture => TargetTexture.BeforeTexture).ToArray();
 			foreach (Material TargetMaterial in AvatarMaterials) {
 				if (TargetMaterial) {
 					Shader TargetShader = TargetMaterial.shader;
@@ -148,8 +149,8 @@ namespace com.vrsuya.utility {
 							Texture ExistMaterialTexture = TargetMaterial.GetTexture(PropertyName);
 							if (ExistMaterialTexture is Texture2D) {
 								if (Array.Exists(TargetTexture2Ds, TargetTexture => ExistMaterialTexture == TargetTexture)) {
-									Texture2D newTexture2D = TargetTextureList
 									Undo.RecordObject(TargetMaterial, UndoGroupName);
+									Texture2D newTexture2D = TargetTextures
 										.Where(TargetTextureExpression => ExistMaterialTexture == TargetTextureExpression.BeforeTexture)
 										.Select(TargetTextureExpression => TargetTextureExpression.AfterTexture).ToArray()[0];
 									TargetMaterial.SetTexture(PropertyName, newTexture2D);
@@ -162,7 +163,7 @@ namespace com.vrsuya.utility {
 					}
 				}
 			}
-			Debug.Log("[Texture Replacer] " + ChangedCount + " textures have been replaced");
+			Debug.Log("[TextureReplacer] " + ChangedCount + " textures have been replaced");
 			return;
 		}
 	}
