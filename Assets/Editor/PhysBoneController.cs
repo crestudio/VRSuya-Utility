@@ -61,15 +61,16 @@ namespace com.vrsuya.utility {
 		public static void ClosePhysBoneFoldOut() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				TargetPhysBone.foldout_collision = false;
-				TargetPhysBone.foldout_forces = false;
-				TargetPhysBone.foldout_gizmos = false;
-				TargetPhysBone.foldout_grabpose = false;
-				TargetPhysBone.foldout_limits = false;
-				TargetPhysBone.foldout_options = false;
-				TargetPhysBone.foldout_stretchsquish = false;
-				TargetPhysBone.foldout_transforms = false;
-				EditorUtility.SetDirty(TargetPhysBone);
+				bool IsDirty = false;
+				if (TargetPhysBone.foldout_collision) { TargetPhysBone.foldout_collision = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_forces) { TargetPhysBone.foldout_forces = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_gizmos) { TargetPhysBone.foldout_gizmos = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_grabpose) { TargetPhysBone.foldout_grabpose = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_limits) { TargetPhysBone.foldout_limits = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_options) { TargetPhysBone.foldout_options = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_stretchsquish) { TargetPhysBone.foldout_stretchsquish = false; IsDirty = true; }
+				if (TargetPhysBone.foldout_transforms) { TargetPhysBone.foldout_transforms = false; IsDirty = true; }
+				if (IsDirty) EditorUtility.SetDirty(TargetPhysBone);
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone FoldOut to Closed");
 			return;
@@ -80,15 +81,16 @@ namespace com.vrsuya.utility {
 		public static void OpenPhysBoneFoldOut() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				TargetPhysBone.foldout_collision = true;
-				TargetPhysBone.foldout_forces = true;
-				TargetPhysBone.foldout_gizmos = true;
-				TargetPhysBone.foldout_grabpose = true;
-				TargetPhysBone.foldout_limits = true;
-				TargetPhysBone.foldout_options = true;
-				TargetPhysBone.foldout_stretchsquish = true;
-				TargetPhysBone.foldout_transforms = true;
-				EditorUtility.SetDirty(TargetPhysBone);
+				bool IsDirty = false;
+				if (!TargetPhysBone.foldout_collision) { TargetPhysBone.foldout_collision = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_forces) { TargetPhysBone.foldout_forces = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_gizmos) { TargetPhysBone.foldout_gizmos = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_grabpose) { TargetPhysBone.foldout_grabpose = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_limits) { TargetPhysBone.foldout_limits = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_options) { TargetPhysBone.foldout_options = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_stretchsquish) { TargetPhysBone.foldout_stretchsquish = true; IsDirty = true; }
+				if (!TargetPhysBone.foldout_transforms) { TargetPhysBone.foldout_transforms = true; IsDirty = true; }
+				if (IsDirty) EditorUtility.SetDirty(TargetPhysBone);
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone FoldOut to Opened");
 			return;
