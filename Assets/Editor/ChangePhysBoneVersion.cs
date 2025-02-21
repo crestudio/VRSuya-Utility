@@ -18,236 +18,253 @@ namespace com.vrsuya.utility {
 	[ExecuteInEditMode]
 	public class ChangePhysBoneVersion : EditorWindow {
 
+		/// <summary>Scene에 존재하는 모든 PhysBone을 1.0으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Version/1.0")]
-		/// <summary>Scene에 존재하는 모든 PhysBone을 1.0으로 변경합니다</summary>
-		static void ChangePhysBoneVersionTo1_0() {
+		public static void ChangePhysBoneVersionTo1_0() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.version != VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_0) {
-					PhysBone.version = VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_0;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.version != VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_0) {
+					TargetPhysBone.version = VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_0;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Version to 1.0");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone을 1.1으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Version/1.1")]
-		/// <summary>Scene에 존재하는 모든 PhysBone을 1.1으로 변경합니다</summary>
-		static void ChangePhysBoneVersionTo1_1() {
+		public static void ChangePhysBoneVersionTo1_1() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.version != VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_1) {
-					PhysBone.version = VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_1;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.version != VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_1) {
+					TargetPhysBone.version = VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_1;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Version to 1.1");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 버전을 Unity Console에 출력합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Version/Debug Version")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 버전을 Unity Console에 출력합니다</summary>
-		static void DebugLogPhysBoneComponets() {
+		public static void DebugLogPhysBoneComponets() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + PhysBone.name + " / Current Version : " + PhysBone.version);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Current Version : " + TargetPhysBone.version);
 			}
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 속성들을 모두 닫습니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/FoldOut/Closed")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 속성들을 모두 닫습니다</summary>
-		static void ClosePhysBoneFoldOut() {
+		public static void ClosePhysBoneFoldOut() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				PhysBone.foldout_collision = false;
-				PhysBone.foldout_forces = false;
-				PhysBone.foldout_gizmos = false;
-				PhysBone.foldout_grabpose = false;
-				PhysBone.foldout_limits = false;
-				PhysBone.foldout_options = false;
-				PhysBone.foldout_stretchsquish = false;
-				PhysBone.foldout_transforms = false;
-				EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				TargetPhysBone.foldout_collision = false;
+				TargetPhysBone.foldout_forces = false;
+				TargetPhysBone.foldout_gizmos = false;
+				TargetPhysBone.foldout_grabpose = false;
+				TargetPhysBone.foldout_limits = false;
+				TargetPhysBone.foldout_options = false;
+				TargetPhysBone.foldout_stretchsquish = false;
+				TargetPhysBone.foldout_transforms = false;
+				EditorUtility.SetDirty(TargetPhysBone);
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone FoldOut to Closed");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 속성들을 모두 엽니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/FoldOut/Opened")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 속성들을 모두 엽니다</summary>
-		static void OpenPhysBoneFoldOut() {
+		public static void OpenPhysBoneFoldOut() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				PhysBone.foldout_collision = true;
-				PhysBone.foldout_forces = true;
-				PhysBone.foldout_gizmos = true;
-				PhysBone.foldout_grabpose = true;
-				PhysBone.foldout_limits = true;
-				PhysBone.foldout_options = true;
-				PhysBone.foldout_stretchsquish = true;
-				PhysBone.foldout_transforms = true;
-				EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				TargetPhysBone.foldout_collision = true;
+				TargetPhysBone.foldout_forces = true;
+				TargetPhysBone.foldout_gizmos = true;
+				TargetPhysBone.foldout_grabpose = true;
+				TargetPhysBone.foldout_limits = true;
+				TargetPhysBone.foldout_options = true;
+				TargetPhysBone.foldout_stretchsquish = true;
+				TargetPhysBone.foldout_transforms = true;
+				EditorUtility.SetDirty(TargetPhysBone);
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone FoldOut to Opened");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 숨깁니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Gizmo/Hide")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 숨깁니다</summary>
-		static void HidePhysBoneGizmo() {
+		public static void HidePhysBoneGizmo() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.showGizmos != false) {
-					PhysBone.showGizmos = false;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.showGizmos != false) {
+					TargetPhysBone.showGizmos = false;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Gizmo to Hidden");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 보이게 합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Gizmo/Show")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 보이게 합니다</summary>
-		static void ShowPhysBoneGizmo() {
+		public static void ShowPhysBoneGizmo() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.showGizmos != true) {
-					PhysBone.showGizmos = true;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.showGizmos != true) {
+					TargetPhysBone.showGizmos = true;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Gizmo to Show");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Immobile 타입을 All Motion으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Immobile/All Motion")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Immobile 타입을 All Motion으로 변경합니다</summary>
-		static void ChangePhysBoneImmobileToAllMotion() {
+		public static void ChangePhysBoneImmobileToAllMotion() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.immobileType != VRC.Dynamics.VRCPhysBoneBase.ImmobileType.AllMotion) {
-					PhysBone.immobileType = VRC.Dynamics.VRCPhysBoneBase.ImmobileType.AllMotion;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.immobileType != VRC.Dynamics.VRCPhysBoneBase.ImmobileType.AllMotion) {
+					TargetPhysBone.immobileType = VRC.Dynamics.VRCPhysBoneBase.ImmobileType.AllMotion;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Immobile to All Motion");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Immobile 타입을 World으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Immobile/World")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Immobile 타입을 World으로 변경합니다</summary>
-		static void ChangePhysBoneImmobileToWorld() {
+		public static void ChangePhysBoneImmobileToWorld() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.immobileType != VRC.Dynamics.VRCPhysBoneBase.ImmobileType.World) {
-					PhysBone.immobileType = VRC.Dynamics.VRCPhysBoneBase.ImmobileType.World;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.immobileType != VRC.Dynamics.VRCPhysBoneBase.ImmobileType.World) {
+					TargetPhysBone.immobileType = VRC.Dynamics.VRCPhysBoneBase.ImmobileType.World;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Immobile to World");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 참으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Animated/True")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 참으로 변경합니다</summary>
-		static void ChangePhysBoneAnimatedToTrue() {
+		public static void ChangePhysBoneAnimatedToTrue() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.isAnimated != true) {
-					PhysBone.isAnimated = true;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.isAnimated != true) {
+					TargetPhysBone.isAnimated = true;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Animated to True");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 거짓으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Animated/False")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 거짓으로 변경합니다</summary>
-		static void ChangePhysBoneAnimatedToFalse() {
+		public static void ChangePhysBoneAnimatedToFalse() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.isAnimated != false) {
-					PhysBone.isAnimated = false;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.isAnimated != false) {
+					TargetPhysBone.isAnimated = false;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Animated to False");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 Unity Console에 출력합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Animated/Debug Animated")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 Unity Console에 출력합니다</summary>
-		static void DebugLogPhysBoneAnimateds() {
+		public static void DebugLogPhysBoneAnimateds() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.isAnimated == true) {
-					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + PhysBone.name + " / Is Animated : True");
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.isAnimated == true) {
+					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Is Animated : True");
 				} else {
-					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + PhysBone.name + " / Is Animated : False");
+					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Is Animated : False");
 				}
 			}
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 참으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Reset/True")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 참으로 변경합니다</summary>
-		static void ChangePhysBoneResetToTrue() {
+		public static void ChangePhysBoneResetToTrue() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.resetWhenDisabled != true) {
-					PhysBone.resetWhenDisabled = true;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.resetWhenDisabled != true) {
+					TargetPhysBone.resetWhenDisabled = true;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Reset to True");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 거짓으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Reset/False")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 거짓으로 변경합니다</summary>
-		static void ChangePhysBoneResetToFalse() {
+		public static void ChangePhysBoneResetToFalse() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.resetWhenDisabled != false) {
-					PhysBone.resetWhenDisabled = false;
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.resetWhenDisabled != false) {
+					TargetPhysBone.resetWhenDisabled = false;
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Changed All PhysBone Reset to False");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 Unity Console에 출력합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Reset/Debug Reset")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 Unity Console에 출력합니다</summary>
-		static void DebugLogPhysBoneResets() {
+		public static void DebugLogPhysBoneResets() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.resetWhenDisabled == true) {
-					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + PhysBone.name + " / Reset When Disabled : True");
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.resetWhenDisabled == true) {
+					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Reset When Disabled : True");
 				} else {
-					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + PhysBone.name + " / Reset When Disabled : False");
+					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Reset When Disabled : False");
 				}
 			}
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Colliders 어레이를 제거합니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Quest/Remove Colliders")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Colliders 어레이를 제거합니다</summary>
-		static void EmptyPhysBoneColliders() {
+		public static void EmptyPhysBoneColliders() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (PhysBone.colliders.Count > 0) {
-					PhysBone.colliders = new List<VRC.Dynamics.VRCPhysBoneColliderBase> { };
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (TargetPhysBone.colliders.Count > 0) {
+					TargetPhysBone.colliders = new List<VRC.Dynamics.VRCPhysBoneColliderBase> { };
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Empty All PhysBone Colliders List");
+			return;
 		}
 
+		/// <summary>Scene에 존재하는 모든 PhysBone의 Parameter를 비웁니다.</summary>
 		[MenuItem("Tools/VRSuya/PhysBone/Quest/Remove Parameter")]
-		/// <summary>Scene에 존재하는 모든 PhysBone의 Parameter를 비웁니다</summary>
-		static void EmptyPhysBoneParameter() {
+		public static void EmptyPhysBoneParameter() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
-			foreach (VRCPhysBone PhysBone in PhysBoneComponents) {
-				if (!string.IsNullOrEmpty(PhysBone.parameter)) {
-					PhysBone.parameter = "";
-					EditorUtility.SetDirty(PhysBone);
+			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+				if (!string.IsNullOrEmpty(TargetPhysBone.parameter)) {
+					TargetPhysBone.parameter = "";
+					EditorUtility.SetDirty(TargetPhysBone);
 				}
 			}
 			Debug.Log("[VRSuya] Empty All PhysBone Parameter");
+			return;
 		}
 
-		/// <summary>Scene에 존재하는 모든 PhysBone의 리스트를 가져옵니다</summary>
+		/// <summary>Scene에 존재하는 모든 PhysBone의 리스트를 가져옵니다.</summary>
 		/// <returns>Scene에 존재하는 모든 PhysBone 컴포넌트 리스트</returns>
-		static List<VRCPhysBone> GetPhysBoneComponents() {
+		private static List<VRCPhysBone> GetPhysBoneComponents() {
 			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBone>(true)).ToList();
 		}
 	}
