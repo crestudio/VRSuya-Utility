@@ -19,6 +19,7 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedRimLightColor;
 		SerializedProperty SerializedRimShadowColor;
 		SerializedProperty SerializedTargetMaterial;
+		SerializedProperty SerializedTargetMaterials;
 
 		// ColorBox Rect 변수
 		private float BorderX = 30f;
@@ -46,6 +47,7 @@ namespace com.vrsuya.utility {
 			SerializedRimLightColor = SerializedColorGenerator.FindProperty("RimLightColor");
 			SerializedRimShadowColor = SerializedColorGenerator.FindProperty("RimShadeColor");
 			SerializedTargetMaterial = SerializedColorGenerator.FindProperty("TargetMaterial");
+			SerializedTargetMaterials = SerializedColorGenerator.FindProperty("TargetMaterials");
 			return;
 		}
 
@@ -132,13 +134,13 @@ namespace com.vrsuya.utility {
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
 			GUILayout.FlexibleSpace();
-			EditorGUILayout.PropertyField(SerializedTargetMaterial, new GUIContent(string.Empty));
 			GUILayout.Space(10);
 			if (GUILayout.Button("추출", GUILayout.Width(100))) {
 				ColorGeneratorInstance.RequestGetMaterialShadeColor();
 			}
 			GUILayout.Space(10);
 			if (GUILayout.Button("적용", GUILayout.Width(100))) {
+			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("적용 대상 머테리얼"), GUILayout.Width(ShadeRectWidth * 1.5f));
 				ColorGeneratorInstance.RequestSetMaterialShadeColor();
 				Repaint();
 			}

@@ -58,6 +58,7 @@ namespace com.vrsuya.utility {
 		public Color RimShadeColor;
 
 		public Material TargetMaterial;
+		public Material[] TargetMaterials = new Material[0];
 
 		// Unity Undo 변수
 		private readonly string UndoGroupName = "VRSuya ColorGenerator";
@@ -124,18 +125,20 @@ namespace com.vrsuya.utility {
 		}
 
 		public void RequestSetMaterialShadeColor() {
-			if (TargetMaterial) {
-				if (GetShaderType(TargetMaterial) == "lilToon") {
-					UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
-					Undo.RecordObject(TargetMaterial, UndoGroupName);
-					if (ShadeColor2 != Color.black) TargetMaterial.SetColor("_ShadowColor", ShadeColor2);
-					if (ShadeColor3 != Color.black) TargetMaterial.SetColor("_Shadow2ndColor", ShadeColor3);
-					if (ShadeColor4 != Color.black) TargetMaterial.SetColor("_Shadow3rdColor", ShadeColor4);
-					if (RimLightColor != Color.black) TargetMaterial.SetColor("_RimColor", RimLightColor);
-					if (RimShadeColor != Color.black) TargetMaterial.SetColor("_RimShadeColor", RimShadeColor);
-					EditorUtility.SetDirty(TargetMaterial);
-					Undo.CollapseUndoOperations(UndoGroupIndex);
-					Debug.Log($"[ColorGenerator] {TargetMaterial.name} 머테리얼에 설정을 적용하였습니다.");
+			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			foreach (Material TargetMaterial in TargetMaterials) {
+				if (TargetMaterial) {
+					if (GetShaderType(TargetMaterial) == "lilToon") {
+						Undo.RecordObject(TargetMaterial, UndoGroupName);
+						if (ShadeColor2 != Color.black) TargetMaterial.SetColor("_ShadowColor", ShadeColor2);
+						if (ShadeColor3 != Color.black) TargetMaterial.SetColor("_Shadow2ndColor", ShadeColor3);
+						if (ShadeColor4 != Color.black) TargetMaterial.SetColor("_Shadow3rdColor", ShadeColor4);
+						if (RimLightColor != Color.black) TargetMaterial.SetColor("_RimColor", RimLightColor);
+						if (RimShadeColor != Color.black) TargetMaterial.SetColor("_RimShadeColor", RimShadeColor);
+						EditorUtility.SetDirty(TargetMaterial);
+						Undo.CollapseUndoOperations(UndoGroupIndex);
+						Debug.Log($"[ColorGenerator] {TargetMaterial.name} 머테리얼에 설정을 적용하였습니다.");
+					}
 				}
 			}
 			return;
