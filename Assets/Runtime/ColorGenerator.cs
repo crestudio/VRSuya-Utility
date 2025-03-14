@@ -108,6 +108,16 @@ namespace com.vrsuya.utility {
 						ShadeColor3 = Color.black;
 						ShadeColor4 = Color.black;
 					}
+					if (TargetMaterial.GetFloat("_UseRim") == 1f) {
+						RimLightColor = TargetMaterial.GetColor("_RimColor");
+					} else {
+						RimLightColor = ShadeColor2;
+					}
+					if (TargetMaterial.GetFloat("_UseRimShade") == 1f) {
+						RimShadeColor = TargetMaterial.GetColor("_RimShadeColor");
+					} else {
+						RimShadeColor = ShadeColor4;
+					}
 				}
 			}
 			return;
@@ -121,6 +131,8 @@ namespace com.vrsuya.utility {
 					if (ShadeColor2 != Color.black) TargetMaterial.SetColor("_ShadowColor", ShadeColor2);
 					if (ShadeColor3 != Color.black) TargetMaterial.SetColor("_Shadow2ndColor", ShadeColor3);
 					if (ShadeColor4 != Color.black) TargetMaterial.SetColor("_Shadow3rdColor", ShadeColor4);
+					if (RimLightColor != Color.black) TargetMaterial.SetColor("_RimColor", RimLightColor);
+					if (RimShadeColor != Color.black) TargetMaterial.SetColor("_RimShadeColor", RimShadeColor);
 					EditorUtility.SetDirty(TargetMaterial);
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 					Debug.Log($"[ColorGenerator] {TargetMaterial.name} 머테리얼에 설정을 적용하였습니다.");
@@ -180,6 +192,8 @@ namespace com.vrsuya.utility {
 			ShadeColor2 = GetDeltaColor(ShadeColor1, TargetColorDelta.ColorDelta1, false);
 			ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
 			ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
+			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
+			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 			return;
 		}
 
@@ -187,6 +201,8 @@ namespace com.vrsuya.utility {
 			ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
 			ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
 			ShadeColor1 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta1, true);
+			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
+			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 			return;
 		}
 
@@ -194,6 +210,8 @@ namespace com.vrsuya.utility {
 			ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
 			ShadeColor2 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta2, true);
 			ShadeColor1 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta1, true);
+			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
+			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 			return;
 		}
 
@@ -201,6 +219,8 @@ namespace com.vrsuya.utility {
 			ShadeColor3 = GetDeltaColor(ShadeColor4, TargetColorDelta.ColorDelta3, true);
 			ShadeColor2 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta2, true);
 			ShadeColor1 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta1, true);
+			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
+			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 			return;
 		}
 	}

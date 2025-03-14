@@ -31,8 +31,10 @@ namespace com.vrsuya.utility {
 		private Rect ShadeBoxPosition2 = new Rect();
 		private Rect ShadeBoxPosition3 = new Rect();
 		private Rect ShadeBoxPosition4 = new Rect();
-		private Rect RimLightBoxPosition = new Rect();
-		private Rect RimShadeBoxPosition = new Rect();
+		private Rect RimLightBoxPosition1 = new Rect();
+		private Rect RimLightBoxPosition2 = new Rect();
+		private Rect RimShadeBoxPosition1 = new Rect();
+		private Rect RimShadeBoxPosition2 = new Rect();
 
 		void OnEnable() {
 			ColorGeneratorInstance = CreateInstance<ColorGenerator>();
@@ -62,20 +64,26 @@ namespace com.vrsuya.utility {
 			Vector2 WindowSize = position.size;
 			GUIStyle CenteredStyle = new GUIStyle(EditorStyles.label) { alignment = TextAnchor.MiddleCenter };
 			(ShadeBoxPosition1, ShadeBoxPosition2, ShadeBoxPosition3, ShadeBoxPosition4) = GetShadeBoxPosition(WindowSize);
-			(RimLightBoxPosition, RimShadeBoxPosition) = GetRimShadeBoxPosition(WindowSize);
+			(RimLightBoxPosition1, RimLightBoxPosition2, RimShadeBoxPosition1, RimShadeBoxPosition2) = GetRimShadeBoxPosition(WindowSize);
 			GUILayout.Space(BorderY + RectHeight + (RectHeight / 4) + EditorGUIUtility.singleLineHeight);
+			Rect WhiteColorBox = new Rect(BorderX, BorderY, (WindowSize.x - BorderX * 2), RectHeight + (RectHeight / 4));
 			Rect ShadeColorBox1 = ShadeBoxPosition1;
 			Rect ShadeColorBox2 = ShadeBoxPosition2;
 			Rect ShadeColorBox3 = ShadeBoxPosition3;
 			Rect ShadeColorBox4 = ShadeBoxPosition4;
-			Rect RimLightColorBox = RimLightBoxPosition;
-			Rect RimShadeColorBox = RimShadeBoxPosition;
+			Rect RimLightColorBox1 = RimLightBoxPosition1;
+			Rect RimLightColorBox2 = RimLightBoxPosition2;
+			Rect RimShadeColorBox1 = RimShadeBoxPosition1;
+			Rect RimShadeColorBox2 = RimShadeBoxPosition2;
+			EditorGUI.DrawRect(WhiteColorBox, SerializedShadeColor1.colorValue);
 			EditorGUI.DrawRect(ShadeColorBox1, SerializedShadeColor1.colorValue);
 			EditorGUI.DrawRect(ShadeColorBox2, SerializedShadeColor2.colorValue);
 			EditorGUI.DrawRect(ShadeColorBox3, SerializedShadeColor3.colorValue);
 			EditorGUI.DrawRect(ShadeColorBox4, SerializedShadeColor4.colorValue);
-			EditorGUI.DrawRect(RimLightColorBox, SerializedRimLightColor.colorValue);
-			EditorGUI.DrawRect(RimShadeColorBox, SerializedRimShadowColor.colorValue);
+			EditorGUI.DrawRect(RimLightColorBox1, MultiplyColor(SerializedShadeColor1.colorValue, SerializedRimLightColor.colorValue));
+			EditorGUI.DrawRect(RimLightColorBox2, MultiplyColor(SerializedShadeColor2.colorValue, SerializedRimLightColor.colorValue));
+			EditorGUI.DrawRect(RimShadeColorBox1, MultiplyColor(SerializedShadeColor3.colorValue, SerializedRimShadowColor.colorValue));
+			EditorGUI.DrawRect(RimShadeColorBox2, MultiplyColor(SerializedShadeColor4.colorValue, SerializedRimShadowColor.colorValue));
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
 			EditorGUILayout.PropertyField(SerializedShadeColor1, new GUIContent(string.Empty), GUILayout.Width(ShadowRectWidth - ColorFieldOffset));
@@ -151,18 +159,27 @@ namespace com.vrsuya.utility {
 
 		private (Rect, Rect, Rect, Rect) GetShadeBoxPosition(Vector2 CurrentWindowSize) {
 			ShadowRectWidth = (CurrentWindowSize.x - BorderX * 2) / 4;
-			Rect NewShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY, ShadowRectWidth, RectHeight);
-			Rect NewShadeBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY, ShadowRectWidth, RectHeight);
-			Rect NewShadeBoxPosition3 = new Rect(BorderX + ShadowRectWidth * 2, BorderY, ShadowRectWidth, RectHeight);
-			Rect NewShadeBoxPosition4 = new Rect(BorderX + ShadowRectWidth * 3, BorderY, ShadowRectWidth, RectHeight);
+			Rect NewShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
+			Rect NewShadeBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
+			Rect NewShadeBoxPosition3 = new Rect(BorderX + ShadowRectWidth * 2, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
+			Rect NewShadeBoxPosition4 = new Rect(BorderX + ShadowRectWidth * 3, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
 			return (NewShadeBoxPosition1, NewShadeBoxPosition2, NewShadeBoxPosition3, NewShadeBoxPosition4);
 		}
 
-		private (Rect, Rect) GetRimShadeBoxPosition(Vector2 CurrentWindowSize) {
+		private (Rect, Rect, Rect, Rect) GetRimShadeBoxPosition(Vector2 CurrentWindowSize) {
 			ShadeRectWidth = (CurrentWindowSize.x - BorderX * 2) / 2;
-			Rect NewRimLightBoxPosition = new Rect(BorderX + ShadeRectWidth * 0, BorderY + RectHeight, ShadeRectWidth, RectHeight / 4);
-			Rect NewRimShadeBoxPosition = new Rect(BorderX + ShadeRectWidth * 1, BorderY + RectHeight, ShadeRectWidth, RectHeight / 4);
-			return (NewRimLightBoxPosition, NewRimShadeBoxPosition);
+			Rect NewRimLightBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
+			Rect NewRimLightBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
+			Rect NewRimShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 2, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
+			Rect NewRimShadeBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 3, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
+			return (NewRimLightBoxPosition1, NewRimLightBoxPosition2, NewRimShadeBoxPosition1, NewRimShadeBoxPosition2);
+		}
+
+		private Color MultiplyColor(Color OriginalColor, Color TargetColor) {
+			float NewR = OriginalColor.r * TargetColor.r;
+			float NewG = OriginalColor.g * TargetColor.g;
+			float NewB = OriginalColor.b * TargetColor.b;
+			return new Color(NewR, NewG, NewB, TargetColor.a);
 		}
 
 		private void UpdateModifiedColor() {
