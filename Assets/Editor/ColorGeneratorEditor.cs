@@ -176,7 +176,6 @@ namespace com.vrsuya.utility {
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
-			UpdateModifiedColor();
 			SerializedColorGenerator.ApplyModifiedProperties();
 			return;
 		}
@@ -209,28 +208,6 @@ namespace com.vrsuya.utility {
 			float NewG = OriginalColor.g * TargetColor.g;
 			float NewB = OriginalColor.b * TargetColor.b;
 			return new Color(NewR, NewG, NewB, TargetColor.a);
-		}
-
-		private void UpdateModifiedColor() {
-			if (SerializedColorGenerator.hasModifiedProperties) {
-				if (SerializedShadeColor1.prefabOverride) {
-					ColorGeneratorInstance.ModifiedColor1();
-					Debug.Log("ShadeColor1이 변경되었습니다.");
-				}
-				if (SerializedShadeColor2.prefabOverride) {
-					ColorGeneratorInstance.ModifiedColor2();
-					Debug.Log("ShadeColor2이 변경되었습니다.");
-				}
-				if (SerializedShadeColor3.prefabOverride) {
-					ColorGeneratorInstance.ModifiedColor3();
-					Debug.Log("ShadeColor3이 변경되었습니다.");
-				}
-				if (SerializedShadeColor4.prefabOverride) {
-					ColorGeneratorInstance.ModifiedColor4();
-					Debug.Log("ShadeColor4이 변경되었습니다.");
-				}
-			}
-			return;
 		}
 	}
 }
