@@ -10,8 +10,7 @@ namespace com.vrsuya.utility {
 
 	public class ColorGeneratorEditor : EditorWindow {
 
-		ColorGenerator ColorGeneratorInstance;
-		SerializedObject SerializedColorGenerator;
+		private static SerializedObject SerializedColorGenerator;
 		SerializedProperty SerializedShadeColor1;
 		SerializedProperty SerializedShadeColor2;
 		SerializedProperty SerializedShadeColor3;
@@ -40,8 +39,9 @@ namespace com.vrsuya.utility {
 		private Rect RimShadeBoxPosition2 = new Rect();
 
 		void OnEnable() {
-			ColorGeneratorInstance = CreateInstance<ColorGenerator>();
-			SerializedColorGenerator = new SerializedObject(ColorGeneratorInstance);
+			if (SerializedColorGenerator == null) {
+				SerializedColorGenerator = new SerializedObject(ColorGenerator.Instance);
+			}
 			SerializedShadeColor1 = SerializedColorGenerator.FindProperty("ShadeColor1");
 			SerializedShadeColor2 = SerializedColorGenerator.FindProperty("ShadeColor2");
 			SerializedShadeColor3 = SerializedColorGenerator.FindProperty("ShadeColor3");
@@ -60,7 +60,7 @@ namespace com.vrsuya.utility {
 		}
 
 		void OnGUI() {
-			if (ColorGeneratorInstance == null) {
+			if (SerializedColorGenerator == null) {
 				Close();
 				return;
 			}
@@ -85,7 +85,7 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedTargetMaterial, new GUIContent("색상 추출할 머테리얼"), GUILayout.Width(ShadeRectWidth * 1.5f));
 			GUILayout.Space(SpaceWidth);
 			if (GUILayout.Button("추출", GUILayout.Width(ButtonWidth + ColorFieldOffset))) {
-				ColorGeneratorInstance.RequestGetMaterialShadeColor();
+				ColorGenerator.Instance.RequestGetMaterialShadeColor();
 			}
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
@@ -116,16 +116,16 @@ namespace com.vrsuya.utility {
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
 			if (GUILayout.Button("재계산", GUILayout.Width(ShadowRectWidth - ColorFieldOffset))) {
-				ColorGeneratorInstance.ModifiedColor1();
+				ColorGenerator.Instance.ModifiedColor1();
 			}
 			if (GUILayout.Button("재계산", GUILayout.Width(ShadowRectWidth - ColorFieldOffset))) {
-				ColorGeneratorInstance.ModifiedColor2();
+				ColorGenerator.Instance.ModifiedColor2();
 			}
 			if (GUILayout.Button("재계산", GUILayout.Width(ShadowRectWidth - ColorFieldOffset))) {
-				ColorGeneratorInstance.ModifiedColor3();
+				ColorGenerator.Instance.ModifiedColor3();
 			}
 			if (GUILayout.Button("재계산", GUILayout.Width(ShadowRectWidth - ColorFieldOffset))) {
-				ColorGeneratorInstance.ModifiedColor4();
+				ColorGenerator.Instance.ModifiedColor4();
 			}
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
@@ -146,8 +146,12 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
-			if (GUILayout.Button("새로 만들기", GUILayout.Width(ButtonWidth * 0.75f))) {
-				ColorGeneratorInstance.RequestCreateColorDelta();
+			if (GUILayout.Button("생성", GUILayout.Width(ButtonWidth * 0.75f))) {
+				ColorGenerator.Instance.RequestCreateColorDelta();
+				ColorGeneratorEditor_NewColorDelta.CreateWindow();
+			}
+			if (GUILayout.Button("편집", GUILayout.Width(ButtonWidth * 0.75f))) {
+				ColorGeneratorEditor_NewColorDelta.CreateWindow();
 			}
 			if (GUILayout.Button("가져오기", GUILayout.Width(ButtonWidth * 0.75f))) {
 				Close();
@@ -165,11 +169,11 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("적용 대상 머테리얼"), GUILayout.Width(ShadeRectWidth * 1.5f));
 			GUILayout.Space(SpaceWidth);
 			if (GUILayout.Button("적용", GUILayout.Width(ButtonWidth / 2))) {
-				ColorGeneratorInstance.RequestSetMaterialShadeColor();
+				ColorGenerator.Instance.RequestSetMaterialShadeColor();
 				Repaint();
 			}
 			if (GUILayout.Button("실행 취소", GUILayout.Width(ButtonWidth / 2))) {
-				ColorGeneratorInstance.DebugColorDelta();
+				ColorGenerator.Instance.DebugColorDelta();
 				// Undo.PerformUndo();
 				// Repaint();
 			}

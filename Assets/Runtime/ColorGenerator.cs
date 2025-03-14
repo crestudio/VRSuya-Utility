@@ -49,7 +49,11 @@ namespace com.vrsuya.utility {
 				RimShadeDelta = new Vector3(-5f, -22f, 2f)
 			}
 		};
-		private ColorDelta TargetColorDelta = ColorDeltaList[0];
+		public static int ColorDeltaListIndex = 0;
+		public ColorDelta TargetColorDelta = ColorDeltaList[ColorDeltaListIndex];
+
+		private ShadeType ShadeShadeType = ShadeType.Body;
+		public int ShadeTypeIndex = 0;
 
 		public Color ShadeColor1;
 		public Color ShadeColor2;
@@ -60,6 +64,9 @@ namespace com.vrsuya.utility {
 
 		public Material TargetMaterial;
 		public Material[] TargetMaterials = new Material[0];
+
+		// Instance 변수
+		private static ColorGenerator ColorGeneratorInstance;
 
 		// Unity Undo 변수
 		private readonly string UndoGroupName = "VRSuya ColorGenerator";
@@ -73,6 +80,15 @@ namespace com.vrsuya.utility {
 			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
 			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 			return;
+		}
+
+		public static ColorGenerator Instance {
+			get {
+				if (ColorGeneratorInstance == null) {
+					ColorGeneratorInstance = CreateInstance<ColorGenerator>();
+				}
+				return ColorGeneratorInstance;
+			}
 		}
 
 		public void DebugColorDelta() {
