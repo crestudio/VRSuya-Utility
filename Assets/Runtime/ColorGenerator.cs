@@ -42,10 +42,10 @@ namespace com.vrsuya.utility {
 				Name_JA = "グロッシー",
 				TargetShade = ShadeType.Body,
 				ReferenceColor = "#FFF0EF",
-				ColorDelta1 = new Vector3(349f, 4f, -9f),
+				ColorDelta1 = new Vector3(-11f, 4f, -9f),
 				ColorDelta2 = new Vector3(-4f, 6f, 1f),
 				ColorDelta3 = new Vector3(9f, 16f, -3f),
-				RimLightDelta = new Vector3(-348f, 13f, 9f),
+				RimLightDelta = new Vector3(12f, 13f, 9f),
 				RimShadeDelta = new Vector3(-5f, -22f, 2f)
 			}
 		};
@@ -196,6 +196,11 @@ namespace com.vrsuya.utility {
 			Vector3 OriginalHSV = ConvertRGBToHSV(OriginalColor);
 			Vector3 TargetHSV = ConvertRGBToHSV(TargetColor);
 			float DeltaH = Mathf.Round((TargetHSV.x - OriginalHSV.x) * 360);
+			if (DeltaH > 180f) {
+				DeltaH = DeltaH - 360f;
+			} else if (DeltaH < -180f) {
+				DeltaH = DeltaH + 360f;
+			}
 			float DeltaS = Mathf.Round((TargetHSV.y - OriginalHSV.y) * 100);
 			float DeltaV = Mathf.Round((TargetHSV.z - OriginalHSV.z) * 100);
 			return new Vector3(DeltaH, DeltaS, DeltaV);
@@ -212,9 +217,9 @@ namespace com.vrsuya.utility {
 			float NewS = (!Backward) ? TargetHSV.y + UnityDeltaHSV.y : TargetHSV.y - UnityDeltaHSV.y;
 			float NewV = (!Backward) ? TargetHSV.z + UnityDeltaHSV.z : TargetHSV.z - UnityDeltaHSV.z;
 			if (NewH > 1f) {
-				NewH = 1f;
+				NewH = NewH - 1f;
 			} else if (NewH < 0f) {
-				NewH = 0f;
+				NewH = NewH + 1f;
 			}
 			if (NewS > 1f) {
 				NewS = 1f;
