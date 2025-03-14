@@ -176,9 +176,8 @@ namespace com.vrsuya.utility {
 				Repaint();
 			}
 			if (GUILayout.Button("실행 취소", GUILayout.Width(ButtonWidth / 2))) {
-				ColorGenerator.Instance.DebugColorDelta();
-				// Undo.PerformUndo();
-				// Repaint();
+				Undo.PerformUndo();
+				Repaint();
 			}
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();

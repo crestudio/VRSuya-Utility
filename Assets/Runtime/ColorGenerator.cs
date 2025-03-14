@@ -91,19 +91,6 @@ namespace com.vrsuya.utility {
 			}
 		}
 
-		public void DebugColorDelta() {
-			Vector3 Delta1 = GetHSVColorDelta(ShadeColor1, ShadeColor2);
-			Vector3 Delta2 = GetHSVColorDelta(ShadeColor2, ShadeColor3);
-			Vector3 Delta3 = GetHSVColorDelta(ShadeColor3, ShadeColor4);
-			Vector3 RimLightDelta = GetHSVColorDelta(ShadeColor2, HexToColor("FFC8C3"));
-			Vector3 RimShadeDelta = GetHSVColorDelta(ShadeColor4, HexToColor("E9D1D4"));
-			Debug.Log(Delta1);
-			Debug.Log(Delta2);
-			Debug.Log(Delta3);
-			Debug.Log(RimLightDelta);
-			Debug.Log(RimShadeDelta);
-		}
-
 		public void RequestGetMaterialShadeColor() {
 			if (TargetMaterial) {
 				if (GetShaderType(TargetMaterial) == "lilToon") {
