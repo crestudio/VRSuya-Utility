@@ -20,6 +20,8 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedTargetMaterial;
 		SerializedProperty SerializedTargetMaterials;
 
+		private static readonly Rect DefaultWindowRect = new Rect(100, 100, 730, 425);
+
 		// ColorBox Rect 변수
 		private float BorderX = 30f;
 		private float BorderY = EditorGUIUtility.singleLineHeight * 3;
@@ -55,7 +57,8 @@ namespace com.vrsuya.utility {
 
 		[MenuItem("Tools/VRSuya/ColorGenerator", priority = 1000)]
 		static void CreateWindow() {
-			ColorGeneratorEditor AppWindow = (ColorGeneratorEditor)GetWindow(typeof(ColorGeneratorEditor), true, "ColorGenerator", true);
+			ColorGeneratorEditor AppWindow = (ColorGeneratorEditor)GetWindowWithRect(typeof(ColorGeneratorEditor), DefaultWindowRect, true, "ColorGenerator");
+			AppWindow.minSize = new Vector2(550, 425);
 			return;
 		}
 
