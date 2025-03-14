@@ -144,6 +144,20 @@ namespace com.vrsuya.utility {
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
+			GUILayout.BeginHorizontal();
+			GUILayout.Space(BorderX);
+			if (GUILayout.Button("새로 만들기", GUILayout.Width(ButtonWidth * 0.75f))) {
+				ColorGeneratorInstance.RequestCreateColorDelta();
+			}
+			if (GUILayout.Button("가져오기", GUILayout.Width(ButtonWidth * 0.75f))) {
+				Close();
+			}
+			if (GUILayout.Button("내보내기", GUILayout.Width(ButtonWidth * 0.75f))) {
+				Close();
+			}
+			GUILayout.Space(BorderX);
+			GUILayout.EndHorizontal();
+			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();

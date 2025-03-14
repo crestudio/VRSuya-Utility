@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEditor;
 
 using static VRSuya.Core.Unity;
+using Random = UnityEngine.Random;
 
 /*
  * VRSuya Utility
@@ -142,6 +143,37 @@ namespace com.vrsuya.utility {
 				}
 			}
 			return;
+		}
+
+		public void RequestCreateColorDelta() {
+			ColorDelta NewColorDelta = GetNewColorDelta();
+			ColorDeltaList.Add(NewColorDelta);
+			TargetColorDelta = NewColorDelta;
+			Debug.Log($"[ColorGenerator] {NewColorDelta.Name_EN} 설정을 생성하였습니다.");
+			return;
+		}
+
+		private ColorDelta GetNewColorDelta() {
+			string NewColorDeltaName = (TargetMaterial) ? TargetMaterial.name : $"ColorGenerator_{Random.Range(1000, 10000)}";
+			ShadeType NewShadeType = ShadeType.Body;
+			string NewReferenceColor = ColorToHex(ShadeColor1);
+			Vector3 NewColorDelta1 = GetHSVColorDelta(ShadeColor1, ShadeColor2);
+			Vector3 NewColorDelta2 = GetHSVColorDelta(ShadeColor2, ShadeColor3);
+			Vector3 NewColorDelta3 = GetHSVColorDelta(ShadeColor3, ShadeColor4);
+			Vector3 NewRimLightDelta = GetHSVColorDelta(ShadeColor2, RimLightColor);
+			Vector3 NewRimShadeDelta = GetHSVColorDelta(ShadeColor4, RimShadeColor);
+			return new ColorDelta {
+				Name_EN = NewColorDeltaName,
+				Name_KO = NewColorDeltaName,
+				Name_JA = NewColorDeltaName,
+				TargetShade = NewShadeType,
+				ReferenceColor = NewReferenceColor,
+				ColorDelta1 = NewColorDelta1,
+				ColorDelta2 = NewColorDelta2,
+				ColorDelta3 = NewColorDelta3,
+				RimLightDelta = NewRimLightDelta,
+				RimShadeDelta = NewRimShadeDelta
+			};
 		}
 
 		private Vector3 GetHSVColorDelta(Color OriginalColor, Color TargetColor) {
