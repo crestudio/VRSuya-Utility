@@ -43,9 +43,9 @@ namespace com.vrsuya.utility {
 				ReferenceColor = "#FFF0EF",
 				ColorDelta1 = new Vector3(349f, 4f, -9f),
 				ColorDelta2 = new Vector3(-4f, 6f, 1f),
-				ColorDelta3 = new Vector3(7f, 16f, -3f),
+				ColorDelta3 = new Vector3(9f, 16f, -3f),
 				RimLightDelta = new Vector3(-348f, 13f, 9f),
-				RimShadeDelta = new Vector3(-4f, -22f, 2f)
+				RimShadeDelta = new Vector3(-5f, -22f, 2f)
 			}
 		};
 		private ColorDelta TargetColorDelta = ColorDeltaList[0];
