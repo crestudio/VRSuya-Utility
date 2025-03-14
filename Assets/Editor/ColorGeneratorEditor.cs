@@ -23,11 +23,13 @@ namespace com.vrsuya.utility {
 
 		// ColorBox Rect 변수
 		private float BorderX = 30f;
-		private float BorderY = 30f;
+		private float BorderY = EditorGUIUtility.singleLineHeight * 3;
 		private float ShadowRectWidth = float.NaN;
 		private float ShadeRectWidth = float.NaN;
 		private float RectHeight = 100f;
 		private float ColorFieldOffset = 2f;
+		private float ButtonWidth = float.NaN;
+		private float SpaceWidth = 10f;
 		private Rect ShadeBoxPosition1 = new Rect();
 		private Rect ShadeBoxPosition2 = new Rect();
 		private Rect ShadeBoxPosition3 = new Rect();
@@ -65,9 +67,9 @@ namespace com.vrsuya.utility {
 			SerializedColorGenerator.Update();
 			Vector2 WindowSize = position.size;
 			GUIStyle CenteredStyle = new GUIStyle(EditorStyles.label) { alignment = TextAnchor.MiddleCenter };
-			(ShadeBoxPosition1, ShadeBoxPosition2, ShadeBoxPosition3, ShadeBoxPosition4) = GetShadeBoxPosition(WindowSize);
-			(RimLightBoxPosition1, RimLightBoxPosition2, RimShadeBoxPosition1, RimShadeBoxPosition2) = GetRimShadeBoxPosition(WindowSize);
-			GUILayout.Space(BorderY + RectHeight + (RectHeight / 4) + EditorGUIUtility.singleLineHeight);
+			UpdateRect(WindowSize);
+			(ShadeBoxPosition1, ShadeBoxPosition2, ShadeBoxPosition3, ShadeBoxPosition4) = GetShadeBoxPosition();
+			(RimLightBoxPosition1, RimLightBoxPosition2, RimShadeBoxPosition1, RimShadeBoxPosition2) = GetRimShadeBoxPosition();
 			Rect WhiteColorBox = new Rect(BorderX, BorderY, (WindowSize.x - BorderX * 2), RectHeight + (RectHeight / 4));
 			Rect ShadeColorBox1 = ShadeBoxPosition1;
 			Rect ShadeColorBox2 = ShadeBoxPosition2;
@@ -77,6 +79,17 @@ namespace com.vrsuya.utility {
 			Rect RimLightColorBox2 = RimLightBoxPosition2;
 			Rect RimShadeColorBox1 = RimShadeBoxPosition1;
 			Rect RimShadeColorBox2 = RimShadeBoxPosition2;
+			GUILayout.Space(EditorGUIUtility.singleLineHeight);
+			GUILayout.BeginHorizontal();
+			GUILayout.Space(BorderX);
+			EditorGUILayout.PropertyField(SerializedTargetMaterial, new GUIContent("색상 추출할 머테리얼"), GUILayout.Width(ShadeRectWidth * 1.5f));
+			GUILayout.Space(SpaceWidth);
+			if (GUILayout.Button("추출", GUILayout.Width(ButtonWidth + ColorFieldOffset))) {
+				ColorGeneratorInstance.RequestGetMaterialShadeColor();
+			}
+			GUILayout.Space(BorderX);
+			GUILayout.EndHorizontal();
+			GUILayout.Space(RectHeight + (RectHeight / 4) + EditorGUIUtility.singleLineHeight);
 			EditorGUI.DrawRect(WhiteColorBox, SerializedShadeColor1.colorValue);
 			EditorGUI.DrawRect(ShadeColorBox1, SerializedShadeColor1.colorValue);
 			EditorGUI.DrawRect(ShadeColorBox2, SerializedShadeColor2.colorValue);
@@ -131,26 +144,21 @@ namespace com.vrsuya.utility {
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
+			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
-			GUILayout.FlexibleSpace();
-			GUILayout.Space(10);
-			if (GUILayout.Button("추출", GUILayout.Width(100))) {
-				ColorGeneratorInstance.RequestGetMaterialShadeColor();
-			}
-			GUILayout.Space(10);
-			if (GUILayout.Button("적용", GUILayout.Width(100))) {
 			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("적용 대상 머테리얼"), GUILayout.Width(ShadeRectWidth * 1.5f));
+			GUILayout.Space(SpaceWidth);
+			if (GUILayout.Button("적용", GUILayout.Width(ButtonWidth / 2))) {
 				ColorGeneratorInstance.RequestSetMaterialShadeColor();
 				Repaint();
 			}
-			GUILayout.Space(10);
-			if (GUILayout.Button("실행 취소", GUILayout.Width(100))) {
+			if (GUILayout.Button("실행 취소", GUILayout.Width(ButtonWidth / 2))) {
 				ColorGeneratorInstance.DebugColorDelta();
 				// Undo.PerformUndo();
 				// Repaint();
 			}
-			GUILayout.FlexibleSpace();
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
@@ -159,8 +167,14 @@ namespace com.vrsuya.utility {
 			return;
 		}
 
-		private (Rect, Rect, Rect, Rect) GetShadeBoxPosition(Vector2 CurrentWindowSize) {
+		private void UpdateRect(Vector2 CurrentWindowSize) {
 			ShadowRectWidth = (CurrentWindowSize.x - BorderX * 2) / 4;
+			ShadeRectWidth = (CurrentWindowSize.x - BorderX * 2) / 2;
+			ButtonWidth = (CurrentWindowSize.x - BorderX * 2) - (ShadeRectWidth * 1.5f) - SpaceWidth - ColorFieldOffset;
+			return;
+		}
+
+		private (Rect, Rect, Rect, Rect) GetShadeBoxPosition() {
 			Rect NewShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
 			Rect NewShadeBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
 			Rect NewShadeBoxPosition3 = new Rect(BorderX + ShadowRectWidth * 2, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
@@ -168,8 +182,7 @@ namespace com.vrsuya.utility {
 			return (NewShadeBoxPosition1, NewShadeBoxPosition2, NewShadeBoxPosition3, NewShadeBoxPosition4);
 		}
 
-		private (Rect, Rect, Rect, Rect) GetRimShadeBoxPosition(Vector2 CurrentWindowSize) {
-			ShadeRectWidth = (CurrentWindowSize.x - BorderX * 2) / 2;
+		private (Rect, Rect, Rect, Rect) GetRimShadeBoxPosition() {
 			Rect NewRimLightBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
 			Rect NewRimLightBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
 			Rect NewRimShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 2, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
