@@ -57,7 +57,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Manuka, 0.8817998f },
 			{ Avatar.Maya, 0.8845845f },
 			{ Avatar.Miko, 0.8785723f },
-			{ Avatar.Milltina, 0.891354f },
+			{ Avatar.Milltina, 0.88457f },
 			{ Avatar.Minase, 0.91609f },
 			{ Avatar.Moe, 0.897036f },
 			{ Avatar.Selestia, 0.8838221f },
