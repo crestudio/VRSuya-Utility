@@ -468,6 +468,7 @@ namespace com.vrsuya.utility {
 		static void CreateWindow() {
 			AvatarScalerEditor AppWindow = (AvatarScalerEditor)GetWindowWithRect(typeof(AvatarScalerEditor), new Rect(0, 0, 230, 100));
 			AppWindow.titleContent = new GUIContent("AvatarScaler");
+			return;
 		}
 
 		void OnGUI() {
@@ -492,6 +493,7 @@ namespace com.vrsuya.utility {
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
+			return;
 		}
 	}
 }
