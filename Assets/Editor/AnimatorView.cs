@@ -111,7 +111,7 @@ namespace com.vrsuya.utility {
 			public static Vector3 TargetOffset = Vector3.zero;
 			public static float TargetSceneZoom = 0.2f;
 
-			[MenuItem("Tools/VRSuya/AnimatorView", priority = 1000)]
+			[MenuItem("Tools/VRSuya/Utility/AnimatorView", priority = 1000)]
 			static void CreateWindow() {
 				AnimatorViewEditor AppWindow = (AnimatorViewEditor)GetWindowWithRect(typeof(AnimatorViewEditor), new Rect(0, 0, 230, 180));
 				AppWindow.titleContent = new GUIContent("AnimatorView");

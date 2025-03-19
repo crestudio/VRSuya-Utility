@@ -21,7 +21,7 @@ namespace com.vrsuya.utility {
 	[ExecuteInEditMode]
 	public class SyncChildAvatar : EditorWindow {
 
-		[MenuItem("Tools/VRSuya/Sync All Child Avatar Bone")]
+		[MenuItem("Tools/VRSuya/Utility/Sync All Child Avatar Bone", priority = 1000)]
 		public static void SyncAllChildAvatar() {
             List<HumanBodyBones> HumanBodyBoneList = GetHumanBoneList();
             List<VRC_AvatarDescriptor> VRCAvatars = GetVRCAvatarList();
