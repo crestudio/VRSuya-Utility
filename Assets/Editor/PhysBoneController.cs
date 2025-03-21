@@ -23,6 +23,23 @@ namespace com.vrsuya.utility {
 		private static string UndoGroupName = "VRSuya PhysBoneController";
 		private static int UndoGroupIndex;
 
+		private static readonly Dictionary<HumanBodyBones, HumanBodyBones> BoneColliderPair = new Dictionary<HumanBodyBones, HumanBodyBones> {
+			{ HumanBodyBones.Hips, HumanBodyBones.Spine },
+			{ HumanBodyBones.Spine, HumanBodyBones.Chest },
+			{ HumanBodyBones.Chest, HumanBodyBones.Neck },
+			{ HumanBodyBones.Head, HumanBodyBones.LastBone },
+			{ HumanBodyBones.LeftUpperArm, HumanBodyBones.LeftLowerArm },
+			{ HumanBodyBones.LeftLowerArm, HumanBodyBones.LeftHand },
+			{ HumanBodyBones.LeftHand, HumanBodyBones.LastBone },
+			{ HumanBodyBones.LeftIndexDistal, HumanBodyBones.LastBone },
+			{ HumanBodyBones.RightUpperArm, HumanBodyBones.RightLowerArm },
+			{ HumanBodyBones.RightLowerArm, HumanBodyBones.RightHand },
+			{ HumanBodyBones.RightHand, HumanBodyBones.LastBone },
+			{ HumanBodyBones.RightIndexDistal, HumanBodyBones.LastBone },
+			{ HumanBodyBones.LeftUpperLeg, HumanBodyBones.LeftLowerLeg },
+			{ HumanBodyBones.RightUpperLeg, HumanBodyBones.RightLowerLeg }
+		};
+
 		/// <summary>Scene에 존재하는 모든 PhysBone을 1.0으로 변경합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Version/1.0", priority = 1000)]
 		public static void ChangePhysBoneVersionTo1_0() {
@@ -315,6 +332,65 @@ namespace com.vrsuya.utility {
 		/// <returns>Scene에 존재하는 모든 PhysBone 컴포넌트 리스트</returns>
 		private static List<VRCPhysBone> GetPhysBoneComponents() {
 			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBone>(true)).ToList();
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Create Humanoid Collider", priority = 1000)]
+		public static void CreateHumanoidCollider() {
+			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
+			if (AvatarInstance.GetVRCAvatarDescriptor()) {
+				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
+				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
+				if (AvatarAnimator) {
+					UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+					foreach (var KeyPair in BoneColliderPair) {
+						GameObject TargetGameObject = AvatarAnimator.GetBoneTransform(KeyPair.Key).gameObject;
+						VRCPhysBoneCollider TargetPhysBoneCollider = GetOrCreateComponent<VRCPhysBoneCollider>(TargetGameObject);
+						if (TargetPhysBoneCollider.shapeType != VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule) {
+							Undo.RegisterCreatedObjectUndo(TargetPhysBoneCollider, UndoGroupName);
+							TargetPhysBoneCollider.shapeType = VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule;
+							EditorUtility.SetDirty(TargetPhysBoneCollider);
+						}
+						if (KeyPair.Value != HumanBodyBones.LastBone) {
+							float Radius = TargetPhysBoneCollider.radius;
+							float Distance = Vector3.Distance(AvatarAnimator.GetBoneTransform(KeyPair.Key).position, AvatarAnimator.GetBoneTransform(KeyPair.Value).position) + (Radius * 2f);
+							if (KeyPair.Value == HumanBodyBones.Neck) {
+								Vector3 MidPoint = (AvatarAnimator.GetBoneTransform(HumanBodyBones.LeftShoulder).position + AvatarAnimator.GetBoneTransform(HumanBodyBones.RightShoulder).position) / 2f;
+								Distance = Vector3.Distance(AvatarAnimator.GetBoneTransform(KeyPair.Key).position, MidPoint) + (Radius * 1.25f);
+							}
+							Vector3 Position = new Vector3(0f, (Distance / 2) - Radius, 0f);
+							Undo.RegisterCreatedObjectUndo(TargetPhysBoneCollider, UndoGroupName);
+							TargetPhysBoneCollider.height = Distance;
+							TargetPhysBoneCollider.position = Position;
+							EditorUtility.SetDirty(TargetPhysBoneCollider);
+						} else {
+							if (KeyPair.Key == HumanBodyBones.LeftHand || KeyPair.Key == HumanBodyBones.RightHand) {
+								Transform ParentTransform = AvatarAnimator.GetBoneTransform(KeyPair.Key);
+								Transform ChildTransform = (KeyPair.Key == HumanBodyBones.LeftHand) ? AvatarAnimator.GetBoneTransform(HumanBodyBones.LeftMiddleProximal) : AvatarAnimator.GetBoneTransform(HumanBodyBones.RightMiddleProximal);
+								float Radius = TargetPhysBoneCollider.radius;
+								float Distance = Vector3.Distance(ParentTransform.position, ChildTransform.position) + Radius;
+								Vector3 Position = new Vector3(0f, (Distance / 2) - Radius, 0f);
+								Undo.RegisterCreatedObjectUndo(TargetPhysBoneCollider, UndoGroupName);
+								TargetPhysBoneCollider.height = Distance;
+								TargetPhysBoneCollider.position = Position;
+								EditorUtility.SetDirty(TargetPhysBoneCollider);
+							} else if (KeyPair.Key == HumanBodyBones.LeftIndexDistal || KeyPair.Key == HumanBodyBones.RightIndexDistal) {
+								Transform ParentTransform = AvatarAnimator.GetBoneTransform(KeyPair.Key);
+								Transform ChildTransform = ParentTransform.GetChild(0);
+								float Radius = TargetPhysBoneCollider.radius;
+								float Distance = Vector3.Distance(ParentTransform.position, ChildTransform.position) + (Radius * 2f);
+								Vector3 Position = new Vector3(0f, (Distance / 2) - Radius, 0f);
+								Undo.RegisterCreatedObjectUndo(TargetPhysBoneCollider, UndoGroupName);
+								TargetPhysBoneCollider.height = Distance;
+								TargetPhysBoneCollider.position = Position;
+								EditorUtility.SetDirty(TargetPhysBoneCollider);
+							}
+						}
+						Undo.CollapseUndoOperations(UndoGroupIndex);
+					}
+					Debug.Log("[VRSuya] Created Humanoid PhysBone Colliders");
+				}
+			}
+			return;
 		}
 	}
 }
