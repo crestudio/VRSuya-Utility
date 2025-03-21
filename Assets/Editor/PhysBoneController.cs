@@ -68,7 +68,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 속성들을 모두 닫습니다.</summary>
-		[MenuItem("Tools/VRSuya/Utility/PhysBone/FoldOut/Closed", priority = 1000)]
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/FoldOut/Closed", priority = 1001)]
 		public static void ClosePhysBoneFoldOut() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
@@ -114,7 +114,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 숨깁니다.</summary>
-		[MenuItem("Tools/VRSuya/Utility/PhysBone/Gizmo/Hide", priority = 1000)]
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Gizmo/Hide", priority = 1001)]
 		public static void HidePhysBoneGizmo() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
@@ -199,7 +199,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 거짓으로 변경합니다.</summary>
-		[MenuItem("Tools/VRSuya/Utility/PhysBone/Animated/False", priority = 1000)]
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Animated/False", priority = 1001)]
 		public static void ChangePhysBoneAnimatedToFalse() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
@@ -247,7 +247,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 거짓으로 변경합니다.</summary>
-		[MenuItem("Tools/VRSuya/Utility/PhysBone/Reset/False", priority = 1000)]
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Reset/False", priority = 1001)]
 		public static void ChangePhysBoneResetToFalse() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
