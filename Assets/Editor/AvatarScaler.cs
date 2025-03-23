@@ -21,25 +21,12 @@ namespace com.vrsuya.utility {
 
 		public enum Avatar {
 			Airi,
-			Chiffon,
-			Chocolat,
+			Chiffon, Chocolat,
 			Grus,
-			Karin,
-			Kikyo,
-			Kokoa,
-			Leefa,
-			Lime,
-			Mamehinata,
-			Manuka,
-			Maya,
-			Miko,
-			Milltina,
-			Minase,
-			Moe,
-			Selestia,
-			Shinano,
-			Shinra,
-			Sio,
+			Karin, Kikyo, Kokoa,
+			Leefa, Lime,
+			Mamehinata, Manuka, Maya, Miko, Milfy, Milltina, Minase, Moe,
+			Selestia, Shinano, Shinra, Sio,
 			Ukon
 		}
 
@@ -57,6 +44,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Manuka, 0.8817998f },
 			{ Avatar.Maya, 0.8845845f },
 			{ Avatar.Miko, 0.8785723f },
+			{ Avatar.Milfy, 0.7903f },
 			{ Avatar.Milltina, 0.88457f },
 			{ Avatar.Minase, 0.91609f },
 			{ Avatar.Moe, 0.897036f },
@@ -81,6 +69,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Manuka, new string[] { "MANUKA", "마누카", "マヌカ" } },
 			{ Avatar.Maya, new string[] { "Maya", "마야", "舞夜" } },
 			{ Avatar.Miko, new string[] { "Miko", "미코", "ミコ" } },
+			{ Avatar.Milfy, new string[] { "Milfy", "미르피", "ミルフィ" } },
 			{ Avatar.Milltina, new string[] { "Milltina", "밀티나", "ミルティナ" } },
 			{ Avatar.Minase, new string[] { "Minase", "미나세", "水瀬" } },
 			{ Avatar.Moe, new string[] { "Moe", "모에", "萌" } },
@@ -191,6 +180,13 @@ namespace com.vrsuya.utility {
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", priority = 1100)]
 		public static void SetAvatarTypeMiko() {
 			CurrentAvatarType = Avatar.Miko;
+			CheckAvatarMenu();
+			return;
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", priority = 1100)]
+		public static void SetAvatarTypeMilfy() {
+			CurrentAvatarType = Avatar.Milfy;
 			CheckAvatarMenu();
 			return;
 		}
@@ -343,6 +339,7 @@ namespace com.vrsuya.utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Manuka", CurrentAvatarType == Avatar.Manuka);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", CurrentAvatarType == Avatar.Maya);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", CurrentAvatarType == Avatar.Miko);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", CurrentAvatarType == Avatar.Milfy);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milltina", CurrentAvatarType == Avatar.Milltina);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minase", CurrentAvatarType == Avatar.Minase);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Moe", CurrentAvatarType == Avatar.Moe);
