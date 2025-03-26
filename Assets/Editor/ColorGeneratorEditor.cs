@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+
+using UnityEngine;
 using UnityEditor;
 
 /*
@@ -21,6 +23,9 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedTargetMaterials;
 
 		private static readonly Rect DefaultWindowRect = new Rect(100, 100, 730, 425);
+
+		private int SelectedColorDeltaIndex = 0;
+		private string[] ColorDeltaNameList;
 
 		// ColorBox Rect 변수
 		private float BorderX = 30f;
@@ -82,6 +87,7 @@ namespace com.vrsuya.utility {
 			Rect RimLightColorBox2 = RimLightBoxPosition2;
 			Rect RimShadeColorBox1 = RimShadeBoxPosition1;
 			Rect RimShadeColorBox2 = RimShadeBoxPosition2;
+			ColorDeltaNameList = ColorGenerator.ColorDeltaList.Select(Item => Item.Name_EN).ToArray();
 			GUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
@@ -149,18 +155,20 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
-			if (GUILayout.Button("생성", GUILayout.Width(ButtonWidth * 0.75f))) {
+			SelectedColorDeltaIndex = EditorGUILayout.Popup(string.Empty, SelectedColorDeltaIndex, ColorDeltaNameList, GUILayout.Width(ButtonWidth * 1.85f));
+			ColorGenerator.TargetColorDelta = ColorGenerator.ColorDeltaList[SelectedColorDeltaIndex];
+			if (GUILayout.Button("생성", GUILayout.Width(ButtonWidth * 0.6f))) {
 				ColorGenerator.Instance.RequestCreateColorDelta();
 				ColorGeneratorEditor_NewColorDelta.CreateWindow();
 			}
-			if (GUILayout.Button("편집", GUILayout.Width(ButtonWidth * 0.75f))) {
+			if (GUILayout.Button("편집", GUILayout.Width(ButtonWidth * 0.6f))) {
 				ColorGeneratorEditor_NewColorDelta.CreateWindow();
 			}
-			if (GUILayout.Button("가져오기", GUILayout.Width(ButtonWidth * 0.75f))) {
-				Close();
+			if (GUILayout.Button("가져오기", GUILayout.Width(ButtonWidth * 0.6f))) {
+				ColorGenerator.Instance.LoadColorDelta();
 			}
-			if (GUILayout.Button("내보내기", GUILayout.Width(ButtonWidth * 0.75f))) {
-				Close();
+			if (GUILayout.Button("내보내기", GUILayout.Width(ButtonWidth * 0.6f))) {
+				ColorGenerator.Instance.SaveColorDelta();
 			}
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();

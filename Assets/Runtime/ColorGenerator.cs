@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -35,22 +36,8 @@ namespace com.vrsuya.utility {
 			Body, Hair, Cloth
 		}
 
-		private static List<ColorDelta> ColorDeltaList = new List<ColorDelta>() {
-			new ColorDelta {
-				Name_EN = "Glossy",
-				Name_KO = "윤광",
-				Name_JA = "グロッシー",
-				TargetShade = ShadeType.Body,
-				ReferenceColor = "#FFF0EF",
-				ColorDelta1 = new Vector3(-11f, 4f, -9f),
-				ColorDelta2 = new Vector3(-4f, 6f, 1f),
-				ColorDelta3 = new Vector3(9f, 16f, -3f),
-				RimLightDelta = new Vector3(12f, 13f, 9f),
-				RimShadeDelta = new Vector3(-5f, -22f, 2f)
-			}
-		};
-		public static int ColorDeltaListIndex = 0;
-		public ColorDelta TargetColorDelta = ColorDeltaList[ColorDeltaListIndex];
+		public static List<ColorDelta> ColorDeltaList = new List<ColorDelta>();
+		public static ColorDelta TargetColorDelta;
 
 		private ShadeType ShadeShadeType = ShadeType.Body;
 		public int ShadeTypeIndex = 0;
@@ -59,7 +46,7 @@ namespace com.vrsuya.utility {
 		public Color ShadeColor2;
 		public Color ShadeColor3;
 		public Color ShadeColor4;
-		public Color RimLightColor;
+		public Color32 RimLightColor;
 		public Color RimShadeColor;
 
 		public Material TargetMaterial;
@@ -73,12 +60,16 @@ namespace com.vrsuya.utility {
 		private int UndoGroupIndex;
 
 		private void OnEnable() {
-			ShadeColor1 = HexToColor(TargetColorDelta.ReferenceColor);
-			ShadeColor2 = GetDeltaColor(ShadeColor1, TargetColorDelta.ColorDelta1, false);
-			ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
-			ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
-			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
-			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
+			LoadColorDeltas();
+			if (ColorDeltaList.Count > 0) {
+				TargetColorDelta = ColorDeltaList[0];
+				ShadeColor1 = HexToColor(TargetColorDelta.ReferenceColor);
+				ShadeColor2 = GetDeltaColor(ShadeColor1, TargetColorDelta.ColorDelta1, false);
+				ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
+				ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
+				RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
+				RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
+			}
 			return;
 		}
 
@@ -177,6 +168,67 @@ namespace com.vrsuya.utility {
 				RimLightDelta = NewRimLightDelta,
 				RimShadeDelta = NewRimShadeDelta
 			};
+		}
+
+		private void LoadColorDeltas() {
+			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya\\ColorDelta");
+			if (!Directory.Exists(ColorDeltaPath)) {
+				Directory.CreateDirectory(ColorDeltaPath);
+				CreateSampleColorDelta();
+			}
+			ColorDeltaList.Clear();
+			foreach (string JSONFile in Directory.GetFiles(ColorDeltaPath, "*.json")) {
+				string ColorDeltaJSON = File.ReadAllText(JSONFile);
+				ColorDelta ColorDeltaData = JsonUtility.FromJson<ColorDelta>(ColorDeltaJSON);
+				ColorDeltaList.Add(ColorDeltaData);
+			}
+			return;
+		}
+
+		public void LoadColorDelta() {
+			string LoadPath = EditorUtility.OpenFilePanel("ColorDelta JSON 파일 불러오기", Application.dataPath, "json");
+			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya\\ColorDelta");
+			if (!Directory.Exists(ColorDeltaPath)) {
+				Directory.CreateDirectory(ColorDeltaPath);
+			}
+			if (!string.IsNullOrEmpty(LoadPath)) {
+				string ColorDeltaJSON = File.ReadAllText(LoadPath);
+				ColorDelta ColorDeltaData = JsonUtility.FromJson<ColorDelta>(ColorDeltaJSON);
+				ColorDeltaList.Add(ColorDeltaData);
+				TargetColorDelta = ColorDeltaData;
+			}
+			if (!LoadPath.Contains(ColorDeltaPath)) {
+				SaveColorDelta();
+			}
+			return;
+		}
+
+		public void SaveColorDelta() {
+			string SavePath = Path.Combine(Application.dataPath, "VRSuya\\ColorDelta");
+			if (!Directory.Exists(SavePath)) Directory.CreateDirectory(SavePath);
+			string ColorDeltaJSON = JsonUtility.ToJson(TargetColorDelta, true);
+			string JSONFilePath = Path.Combine(SavePath, TargetColorDelta.Name_EN + ".json");
+			File.WriteAllText(JSONFilePath, ColorDeltaJSON);
+			AssetDatabase.Refresh();
+			return;
+		}
+
+		private void CreateSampleColorDelta() {
+			ColorDelta SampleColorDelta = new ColorDelta {
+				Name_EN = "Glossy",
+				Name_KO = "윤광",
+				Name_JA = "グロッシー",
+				TargetShade = ShadeType.Body,
+				ReferenceColor = "#FFF0EF",
+				ColorDelta1 = new Vector3(-11f, 4f, -9f),
+				ColorDelta2 = new Vector3(-4f, 6f, 1f),
+				ColorDelta3 = new Vector3(9f, 16f, -3f),
+				RimLightDelta = new Vector3(12f, 13f, 9f),
+				RimShadeDelta = new Vector3(-5f, -22f, 2f)
+			};
+			TargetColorDelta = SampleColorDelta;
+			SaveColorDelta();
+			return;
 		}
 
 		private Vector3 GetHSVColorDelta(Color OriginalColor, Color TargetColor) {
