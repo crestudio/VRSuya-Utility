@@ -13,7 +13,7 @@ namespace com.vrsuya.utility {
     [CustomEditor(typeof(TextureReplacer))]
     public class TextureReplacerEditor : Editor {
 
-		SerializedProperty SerializedAvatarTextureList;
+		SerializedProperty SerializedAvatarTextures;
 
 		SerializedProperty SerializedAvatarGameObject;
 		SerializedProperty SerializedAvatarMaterials;
@@ -22,7 +22,7 @@ namespace com.vrsuya.utility {
 		public readonly string[] LanguageType = new[] { "English", "한국어", "日本語" };
 
 		void OnEnable() {
-			SerializedAvatarTextureList = serializedObject.FindProperty("AvatarTextureList");
+			SerializedAvatarTextures = serializedObject.FindProperty("AvatarTextures");
 
 			SerializedAvatarGameObject = serializedObject.FindProperty("AvatarGameObject");
 			SerializedAvatarMaterials = serializedObject.FindProperty("AvatarMaterials");
@@ -47,9 +47,9 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.LabelField(LanguageHelper.GetContextString("String_After"), CenteredStyle, PropertyWidth);
 			EditorGUILayout.LabelField(string.Empty, ButtonWidth);
 			EditorGUILayout.EndHorizontal();
-			if (SerializedAvatarTextureList.arraySize > 0) {
-				for (int Index = 0; Index < SerializedAvatarTextureList.arraySize; Index++) {
-					SerializedProperty TextureProperty = SerializedAvatarTextureList.GetArrayElementAtIndex(Index);
+			if (SerializedAvatarTextures.arraySize > 0) {
+				for (int Index = 0; Index < SerializedAvatarTextures.arraySize; Index++) {
+					SerializedProperty TextureProperty = SerializedAvatarTextures.GetArrayElementAtIndex(Index);
 					SerializedProperty ShowProperty = TextureProperty.FindPropertyRelative("ShowDetails");
 					SerializedProperty BeforeProperty = TextureProperty.FindPropertyRelative("BeforeTexture");
 					SerializedProperty AfterProperty = TextureProperty.FindPropertyRelative("AfterTexture");
