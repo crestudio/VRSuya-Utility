@@ -118,6 +118,7 @@ namespace com.vrsuya.utility {
 			GUILayout.Space(BorderX);
 			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("저장", GUILayout.Width(ButtonWidth))) {
+				ColorGenerator.Instance.SaveColorDelta();
 				Close();
 			}
 			GUILayout.FlexibleSpace();
