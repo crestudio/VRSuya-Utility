@@ -13,9 +13,7 @@ using UnityEngine;
 
 namespace com.vrsuya.utility {
 
-	[ExecuteInEditMode]
-	[AddComponentMenu("VRSuya/VRSuya Material Template")]
-	public class MaterialTemplate : MonoBehaviour {
+	public class MaterialTemplate : ScriptableObject {
 
 		public GameObject TargetGameObject = null;
 		public Material[] TargetMaterials = new Material[0];
@@ -27,8 +25,12 @@ namespace com.vrsuya.utility {
 		public bool UpdateUnityChanToonShader = true;
 
 		// 릴툰 프로퍼티 업데이트 설정
+		public bool UpdatelilToonBasic = true;
 		public bool UpdatelilToonLighting = true;
+		public bool UpdatelilToonShadow = true;
 		public bool UpdatelilToonReceiveShadow = true;
+		public bool UpdatelilToonBackfaceMask = true;
+		public bool UpdatelilToonBacklight = true;
 
 		// 포이요미 프로퍼티 업데이트 설정
 
@@ -40,6 +42,7 @@ namespace com.vrsuya.utility {
 		public bool UpdateUTSEnvironmentalLightingPropertys = true;
 
 		// 공용 프로퍼티 업데이트 설정
+		public bool UpdateRenderQueue = true;
 		public bool UpdateGPUInstancing = true;
 		public bool UpdateGlobalIllumination = true;
 
@@ -61,7 +64,6 @@ namespace com.vrsuya.utility {
 
 		// 컴포넌트 최초 로드시 동작
 		void OnEnable() {
-			if (!TargetGameObject) TargetGameObject = this.gameObject;
 			return;
 		}
 
@@ -83,7 +85,7 @@ namespace com.vrsuya.utility {
 							UpdateUnityChanToonShaderPropertys(TargetMaterial);
 							break;
 						default:
-							Debug.LogError("[Material Template] " + ShaderType + " 쉐이더는 지원하지 않습니다!");
+							Debug.LogError($"[VRSuya] {ShaderType} 쉐이더는 지원하지 않습니다!");
 							break;
 					}
 				}
@@ -93,7 +95,7 @@ namespace com.vrsuya.utility {
 					UpdateTexture2DSharedPropertys(TargetTexture2D);
 				}
 			}
-			Debug.Log("[Material Template] 머테리얼 일괄 변경 처리가 완료 되었습니다!");
+			Debug.Log($"[VRSuya] 머테리얼 일괄 변경 처리가 완료 되었습니다!");
 			return;
 		}
 
@@ -127,8 +129,13 @@ namespace com.vrsuya.utility {
 
 		/// <summary>릴툰 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
 		private void UpdatelilToonPropertys(Material TargetMaterial) {
+			if (UpdatelilToonBasic) UpdatelilToonBasicPropertys(TargetMaterial);
 			if (UpdatelilToonLighting) UpdatelilToonLightingPropertys(TargetMaterial);
+			if (UpdatelilToonShadow) UpdatelilToonShadowPropertys(TargetMaterial);
 			if (UpdatelilToonReceiveShadow) UpdatelilToonReceiveShadowPropertys(TargetMaterial);
+			if (UpdatelilToonBackfaceMask) UpdatelilToonBackfaceMaskPropertys(TargetMaterial);
+			if (UpdatelilToonBacklight) UpdatelilToonBacklightPropertys(TargetMaterial);
+			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
 			return;
@@ -136,6 +143,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>poiyomi 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
 		private void UpdatepoiyomiPropertys(Material TargetMaterial) {
+			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
 			return;
@@ -148,12 +156,33 @@ namespace com.vrsuya.utility {
 			if (UpdateUTSBasicShading) UpdateBasicShadingPropertys(TargetMaterial);
 			if (UpdateUTSLightColor) UpdateLightColorPropertys(TargetMaterial);
 			if (UpdateUTSEnvironmentalLightingPropertys) UpdateEnvironmentalLightingPropertys(TargetMaterial);
+			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
 			return;
 		}
 
 		// lilToon 프로퍼티
+
+		/// <summary>해당 릴툰 머테리얼에서 Basic 프로퍼티 값을 일괄 변경합니다.</summary>
+		private void UpdatelilToonBasicPropertys(Material TargetMaterial) {
+			bool IsDrity = false;
+			float Cutoff = 0.5f;
+			float Cull = 2.0f;
+			float FlipNormal = 1.0f;
+			float BackfaceForceShadow = 1.0f;
+			float AlphaMaskValue = 0.0f;
+			if (TargetMaterial.GetFloat("_Cutoff") != Cutoff) { TargetMaterial.SetFloat("_Cutoff", Cutoff); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Cull") != Cull) { TargetMaterial.SetFloat("_Cull", Cull); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_FlipNormal") != FlipNormal) { TargetMaterial.SetFloat("_FlipNormal", FlipNormal); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_BackfaceForceShadow") != BackfaceForceShadow) { TargetMaterial.SetFloat("_BackfaceForceShadow", BackfaceForceShadow); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_AlphaMaskValue") != AlphaMaskValue) { TargetMaterial.SetFloat("_AlphaMaskValue", AlphaMaskValue); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Basic 프로퍼티가 변경되었습니다.");
+			}
+			return;
+		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Lighting 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonLightingPropertys(Material TargetMaterial) {
@@ -174,7 +203,47 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetColor("_LightDirectionOverride") != LightDirectionOverride) { TargetMaterial.SetColor("_LightDirectionOverride", LightDirectionOverride); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 릴툰 쉐이더의 라이팅 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 라이팅 프로퍼티가 변경되었습니다.");
+			}
+			return;
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
+		private void UpdatelilToonShadowPropertys(Material TargetMaterial) {
+			bool IsDrity = false;
+			bool IsTransparent = TargetMaterial.shader.name.Contains("Transparent");
+			float ShadowBorder = (!IsTransparent) ? 0.6f : 0.0f;
+			float ShadowBlur = (!IsTransparent) ? 0.15f : 0.0f;
+			float ShadowNormalStrength = (!IsTransparent) ? 1.0f : 0.0f;
+			float Shadow2ndBorder = (!IsTransparent) ? 0.4f : 0.0f;
+			float Shadow2ndBlur = (!IsTransparent) ? 0.15f : 0.0f;
+			float Shadow2ndNormalStrength = (!IsTransparent) ? 1.0f : 0.0f;
+			float Shadow3rdBorder = (!IsTransparent) ? 0.2f : 0.0f;
+			float Shadow3rdBlur = (!IsTransparent) ? 0.15f : 0.0f;
+			float Shadow3rdNormalStrength = (!IsTransparent) ? 1.0f : 0.0f;
+			float ShadowBorderRange = (!IsTransparent) ? 0.0f : 0.0f;
+			float ShadowMainStrength = (!IsTransparent) ? 0.0f : 0.0f;
+			float ShadowEnvStrength = (!IsTransparent) ? 1.0f : 0.0f;
+			if (TargetMaterial.name.Contains("Head")) {
+				ShadowBorder = 0.25f;
+				Shadow2ndBorder = 0.15f;
+				Shadow3rdBorder = 0.05f;
+			}
+			if (TargetMaterial.GetFloat("_ShadowBorder") != ShadowBorder) { TargetMaterial.SetFloat("_ShadowBorder", ShadowBorder); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_ShadowBlur") != ShadowBlur) { TargetMaterial.SetFloat("_ShadowBlur", ShadowBlur); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_ShadowNormalStrength") != ShadowNormalStrength) { TargetMaterial.SetFloat("_ShadowNormalStrength", ShadowNormalStrength); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Shadow2ndBorder") != Shadow2ndBorder) { TargetMaterial.SetFloat("_Shadow2ndBorder", Shadow2ndBorder); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Shadow2ndBlur") != Shadow2ndBlur) { TargetMaterial.SetFloat("_Shadow2ndBlur", Shadow2ndBlur); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Shadow2ndNormalStrength") != Shadow2ndNormalStrength) { TargetMaterial.SetFloat("_Shadow2ndNormalStrength", Shadow2ndNormalStrength); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Shadow3rdBorder") != Shadow3rdBorder) { TargetMaterial.SetFloat("_Shadow3rdBorder", Shadow3rdBorder); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Shadow3rdBlur") != Shadow3rdBlur) { TargetMaterial.SetFloat("_Shadow3rdBlur", Shadow3rdBlur); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_Shadow3rdNormalStrength") != Shadow3rdNormalStrength) { TargetMaterial.SetFloat("_Shadow3rdNormalStrength", Shadow3rdNormalStrength); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_ShadowBorderRange") != ShadowBorderRange) { TargetMaterial.SetFloat("_ShadowBorderRange", ShadowBorderRange); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_ShadowMainStrength") != ShadowMainStrength) { TargetMaterial.SetFloat("_ShadowMainStrength", ShadowMainStrength); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_ShadowEnvStrength") != ShadowEnvStrength) { TargetMaterial.SetFloat("_ShadowEnvStrength", ShadowEnvStrength); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -182,15 +251,50 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 Receive Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonReceiveShadowPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float ShadowReceive = 1.0f;
-			float Shadow2ndReceive = 1.0f;
-			float Shadow3rdReceive = 1.0f;
+			bool IsTransparent = TargetMaterial.name.Contains("Transparent");
+			float ShadowReceive = (!IsTransparent) ? 1.0f : 0.0f;
+			float Shadow2ndReceive = (!IsTransparent) ? 1.0f : 0.0f;
+			float Shadow3rdReceive = (!IsTransparent) ? 1.0f : 0.0f;
 			if (TargetMaterial.GetFloat("_ShadowReceive") != ShadowReceive) { TargetMaterial.SetFloat("_ShadowReceive", ShadowReceive); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Shadow2ndReceive") != Shadow2ndReceive) { TargetMaterial.SetFloat("_Shadow2ndReceive", Shadow2ndReceive); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Shadow3rdReceive") != Shadow3rdReceive) { TargetMaterial.SetFloat("_Shadow3rdReceive", Shadow3rdReceive); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 릴툰 쉐이더의 그림자 영향 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 영향 프로퍼티가 변경되었습니다.");
+			}
+			return;
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 BackfaceMask 프로퍼티 값을 일괄 변경합니다.</summary>
+		private void UpdatelilToonBackfaceMaskPropertys(Material TargetMaterial) {
+			bool IsDrity = false;
+			float BackfaceMask = 1.0f;
+			if (TargetMaterial.GetFloat("_BacklightBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_BacklightBackfaceMask", BackfaceMask); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_GlitterBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_GlitterBackfaceMask", BackfaceMask); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_MatCap2ndBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_MatCap2ndBackfaceMask", BackfaceMask); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_MatCapBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_MatCapBackfaceMask", BackfaceMask); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_RimBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_RimBackfaceMask", BackfaceMask); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 BackfaceMask 프로퍼티가 변경되었습니다.");
+			}
+			return;
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 Backlight 프로퍼티 값을 일괄 변경합니다.</summary>
+		private void UpdatelilToonBacklightPropertys(Material TargetMaterial) {
+			bool IsDrity = false;
+			float BacklightMainStrength = 0.3f;
+			float BacklightBorder = 0.8f;
+			float BacklightBlur = 0.1f;
+			float BacklightDirectivity = 2.0f;
+			if (TargetMaterial.GetFloat("_BacklightMainStrength") != BacklightMainStrength) { TargetMaterial.SetFloat("_BacklightMainStrength", BacklightMainStrength); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_BacklightBorder") != BacklightBorder) { TargetMaterial.SetFloat("_BacklightBorder", BacklightBorder); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_BacklightBlur") != BacklightBlur) { TargetMaterial.SetFloat("_BacklightBlur", BacklightBlur); IsDrity = true; }
+			if (TargetMaterial.GetFloat("_BacklightDirectivity") != BacklightDirectivity) { TargetMaterial.SetFloat("_BacklightDirectivity", BacklightDirectivity); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Backlight 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -207,7 +311,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetTexture("_2nd_ShadeMap") != null) { TargetMaterial.SetTexture("_2nd_ShadeMap", null); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 UTS 쉐이더의 텍스쳐 공유 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 텍스쳐 공유 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -223,7 +327,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Is_NormalMapToRimLight") != Is_NormalMapToRimLight) { TargetMaterial.SetFloat("_Is_NormalMapToRimLight", Is_NormalMapToRimLight); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 UTS 쉐이더의 노멀맵 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 노멀맵 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -237,7 +341,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Is_Filter_HiCutPointLightColor") != Is_Filter_HiCutPointLightColor) { TargetMaterial.SetFloat("_Is_Filter_HiCutPointLightColor", Is_Filter_HiCutPointLightColor); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 UTS 쉐이더의 기본 쉐이딩 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 기본 쉐이딩 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -265,7 +369,7 @@ namespace com.vrsuya.utility {
 			}
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 UTS 쉐이더의 주광색 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 주광색 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -283,12 +387,25 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Is_BLD") != Is_BLD) { TargetMaterial.SetFloat("_Is_BLD", Is_BLD); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼 UTS 쉐이더의 환경광 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 환경광 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
 
 		// 공용 프로퍼티
+
+		/// <summary>해당 머테리얼에서 RenderQueue 프로퍼티 값을 일괄 변경합니다.</summary>
+		private void UpdateRenderQueuePropertys(Material TargetMaterial) {
+			bool IsDrity = false;
+			bool IsTransparent = TargetMaterial.shader.name.Contains("Transparent");
+			int RenderQueue = (!IsTransparent) ? -1 : 3000;
+			if (TargetMaterial.renderQueue != RenderQueue) { TargetMaterial.renderQueue = RenderQueue; IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 RenderQueue 프로퍼티가 변경되었습니다.");
+			}
+			return;
+		}
 
 		/// <summary>해당 머테리얼에서 GPU Instancing 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateGPUInstancingPropertys(Material TargetMaterial) {
@@ -297,7 +414,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.enableInstancing != EnableInstancingVariants) { TargetMaterial.enableInstancing = EnableInstancingVariants; IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼의 GPU 인스턴싱 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GPU 인스턴싱 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -311,7 +428,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.doubleSidedGI != DoubleSidedGI) { TargetMaterial.doubleSidedGI = DoubleSidedGI; IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log("[Material Template] " + TargetMaterial.name + " 머테리얼의 GI 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GI 프로퍼티가 변경되었습니다.");
 			}
 			return;
 		}
@@ -469,9 +586,9 @@ namespace com.vrsuya.utility {
 			TargetTextureImporter.GetPlatformTextureSettings("Standalone").overridden = ExsitStandaloneTextureSettingOverridden;
 			TargetTextureImporter.SaveAndReimport();
 			if (!TargetTexture.name.Contains("Transparent", StringComparison.OrdinalIgnoreCase) && hasAlpha) {
-				Debug.LogWarning("[Material Template] " + TargetTexture.name + " 일반 텍스쳐가 투명 입니다");
+				Debug.LogWarning($"[VRSuya] {TargetTexture.name} 일반 텍스쳐가 투명 입니다");
 			} else if (TargetTexture.name.Contains("Transparent", StringComparison.OrdinalIgnoreCase) && !hasAlpha) {
-				Debug.LogWarning("[Material Template] " + TargetTexture.name + " 투명 텍스쳐가 불투명 입니다");
+				Debug.LogWarning($"[VRSuya] {TargetTexture.name} 투명 텍스쳐가 불투명 입니다");
 			}
 			return hasAlpha;
 		}
@@ -491,7 +608,7 @@ namespace com.vrsuya.utility {
 				!TargetTexture.name.Contains("Matcap", StringComparison.OrdinalIgnoreCase) && 
 				!TargetTexture.name.Contains("Normal", StringComparison.OrdinalIgnoreCase) && 
 				IsRGB) {
-				Debug.LogWarning("[Material Template] " + TargetTexture.name + " 텍스쳐가 RGB 플래그로 설정 되었습니다!");
+				Debug.LogWarning($"[VRSuya] {TargetTexture.name} 텍스쳐가 RGB 플래그로 설정 되었습니다!");
 			}
 			return IsRGB;
 		}
@@ -513,9 +630,9 @@ namespace com.vrsuya.utility {
 			float ClosePixelRatio = (float)ClosePixelCount / Pixels.Length;
 			bool IsNormal = ClosePixelRatio > 0.5f;
 			if (!TargetTexture.name.Contains("Normal", StringComparison.OrdinalIgnoreCase) && IsNormal) {
-				Debug.LogWarning("[Material Template] " + TargetTexture.name + " 일반 텍스쳐의 노멀 중앙값 비율 : " + Math.Truncate(ClosePixelRatio * 100) + "%");
+				Debug.LogWarning($"[VRSuya] {TargetTexture.name} 일반 텍스쳐의 노멀 중앙값 비율 : {Math.Truncate(ClosePixelRatio * 100)}%");
 			} else if (TargetTexture.name.Contains("Normal", StringComparison.OrdinalIgnoreCase) && !IsNormal) {
-				Debug.LogWarning("[Material Template] " + TargetTexture.name + " 노멀 텍스쳐의 노멀 중앙값 비율 : " + Math.Truncate(ClosePixelRatio * 100) + "%");
+				Debug.LogWarning($"[VRSuya] {TargetTexture.name} 노멀 텍스쳐의 노멀 중앙값 비율 : {Math.Truncate(ClosePixelRatio * 100)}%");
 			}
 			return IsNormal;
 		}
@@ -615,7 +732,7 @@ namespace com.vrsuya.utility {
 				if (IsDrity) {
 					EditorUtility.SetDirty(TargetTexture);
 					TargetTextureImporter.SaveAndReimport();
-					Debug.Log("[Material Template] " + TargetTexture.name + " 텍스쳐 공유 프로퍼티가 변경되었습니다.");
+					Debug.Log($"[VRSuya] {TargetTexture.name} 텍스쳐 공유 프로퍼티가 변경되었습니다.");
 				}
 			}
 			return;
