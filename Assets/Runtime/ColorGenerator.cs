@@ -37,7 +37,7 @@ namespace com.vrsuya.utility {
 		}
 
 		public static List<ColorDelta> ColorDeltaList = new List<ColorDelta>();
-		public static ColorDelta TargetColorDelta;
+		public ColorDelta TargetColorDelta;
 
 		private ShadeType ShadeShadeType = ShadeType.Body;
 		public int ShadeTypeIndex = 0;
@@ -63,12 +63,7 @@ namespace com.vrsuya.utility {
 			LoadColorDeltas();
 			if (ColorDeltaList.Count > 0) {
 				TargetColorDelta = ColorDeltaList[0];
-				ShadeColor1 = HexToColor(TargetColorDelta.ReferenceColor);
-				ShadeColor2 = GetDeltaColor(ShadeColor1, TargetColorDelta.ColorDelta1, false);
-				ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
-				ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
-				RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
-				RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
+				UpdateColor();
 			}
 			return;
 		}
@@ -213,6 +208,11 @@ namespace com.vrsuya.utility {
 			return;
 		}
 
+		public void SetColorDelta(int TargetIndex) {
+			TargetColorDelta = ColorDeltaList[TargetIndex];
+			return;
+		}
+
 		private void CreateSampleColorDelta() {
 			ColorDelta SampleColorDelta = new ColorDelta {
 				Name_EN = "Glossy",
@@ -228,6 +228,16 @@ namespace com.vrsuya.utility {
 			};
 			TargetColorDelta = SampleColorDelta;
 			SaveColorDelta();
+			return;
+		}
+
+		public void UpdateColor() {
+			ShadeColor1 = HexToColor(TargetColorDelta.ReferenceColor);
+			ShadeColor2 = GetDeltaColor(ShadeColor1, TargetColorDelta.ColorDelta1, false);
+			ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
+			ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
+			RimLightColor = GetDeltaColor(ShadeColor2, TargetColorDelta.RimLightDelta, false);
+			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 			return;
 		}
 

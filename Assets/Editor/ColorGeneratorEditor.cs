@@ -25,6 +25,7 @@ namespace com.vrsuya.utility {
 		private static readonly Rect DefaultWindowRect = new Rect(100, 100, 730, 425);
 
 		private int SelectedColorDeltaIndex = 0;
+		private int CurrentColorDeltaIndex = 0;
 		private string[] ColorDeltaNameList;
 
 		// ColorBox Rect 변수
@@ -156,7 +157,11 @@ namespace com.vrsuya.utility {
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);
 			SelectedColorDeltaIndex = EditorGUILayout.Popup(string.Empty, SelectedColorDeltaIndex, ColorDeltaNameList, GUILayout.Width(ButtonWidth * 1.85f));
-			ColorGenerator.TargetColorDelta = ColorGenerator.ColorDeltaList[SelectedColorDeltaIndex];
+			if (CurrentColorDeltaIndex != SelectedColorDeltaIndex) {
+				ColorGenerator.Instance.SetColorDelta(SelectedColorDeltaIndex);
+				ColorGenerator.Instance.UpdateColor();
+				CurrentColorDeltaIndex = SelectedColorDeltaIndex;
+			}
 			if (GUILayout.Button("생성", GUILayout.Width(ButtonWidth * 0.6f))) {
 				ColorGenerator.Instance.RequestCreateColorDelta();
 				ColorGeneratorEditor_NewColorDelta.CreateWindow();
