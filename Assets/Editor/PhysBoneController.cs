@@ -362,13 +362,14 @@ namespace com.vrsuya.utility {
 			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBone>(true)).ToList();
 		}
 
-		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Create Humanoid Collider", priority = 1000)]
-		public static void CreateHumanoidCollider() {
 		/// <summary>Scene에 존재하는 모든 PhysBone Collider의 리스트를 가져옵니다.</summary>
 		/// <returns>Scene에 존재하는 모든 PhysBone Collider 컴포넌트 리스트</returns>
 		private static List<VRCPhysBoneColliderBase> GetPhysBoneColliderComponents() {
 			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBoneColliderBase>(true)).ToList();
 		}
+
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Adjust Humanoid Collider", priority = 1000)]
+		public static void AdjustHumanoidCollider() {
 			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
 			if (AvatarInstance.GetVRCAvatarDescriptor()) {
 				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
