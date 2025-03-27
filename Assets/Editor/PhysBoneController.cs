@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using VRC.Dynamics;
 using VRC.SDK3.Dynamics.PhysBone.Components;
 
 using static VRSuya.Core.Unity;
@@ -38,6 +39,33 @@ namespace com.vrsuya.utility {
 			{ HumanBodyBones.RightIndexDistal, HumanBodyBones.LastBone },
 			{ HumanBodyBones.LeftUpperLeg, HumanBodyBones.LeftLowerLeg },
 			{ HumanBodyBones.RightUpperLeg, HumanBodyBones.RightLowerLeg }
+		};
+		private static readonly Dictionary<string, HumanBodyBones[]> PhysBoneColliderPair = new Dictionary<string, HumanBodyBones[]> {
+			{ "Ear", new HumanBodyBones[0] },
+			{ "Hair", new HumanBodyBones[] {
+				HumanBodyBones.Head,
+				HumanBodyBones.LeftLowerArm, HumanBodyBones.RightLowerArm,
+				HumanBodyBones.LeftUpperArm, HumanBodyBones.RightUpperArm,
+				HumanBodyBones.Hips, HumanBodyBones.Spine, HumanBodyBones.Chest } },
+			{ "FrontHair", new HumanBodyBones[] { 
+				HumanBodyBones.Head, 
+				HumanBodyBones.LeftLowerArm, HumanBodyBones.RightLowerArm,
+				HumanBodyBones.LeftUpperArm, HumanBodyBones.RightUpperArm } },
+			{ "BackHair", new HumanBodyBones[] {
+				HumanBodyBones.Head,
+				HumanBodyBones.LeftLowerArm, HumanBodyBones.RightLowerArm,
+				HumanBodyBones.LeftUpperArm, HumanBodyBones.RightUpperArm,
+				HumanBodyBones.Hips, HumanBodyBones.Spine, HumanBodyBones.Chest } },
+			{ "Cheek", new HumanBodyBones[0] },
+			{ "Breast", new HumanBodyBones[0] },
+			{ "ReverseBreast", new HumanBodyBones[0] },
+			{ "Nipple", new HumanBodyBones[0] },
+			{ "Skirt", new HumanBodyBones[] { 
+				HumanBodyBones.Hips,
+				HumanBodyBones.LeftUpperLeg, HumanBodyBones.RightUpperLeg } },
+			{ "Butt", new HumanBodyBones[0] },
+			{ "Tail", new HumanBodyBones[] {
+				HumanBodyBones.LeftUpperLeg, HumanBodyBones.RightUpperLeg } },
 		};
 
 		/// <summary>Scene에 존재하는 모든 PhysBone을 1.0으로 변경합니다.</summary>
@@ -336,6 +364,11 @@ namespace com.vrsuya.utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Create Humanoid Collider", priority = 1000)]
 		public static void CreateHumanoidCollider() {
+		/// <summary>Scene에 존재하는 모든 PhysBone Collider의 리스트를 가져옵니다.</summary>
+		/// <returns>Scene에 존재하는 모든 PhysBone Collider 컴포넌트 리스트</returns>
+		private static List<VRCPhysBoneColliderBase> GetPhysBoneColliderComponents() {
+			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBoneColliderBase>(true)).ToList();
+		}
 			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
 			if (AvatarInstance.GetVRCAvatarDescriptor()) {
 				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
@@ -389,6 +422,79 @@ namespace com.vrsuya.utility {
 					}
 					Debug.Log("[VRSuya] Created Humanoid PhysBone Colliders");
 				}
+			}
+			return;
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Assign Humanoid Collider", priority = 1000)]
+		public static void AssignHumanoidCollider() {
+			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
+			if (AvatarInstance.GetVRCAvatarDescriptor()) {
+				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
+				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
+				List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
+				List<VRCPhysBoneColliderBase> PhysBoneColliderComponets = GetPhysBoneColliderComponents();
+				foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+					var KeyPair = PhysBoneColliderPair.FirstOrDefault(Item => Item.Key == TargetPhysBone.name);
+					if (!KeyPair.Equals(default(KeyValuePair<string, HumanBodyBones[]>))) {
+						List<VRCPhysBoneColliderBase> OriginalColliders = TargetPhysBone.colliders;
+						List<VRCPhysBoneColliderBase> NewColliders = new List<VRCPhysBoneColliderBase>();
+						foreach (HumanBodyBones TargetHumanBodyBone in KeyPair.Value) {
+							bool HasCollider = false;
+							Transform TargetTransform = AvatarAnimator.GetBoneTransform(TargetHumanBodyBone);
+							if (TargetTransform) {
+								VRCPhysBoneColliderBase TargetPhysBoneCollider = TargetTransform.GetComponent<VRCPhysBoneColliderBase>();
+								if (TargetPhysBoneCollider) {
+									NewColliders.Add(TargetPhysBoneCollider);
+									HasCollider = true;
+								}
+							}
+							if (!HasCollider) {
+								NewColliders.Add(null);
+								Debug.LogWarning($"[VRSuya] Not found {TargetHumanBodyBone.ToString()} collider assigned to {TargetPhysBone.name}");
+							}
+						}
+						switch (KeyPair.Key) {
+							case "BackHair":
+							case "Hair":
+								VRCPhysBoneColliderBase FloorPhysBoneCollider = PhysBoneColliderComponets.Find(Item => Item.name == "Floor");
+								if (FloorPhysBoneCollider) {
+									NewColliders.Add(FloorPhysBoneCollider);
+								} else {
+									NewColliders.Add(null);
+									Debug.LogWarning($"[VRSuya] Not found Floor collider assigned to {TargetPhysBone.name}");
+								}
+								break;
+							case "Breast":
+								string TargetSide = TargetPhysBone.rootTransform.name.EndsWith("L") ? "R" : "L";
+								VRCPhysBoneColliderBase BreastPhysBoneCollider = PhysBoneColliderComponets.Find(Item => Item.name.Contains("Breast") && Item.name.Contains(TargetSide));
+								if (BreastPhysBoneCollider) {
+									NewColliders.Add(BreastPhysBoneCollider);
+								} else {
+									NewColliders.Add(null);
+									Debug.LogWarning($"[VRSuya] Not found Breast collider assigned to {TargetPhysBone.name}");
+								}
+								break;
+							case "Tail":
+								VRCPhysBoneColliderBase TailPhysBoneCollider = PhysBoneColliderComponets.Find(Item => Item.name == "Tail");
+								if (TailPhysBoneCollider) {
+									NewColliders.Add(TailPhysBoneCollider);
+								} else {
+									NewColliders.Add(null);
+									Debug.LogWarning($"[VRSuya] Not found Tail collider assigned to {TargetPhysBone.name}");
+								}
+								break;
+						}
+						if (!OriginalColliders.Equals(NewColliders)) {
+							Undo.RegisterCreatedObjectUndo(TargetPhysBone, UndoGroupName);
+							TargetPhysBone.colliders = NewColliders;
+							EditorUtility.SetDirty(TargetPhysBone);
+							Undo.CollapseUndoOperations(UndoGroupIndex);
+						}
+					}
+				}
+				Debug.Log("[VRSuya] Assign All PhysBone Colliders");
 			}
 			return;
 		}
