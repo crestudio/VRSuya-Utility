@@ -330,7 +330,7 @@ namespace com.vrsuya.utility {
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.colliders.Count > 0) {
 					Undo.RegisterCreatedObjectUndo(TargetPhysBone, UndoGroupName);
-					TargetPhysBone.colliders = new List<VRC.Dynamics.VRCPhysBoneColliderBase> { };
+					TargetPhysBone.colliders = new List<VRCPhysBoneColliderBase> { };
 					EditorUtility.SetDirty(TargetPhysBone);
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
@@ -379,9 +379,9 @@ namespace com.vrsuya.utility {
 					foreach (var KeyPair in BoneColliderPair) {
 						GameObject TargetGameObject = AvatarAnimator.GetBoneTransform(KeyPair.Key).gameObject;
 						VRCPhysBoneCollider TargetPhysBoneCollider = GetOrCreateComponent<VRCPhysBoneCollider>(TargetGameObject);
-						if (TargetPhysBoneCollider.shapeType != VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule) {
+						if (TargetPhysBoneCollider.shapeType != VRCPhysBoneColliderBase.ShapeType.Capsule) {
 							Undo.RegisterCreatedObjectUndo(TargetPhysBoneCollider, UndoGroupName);
-							TargetPhysBoneCollider.shapeType = VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule;
+							TargetPhysBoneCollider.shapeType = VRCPhysBoneColliderBase.ShapeType.Capsule;
 							EditorUtility.SetDirty(TargetPhysBoneCollider);
 						}
 						if (KeyPair.Value != HumanBodyBones.LastBone) {
