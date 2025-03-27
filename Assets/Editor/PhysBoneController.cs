@@ -58,6 +58,8 @@ namespace com.vrsuya.utility {
 				HumanBodyBones.Hips, HumanBodyBones.Spine, HumanBodyBones.Chest } },
 			{ "Cheek", new HumanBodyBones[0] },
 			{ "Breast", new HumanBodyBones[0] },
+			{ "Breast_L", new HumanBodyBones[0] },
+			{ "Breast_R", new HumanBodyBones[0] },
 			{ "ReverseBreast", new HumanBodyBones[0] },
 			{ "Nipple", new HumanBodyBones[0] },
 			{ "Skirt", new HumanBodyBones[] { 
@@ -468,6 +470,8 @@ namespace com.vrsuya.utility {
 								}
 								break;
 							case "Breast":
+							case "Breast_L":
+							case "Breast_R":
 								string TargetSide = TargetPhysBone.rootTransform.name.EndsWith("L") ? "R" : "L";
 								VRCPhysBoneColliderBase BreastPhysBoneCollider = PhysBoneColliderComponets.Find(Item => Item.name.Contains("Breast") && Item.name.Contains(TargetSide));
 								if (BreastPhysBoneCollider) {
