@@ -473,7 +473,7 @@ namespace com.vrsuya.utility {
 							case "Breast_L":
 							case "Breast_R":
 								string TargetSide = TargetPhysBone.rootTransform.name.EndsWith("L") ? "R" : "L";
-								VRCPhysBoneColliderBase BreastPhysBoneCollider = PhysBoneColliderComponets.Find(Item => Item.name.Contains("Breast") && Item.name.Contains(TargetSide));
+								VRCPhysBoneColliderBase BreastPhysBoneCollider = PhysBoneColliderComponets.Find(Item => Item.name.Contains("Breast") && Item.name.EndsWith(TargetSide));
 								if (BreastPhysBoneCollider) {
 									NewColliders.Add(BreastPhysBoneCollider);
 								} else {
