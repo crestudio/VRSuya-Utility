@@ -652,6 +652,7 @@ namespace com.vrsuya.utility {
 		private void UpdateTexture2DSharedPropertys(Texture2D TargetTexture) {
 			bool IsDrity = false;
 			bool TargetStreamingMipmaps = true;
+			bool TargetAlphaIsTransparency = false;
 			TextureImporterMipFilter TargetMipmap = TextureImporterMipFilter.KaiserFilter;
 			FilterMode TargetFilterMode = FilterMode.Trilinear;
 			int TargetAnisoLevel = 16;
@@ -689,6 +690,7 @@ namespace com.vrsuya.utility {
 					}
 					TargetTextureImporter.isReadable = ExistisReadable;
 				}
+				if (TargetTextureImporter.alphaIsTransparency != TargetAlphaIsTransparency) { TargetTextureImporter.alphaIsTransparency = TargetAlphaIsTransparency; IsDrity = true; }
 				if (TargetTextureImporter.streamingMipmaps != TargetStreamingMipmaps) { TargetTextureImporter.streamingMipmaps = TargetStreamingMipmaps; IsDrity = true; }
 				if (TargetTextureImporter.mipmapFilter != TargetMipmap) { TargetTextureImporter.mipmapFilter = TargetMipmap; IsDrity = true; }
 				if (TargetTextureImporter.filterMode != TargetFilterMode) { TargetTextureImporter.filterMode = TargetFilterMode; IsDrity = true; }
