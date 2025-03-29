@@ -285,8 +285,8 @@ namespace com.vrsuya.utility {
 		private void UpdatelilToonBacklightPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float BacklightMainStrength = 0.3f;
-			float BacklightBorder = 0.8f;
-			float BacklightBlur = 0.1f;
+			float BacklightBorder = 0.7f;
+			float BacklightBlur = 0.2f;
 			float BacklightDirectivity = 2.0f;
 			if (TargetMaterial.GetFloat("_BacklightMainStrength") != BacklightMainStrength) { TargetMaterial.SetFloat("_BacklightMainStrength", BacklightMainStrength); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_BacklightBorder") != BacklightBorder) { TargetMaterial.SetFloat("_BacklightBorder", BacklightBorder); IsDrity = true; }
