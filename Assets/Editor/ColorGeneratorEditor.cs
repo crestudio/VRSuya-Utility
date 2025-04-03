@@ -22,8 +22,6 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedTargetMaterial;
 		SerializedProperty SerializedTargetMaterials;
 
-		private static readonly Rect DefaultWindowRect = new Rect(100, 100, 730, 425);
-
 		private int SelectedColorDeltaIndex = 0;
 		private int CurrentColorDeltaIndex = 0;
 		private string[] ColorDeltaNameList;
@@ -63,7 +61,7 @@ namespace com.vrsuya.utility {
 
 		[MenuItem("Tools/VRSuya/Utility/ColorGenerator", priority = 1000)]
 		static void CreateWindow() {
-			ColorGeneratorEditor AppWindow = (ColorGeneratorEditor)GetWindowWithRect(typeof(ColorGeneratorEditor), DefaultWindowRect, true, "ColorGenerator");
+			ColorGeneratorEditor AppWindow = (ColorGeneratorEditor)GetWindow(typeof(ColorGeneratorEditor), true, "ColorGenerator");
 			AppWindow.minSize = new Vector2(550, 425);
 			return;
 		}
