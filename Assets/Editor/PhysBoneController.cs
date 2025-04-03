@@ -503,6 +503,50 @@ namespace com.vrsuya.utility {
 			}
 			return;
 		}
+
+		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Remove Hand Collider", priority = 1000)]
+		public static void RemoveHandCollider() {
+			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
+			if (AvatarInstance.GetVRCAvatarDescriptor()) {
+				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
+				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
+				List<HumanBodyBones> HandBones = new List<HumanBodyBones> {
+					HumanBodyBones.LeftHand, HumanBodyBones.RightHand,
+					HumanBodyBones.LeftThumbProximal, HumanBodyBones.RightThumbProximal,
+					HumanBodyBones.LeftThumbIntermediate, HumanBodyBones.RightThumbIntermediate,
+					HumanBodyBones.LeftThumbDistal, HumanBodyBones.RightThumbDistal,
+					HumanBodyBones.LeftIndexProximal, HumanBodyBones.RightIndexProximal,
+					HumanBodyBones.LeftIndexIntermediate, HumanBodyBones.RightIndexIntermediate,
+					HumanBodyBones.LeftIndexDistal, HumanBodyBones.RightIndexDistal,
+					HumanBodyBones.LeftMiddleProximal, HumanBodyBones.RightMiddleProximal,
+					HumanBodyBones.LeftMiddleIntermediate, HumanBodyBones.RightMiddleIntermediate,
+					HumanBodyBones.LeftMiddleDistal, HumanBodyBones.RightMiddleDistal,
+					HumanBodyBones.LeftRingProximal, HumanBodyBones.RightRingProximal,
+					HumanBodyBones.LeftRingIntermediate, HumanBodyBones.RightRingIntermediate,
+					HumanBodyBones.LeftRingDistal, HumanBodyBones.RightRingDistal,
+					HumanBodyBones.LeftLittleProximal, HumanBodyBones.RightLittleProximal,
+					HumanBodyBones.LeftLittleIntermediate, HumanBodyBones.RightLittleIntermediate,
+					HumanBodyBones.LeftLittleDistal, HumanBodyBones.RightLittleDistal
+				};
+				List<Transform> HandTransforms = HandBones.Select(Item => AvatarAnimator.GetBoneTransform(Item)).ToList();
+				List <VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
+				List<VRCPhysBoneColliderBase> PhysBoneColliderComponets = GetPhysBoneColliderComponents();
+				List<VRCPhysBoneColliderBase> HandColliderCompoents = PhysBoneColliderComponets.Where(Item => HandTransforms.Contains(Item.rootTransform) || HandTransforms.Contains(Item.transform)).ToList();
+				foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
+					List<VRCPhysBoneColliderBase> OriginalColliders = TargetPhysBone.colliders;
+					List<VRCPhysBoneColliderBase> NewColliders = OriginalColliders.Where(Item => !HandColliderCompoents.Contains(Item)).ToList();
+					if (!OriginalColliders.Equals(NewColliders)) {
+						Undo.RegisterCreatedObjectUndo(TargetPhysBone, UndoGroupName);
+						TargetPhysBone.colliders = NewColliders;
+						EditorUtility.SetDirty(TargetPhysBone);
+						Undo.CollapseUndoOperations(UndoGroupIndex);
+					}
+				}
+				Debug.Log("[VRSuya] Remove All Hand PhysBone Colliders");
+			}
+			return;
+		}
 	}
 }
 #endif
