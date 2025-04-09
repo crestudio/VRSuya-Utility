@@ -166,7 +166,7 @@ namespace com.vrsuya.utility {
 		}
 
 		private void LoadColorDeltas() {
-			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya\\ColorDelta");
+			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya/ColorDelta");
 			if (!Directory.Exists(ColorDeltaPath)) {
 				Directory.CreateDirectory(ColorDeltaPath);
 				CreateSampleColorDelta();
@@ -182,7 +182,7 @@ namespace com.vrsuya.utility {
 
 		public void LoadColorDelta() {
 			string LoadPath = EditorUtility.OpenFilePanel("ColorDelta JSON 파일 불러오기", Application.dataPath, "json");
-			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya\\ColorDelta");
+			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya/ColorDelta");
 			if (!Directory.Exists(ColorDeltaPath)) {
 				Directory.CreateDirectory(ColorDeltaPath);
 			}
@@ -199,7 +199,7 @@ namespace com.vrsuya.utility {
 		}
 
 		public void SaveColorDelta() {
-			string SavePath = Path.Combine(Application.dataPath, "VRSuya\\ColorDelta");
+			string SavePath = Path.Combine(Application.dataPath, "VRSuya/ColorDelta");
 			if (!Directory.Exists(SavePath)) Directory.CreateDirectory(SavePath);
 			string ColorDeltaJSON = JsonUtility.ToJson(TargetColorDelta, true);
 			string JSONFilePath = Path.Combine(SavePath, TargetColorDelta.Name_EN + ".json");
