@@ -21,7 +21,7 @@ namespace com.vrsuya.utility {
 
 		public enum Avatar {
 			Airi,
-			Chiffon, Chocolat,
+			Chiffon, Chise, Chocolat,
 			Grus,
 			Karin, Kikyo, Kokoa,
 			Leefa, Lime,
@@ -33,6 +33,7 @@ namespace com.vrsuya.utility {
 		private readonly static Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
 			{ Avatar.Airi, 0.8852937f },
 			{ Avatar.Chiffon, 0.880152f },
+			{ Avatar.Chise, 0.8845909f },
 			{ Avatar.Chocolat, 0.88192f },
 			{ Avatar.Grus, 0.892328f },
 			{ Avatar.Karin, 0.87956f },
@@ -58,6 +59,7 @@ namespace com.vrsuya.utility {
 		private readonly static Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
 			{ Avatar.Airi, new string[] { "Airi", "아이리", "愛莉" } },
 			{ Avatar.Chiffon, new string[] { "Chiffon", "쉬폰", "シフォン" } },
+			{ Avatar.Chise, new string[] { "Chise", "치세", "チセ" } },
 			{ Avatar.Chocolat, new string[] { "Chocolat", "쇼콜라", "ショコラ" } },
 			{ Avatar.Grus, new string[] { "Grus", "그루스" } },
 			{ Avatar.Karin, new string[] { "Karin", "카린", "カリン" } },
@@ -103,6 +105,13 @@ namespace com.vrsuya.utility {
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", priority = 1100)]
 		public static void SetAvatarTypeChiffon() {
 			CurrentAvatarType = Avatar.Chiffon;
+			CheckAvatarMenu();
+			return;
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chise", priority = 1100)]
+		public static void SetAvatarTypeChise() {
+			CurrentAvatarType = Avatar.Chise;
 			CheckAvatarMenu();
 			return;
 		}
@@ -328,6 +337,7 @@ namespace com.vrsuya.utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", AutomaticAvatarRecognition);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", CurrentAvatarType == Avatar.Airi);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", CurrentAvatarType == Avatar.Chiffon);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chise", CurrentAvatarType == Avatar.Chise);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chocolat", CurrentAvatarType == Avatar.Chocolat);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Grus", CurrentAvatarType == Avatar.Grus);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Karin", CurrentAvatarType == Avatar.Karin);
