@@ -23,7 +23,7 @@ namespace com.vrsuya.utility {
 			Airi,
 			Chiffon, Chise, Chocolat,
 			Grus,
-			Karin, Kikyo, Kokoa,
+			Karin, Kikyo, Kipfel, Kokoa,
 			Leefa, Lime,
 			Mamehinata, Manuka, Maya, Miko, Milfy, Milltina, Minase, Moe,
 			Selestia, Shinano, Shinra, Sio,
@@ -38,6 +38,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Grus, 0.892328f },
 			{ Avatar.Karin, 0.87956f },
 			{ Avatar.Kikyo, 0.892182f },
+			{ Avatar.Kipfel, 0.9284285f },
 			{ Avatar.Kokoa, 0.8910524f },
 			{ Avatar.Leefa, 0.886995f },
 			{ Avatar.Lime, 0.89622f },
@@ -64,6 +65,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Grus, new string[] { "Grus", "그루스" } },
 			{ Avatar.Karin, new string[] { "Karin", "카린", "カリン" } },
 			{ Avatar.Kikyo, new string[] { "Kikyo", "키쿄", "桔梗" } },
+			{ Avatar.Kipfel, new string[] { "Kipfel", "키펠", "キプフェル" } },
 			{ Avatar.Kokoa, new string[] { "Kokoa", "코코아", "ここあ" } },
 			{ Avatar.Leefa, new string[] { "Leefa", "리파", "リーファ" } },
 			{ Avatar.Lime, new string[] { "Lime", "라임", "ライム" } },
@@ -140,6 +142,13 @@ namespace com.vrsuya.utility {
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kikyo", priority = 1100)]
 		public static void SetAvatarTypeKikyo() {
 			CurrentAvatarType = Avatar.Kikyo;
+			CheckAvatarMenu();
+			return;
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kipfel", priority = 1100)]
+		public static void SetAvatarTypeKipfel() {
+			CurrentAvatarType = Avatar.Kipfel;
 			CheckAvatarMenu();
 			return;
 		}
@@ -342,6 +351,7 @@ namespace com.vrsuya.utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Grus", CurrentAvatarType == Avatar.Grus);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Karin", CurrentAvatarType == Avatar.Karin);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kikyo", CurrentAvatarType == Avatar.Kikyo);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kipfel", CurrentAvatarType == Avatar.Kipfel);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kokoa", CurrentAvatarType == Avatar.Kokoa);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leefa", CurrentAvatarType == Avatar.Leefa);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lime", CurrentAvatarType == Avatar.Lime);
