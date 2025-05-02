@@ -28,6 +28,7 @@ namespace com.vrsuya.utility {
 			Mamehinata, Manuka, Maya, Miko, Milfy, Milltina, Minase, Moe,
 			Selestia, Shinano, Shinra, Sio,
 			Ukon
+			// 검색용 신규 아바타 추가 위치
 		}
 
 		private readonly static Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
@@ -55,6 +56,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Shinra, 0.900882f },
 			{ Avatar.Sio, 0.9020135f },
 			{ Avatar.Ukon, 0.889545f }
+			// 검색용 신규 아바타 추가 위치
 		};
 
 		private readonly static Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
@@ -82,6 +84,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Shinra, new string[] { "Shinra", "신라", "森羅" } },
 			{ Avatar.Sio, new string[] { "Sio", "시오", "しお" } },
 			{ Avatar.Ukon, new string[] { "Ukon", "우콘", "右近" } }
+			// 검색용 신규 아바타 추가 위치
 		};
 
 		public static Avatar CurrentAvatarType = Avatar.Kikyo;
@@ -264,6 +267,7 @@ namespace com.vrsuya.utility {
 			CheckAvatarMenu();
 			return;
 		}
+		// 검색용 신규 아바타 추가 위치
 
 		/// <summary>아바타의 키를 지정된 키에 맞춥니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/100cm", priority = 1100)]
@@ -368,6 +372,7 @@ namespace com.vrsuya.utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinra", CurrentAvatarType == Avatar.Shinra);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sio", CurrentAvatarType == Avatar.Sio);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ukon", CurrentAvatarType == Avatar.Ukon);
+			// 검색용 신규 아바타 추가 위치
 			return;
 		}
 
