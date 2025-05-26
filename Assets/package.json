@@ -19,6 +19,7 @@
   "url": "https://github.com/crestudio/VRSuya-Utility",
   "repo": "https://server.macchiato.kr/vpm/vpm.json",
   "vpmDependencies": {
-    "com.vrchat.avatars": ">=3.0.9"
+    "com.vrchat.avatars": ">=3.0.9",
+	"com.vrsuya.core": ">=0.1.0"
   }
 }
