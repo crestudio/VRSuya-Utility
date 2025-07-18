@@ -40,8 +40,8 @@ namespace com.vrsuya.utility {
 		public float BackCurvature = 0.045f;
 
 		[Header("설정")]
-		[Range(4, 12)]
-		public int ColliderCount = 8;
+		[Range(0, 5)]
+		public int SampleCount = 2;
 
 		[Range(-0.1f, 0.1f)]
 		public float TargetOffset = 0f;
@@ -60,6 +60,7 @@ namespace com.vrsuya.utility {
 		public Transform RightLegTransform;
 		public string ColliderNamePrefix = "SkirtCollider";
 
+		private int ColliderCount;
 		private Vector3[] TopCircle;
 		private Vector3[] BottomCircle;
 
@@ -67,18 +68,19 @@ namespace com.vrsuya.utility {
 		private static int UndoGroupIndex;
 
 		void Start() {
-			UpdatePositionArrays();
+			UpdatePropertys();
 			return;
 		}
 
 		void OnValidate() {
-			UpdatePositionArrays();
+			UpdatePropertys();
 			return;
 		}
 
-		private void UpdatePositionArrays() {
+		private void UpdatePropertys() {
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
+			ColliderCount = 4 + SampleCount * 4;
 			return;
 		}
 
