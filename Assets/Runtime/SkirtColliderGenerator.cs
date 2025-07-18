@@ -1,4 +1,7 @@
 ﻿#if UNITY_EDITOR
+using System;
+using System.Linq;
+
 using UnityEditor;
 using UnityEngine;
 
@@ -83,6 +86,7 @@ namespace com.vrsuya.utility {
 		private static int UndoGroupIndex;
 
 		void Start() {
+			GetHumanoidTransform();
 			UpdatePropertys();
 			return;
 		}
@@ -99,12 +103,28 @@ namespace com.vrsuya.utility {
 			return;
 		}
 
+		private void GetHumanoidTransform() {
+			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
+			GameObject TargetGameObject = this.gameObject;
+			GameObject AvatarGameObject = AvatarInstance.GetAvatarGameObject(TargetGameObject);
+			if (AvatarGameObject) {
+				Animator AvatarAnimator = AvatarGameObject.GetComponent<Animator>();
+				if (AvatarAnimator) {
+					HipsTransform = AvatarAnimator.GetBoneTransform(HumanBodyBones.Hips);
+					LeftLegTransform = AvatarAnimator.GetBoneTransform(HumanBodyBones.LeftUpperLeg);
+					RightLegTransform = AvatarAnimator.GetBoneTransform(HumanBodyBones.RightUpperLeg);
+				}
+			}
+			return;
+		}
+
 		[ContextMenu("Generate PhysBone Colliders")]
 		public void GeneratePhysBoneColliders() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
-			ClearExistingColliders();
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
+			VRSuya.Core.Unity UnityInstance = new VRSuya.Core.Unity();
+			Transform[] ChildTransforms = this.gameObject.GetComponentsInChildren<Transform>();
 			float AngleStep = 360f / ColliderCount;
 			for (int Step = 0; Step < ColliderCount; Step++) {
 				float NewAngle = Step * AngleStep;
@@ -126,11 +146,18 @@ namespace com.vrsuya.utility {
 					LocalRotation = Quaternion.Inverse(ReferenceTransform.rotation) * NewRotation;
 				}
 
-				GameObject NewGameObject = new GameObject($"{ColliderNamePrefix}_{Step + 1}");
-				Undo.RegisterCreatedObjectUndo(NewGameObject, UndoGroupName);
-				NewGameObject.transform.parent = this.transform;
+				GameObject NewGameObject;
+				string NewGameObjectName = $"{ColliderNamePrefix}_{Step + 1}";
+				if (Array.Exists(ChildTransforms, Item => Item.name == NewGameObjectName)) {
+					NewGameObject = ChildTransforms.First(Child => Child.name == NewGameObjectName).gameObject;
+				} else {
+					NewGameObject = new GameObject(NewGameObjectName);
+					NewGameObject.transform.parent = this.transform;
+					Undo.RegisterCreatedObjectUndo(NewGameObject, UndoGroupName);
+				}
 
-				VRCPhysBoneCollider NewCollider = NewGameObject.AddComponent<VRCPhysBoneCollider>();
+				VRCPhysBoneCollider NewCollider = GetOrCreateComponent<VRCPhysBoneCollider>(NewGameObject);
+				Undo.RecordObject(NewCollider, UndoGroupName);
 				NewCollider.rootTransform = ReferenceTransform;
 				NewCollider.shapeType = VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule;
 				NewCollider.radius = TargetRadius;
@@ -138,6 +165,7 @@ namespace com.vrsuya.utility {
 				NewCollider.position = LocalPosition;
 				NewCollider.rotation = LocalRotation;
 				NewCollider.insideBounds = true;
+				EditorUtility.SetDirty(NewCollider);
 				Undo.CollapseUndoOperations(UndoGroupIndex);
 			}
 			Debug.Log($"[VRSuya] Generated {ColliderCount} PhysBone Colliders");
@@ -190,22 +218,6 @@ namespace com.vrsuya.utility {
 		private Vector3 GetRadialDirection(float TargetAngle) {
 			float NewRadian = TargetAngle * Mathf.Deg2Rad;
 			return new Vector3(Mathf.Sin(NewRadian), 0, Mathf.Cos(NewRadian));
-		}
-
-		private void ClearExistingColliders() {
-			for (int Index = transform.childCount - 1; Index >= 0; Index--) {
-				Transform ChildTransform = transform.GetChild(Index);
-				if (ChildTransform.name.StartsWith(ColliderNamePrefix)) {
-					Undo.RecordObject(ChildTransform, UndoGroupName);
-					if (Application.isPlaying) {
-						Destroy(ChildTransform.gameObject);
-					} else {
-						DestroyImmediate(ChildTransform.gameObject);
-					}
-					Undo.CollapseUndoOperations(UndoGroupIndex);
-				}
-			}
-			return;
 		}
 
 		private Transform GetReferenceTransform(float TargetAngle) {
