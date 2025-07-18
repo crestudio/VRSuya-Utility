@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 
 using VRC.SDK3.Dynamics.PhysBone.Components;
@@ -12,34 +13,47 @@ using static VRSuya.Core.Unity;
 
 namespace com.vrsuya.utility {
 
+	[ExecuteInEditMode]
+	[AddComponentMenu("VRSuya/VRSuya SkirtColliderGenerator")]
 	public class SkirtColliderGenerator : MonoBehaviour {
 
 		[Header("상단 원 포지션 (12시, 3시, 6시, 9시)")]
-		public Vector3 TopCirclePoint_12 = new Vector3(0, 1, 0.5f);
-		public Vector3 TopCirclePoint_3 = new Vector3(0.5f, 1, 0);
-		public Vector3 TopCirclePoint_6 = new Vector3(0, 1, -0.5f);
-		public Vector3 TopCirclePoint_9 = new Vector3(-0.5f, 1, 0);
+		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.945f, 0.1f);
+		public Vector3 TopCirclePoint_3 = new Vector3(0.09f, 0.95f, 0.025f);
+		public Vector3 TopCirclePoint_6 = new Vector3(0f, 0.955f, -0.048f);
+		public Vector3 TopCirclePoint_9 = new Vector3(-0.09f, 0.95f, 0.025f);
 
 		[Header("하단 원 포지션 (12시, 3시, 6시, 9시)")]
-		public Vector3 BottomCirclePoint_12 = new Vector3(0, 0, 1f);
-		public Vector3 BottomCirclePoint_3 = new Vector3(1f, 0, 0);
-		public Vector3 BottomCirclePoint_6 = new Vector3(0, 0, -1f);
-		public Vector3 BottomCirclePoint_9 = new Vector3(-1f, 0, 0);
+		public Vector3 BottomCirclePoint_12 = new Vector3(0f, 0.695f, 0.145f);
+		public Vector3 BottomCirclePoint_3 = new Vector3(0.2f, 0.71f, 0f);
+		public Vector3 BottomCirclePoint_6 = new Vector3(0f, 0.705f, -0.18f);
+		public Vector3 BottomCirclePoint_9 = new Vector3(-0.2f, 0.71f, 0f);
 
-		[Header("곡률")]
-		[Range(-2f, 2f)]
+		[Header("전면 곡률")]
+		[Range(-0.1f, 0.1f)]
 		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
-		public float TargetCurvature = 1f;
+		public float FrontCurvature = 0.023f;
+
+		[Header("후면 곡률")]
+		[Range(-0.1f, 0.1f)]
+		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
+		public float BackCurvature = 0.053f;
 
 		[Header("설정")]
 		[Range(4, 12)]
 		public int ColliderCount = 8;
 
-		[Range(0.01f, 1f)]
-		public float TargetRadius = 0.1f;
+		[Range(-0.1f, 0.1f)]
+		public float TargetOffset = -0.015f;
 
 		[Range(0.01f, 1f)]
-		public float TargetHeight = 0.5f;
+		public float TargetRadius = 0.085f;
+
+		[Range(0.01f, 1f)]
+		public float TargetHeight = 0.45f;
+
+		[Range(0.001f, 0.1f)]
+		public float GizmoSize = 0.015f;
 
 		public string ColliderNamePrefix = "SkirtCollider";
 
@@ -50,6 +64,16 @@ namespace com.vrsuya.utility {
 		private static int UndoGroupIndex;
 
 		void Start() {
+			UpdatePositionArrays();
+			return;
+		}
+
+		void OnValidate() {
+			UpdatePositionArrays();
+			return;
+		}
+
+		private void UpdatePositionArrays() {
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
 			return;
@@ -57,6 +81,7 @@ namespace com.vrsuya.utility {
 
 		[ContextMenu("Generate PhysBone Colliders")]
 		public void GeneratePhysBoneColliders() {
+			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			ClearExistingColliders();
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
@@ -74,6 +99,7 @@ namespace com.vrsuya.utility {
 				Quaternion NewRotation = Quaternion.LookRotation(Vector3.Cross(LineDirection, Vector3.up), LineDirection);
 
 				GameObject NewGameObject = new GameObject($"{ColliderNamePrefix}_{Step + 1}");
+				Undo.RegisterCreatedObjectUndo(NewGameObject, UndoGroupName);
 				NewGameObject.transform.parent = this.transform;
 				NewGameObject.transform.position = NewPosition;
 				NewGameObject.transform.rotation = NewRotation;
@@ -82,6 +108,7 @@ namespace com.vrsuya.utility {
 				NewCollider.shapeType = VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule;
 				NewCollider.radius = TargetRadius;
 				NewCollider.height = TargetHeight;
+				Undo.CollapseUndoOperations(UndoGroupIndex);
 			}
 			Debug.Log($"[VRSuya] Generated {ColliderCount} PhysBone Colliders");
 			return;
@@ -108,18 +135,19 @@ namespace com.vrsuya.utility {
 				NewPoint = (TargetAngle - 270f) / 90f;
 			}
 
-			return Vector3.Lerp(TargetCircle[CirclePoint1], TargetCircle[CirclePoint2], NewPoint);
+			Vector3 BasePoint = Vector3.Lerp(TargetCircle[CirclePoint1], TargetCircle[CirclePoint2], NewPoint);
+			float TargetCurvature = (TargetAngle <= 270f && TargetAngle > 90f) ? BackCurvature : FrontCurvature;
+			float Distance = CalculateCurvatureDistance(NewPoint, TargetCurvature);
+			Vector3 RadialDirection = GetRadialDirection(TargetAngle);
+			return BasePoint + RadialDirection * TargetOffset + RadialDirection * Distance;
 		}
 
-		private float ApplyCurvature(float TargetPoint, float Curvature) {
+		private float CalculateCurvatureDistance(float TargetPoint, float Curvature) {
 			if (Mathf.Abs(Curvature) < 0.001f) {
-				return TargetPoint;
+				return 0f;
 			}
-			if (Curvature > 0) {
-				return 1f - Mathf.Pow(1f - TargetPoint, 1f + Curvature);
-			} else {
-				return Mathf.Pow(TargetPoint, 1f - Curvature);
-			}
+			float NormalizedDistance = 4f * TargetPoint * (1f - TargetPoint);
+			return Curvature * NormalizedDistance;
 		}
 
 		private Vector3 GetRadialDirection(float TargetAngle) {
@@ -131,11 +159,13 @@ namespace com.vrsuya.utility {
 			for (int Index = transform.childCount - 1; Index >= 0; Index--) {
 				Transform ChildTransform = transform.GetChild(Index);
 				if (ChildTransform.name.StartsWith(ColliderNamePrefix)) {
+					Undo.RecordObject(ChildTransform, UndoGroupName);
 					if (Application.isPlaying) {
 						Destroy(ChildTransform.gameObject);
 					} else {
 						DestroyImmediate(ChildTransform.gameObject);
 					}
+					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
 			return;
@@ -146,12 +176,12 @@ namespace com.vrsuya.utility {
 
 			Gizmos.color = Color.green;
 			foreach (Vector3 PointPosition in TopCircle) {
-				Gizmos.DrawWireSphere(transform.TransformPoint(PointPosition), 0.05f);
+				Gizmos.DrawWireSphere(transform.TransformPoint(PointPosition), GizmoSize);
 			}
 
 			Gizmos.color = Color.red;
 			foreach (Vector3 PointPosition in BottomCircle) {
-				Gizmos.DrawWireSphere(transform.TransformPoint(PointPosition), 0.05f);
+				Gizmos.DrawWireSphere(transform.TransformPoint(PointPosition), GizmoSize);
 			}
 
 			if (ColliderCount > 0) {
@@ -169,7 +199,7 @@ namespace com.vrsuya.utility {
 					Vector3 NewPosition = CenterPosition + VectorDirection * TargetRadius;
 
 					Gizmos.color = Color.blue;
-					Gizmos.DrawWireSphere(transform.TransformPoint(NewPosition), TargetRadius * 0.5f);
+					Gizmos.DrawWireSphere(transform.TransformPoint(NewPosition), TargetRadius);
 				}
 			}
 			return;
