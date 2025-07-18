@@ -34,10 +34,22 @@ namespace com.vrsuya.utility {
 		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
 		public float FrontCurvature = 0.03f;
 
+		[Range(-0.1f, 0.1f)]
+		public float TopFrontCurvature = -0.01f;
+
+		[Range(-0.1f, 0.1f)]
+		public float BottomFrontCurvature = 0.015f;
+
 		[Header("후면 곡률")]
 		[Range(-0.1f, 0.1f)]
 		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
 		public float BackCurvature = 0.045f;
+
+		[Range(-0.1f, 0.1f)]
+		public float TopBackCurvature = -0.02f;
+
+		[Range(-0.1f, 0.1f)]
+		public float BottomBackCurvature = 0.02f;
 
 		[Header("설정")]
 		[Range(0, 5)]
@@ -152,9 +164,16 @@ namespace com.vrsuya.utility {
 
 			Vector3 BasePoint = Vector3.Lerp(TargetCircle[CirclePoint1], TargetCircle[CirclePoint2], NewPoint);
 			float TargetCurvature = (TargetAngle <= 270f && TargetAngle > 90f) ? BackCurvature : FrontCurvature;
-			float Distance = CalculateCurvatureDistance(NewPoint, TargetCurvature);
+			float FullDistance = CalculateCurvatureDistance(NewPoint, TargetCurvature);
+			float TargetSubCurvature = 0.0f;
+			if (TargetCircle == TopCircle) {
+				TargetSubCurvature = (TargetAngle <= 270f && TargetAngle > 90f) ? TopBackCurvature : TopFrontCurvature;
+			} else {
+				TargetSubCurvature = (TargetAngle <= 270f && TargetAngle > 90f) ? BottomBackCurvature : BottomFrontCurvature;
+			}
+			float SubDistance = CalculateCurvatureDistance(NewPoint, TargetSubCurvature);
 			Vector3 RadialDirection = GetRadialDirection(TargetAngle);
-			return BasePoint + RadialDirection * TargetOffset + RadialDirection * Distance;
+			return BasePoint + RadialDirection * TargetOffset + RadialDirection * FullDistance + RadialDirection * SubDistance;
 		}
 
 		private float CalculateCurvatureDistance(float TargetPoint, float Curvature) {
