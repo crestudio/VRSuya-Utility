@@ -18,42 +18,42 @@ namespace com.vrsuya.utility {
 	public class SkirtColliderGenerator : MonoBehaviour {
 
 		[Header("상단 원 포지션 (12시, 3시, 6시, 9시)")]
-		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.945f, 0.1f);
-		public Vector3 TopCirclePoint_3 = new Vector3(0.09f, 0.95f, 0.025f);
-		public Vector3 TopCirclePoint_6 = new Vector3(0f, 0.955f, -0.048f);
-		public Vector3 TopCirclePoint_9 = new Vector3(-0.09f, 0.95f, 0.025f);
+		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.976f, 0.09f);
+		public Vector3 TopCirclePoint_3 = new Vector3(0.069f, 0.98f, 0.025f);
+		public Vector3 TopCirclePoint_6 = new Vector3(0f, 0.985f, -0.0285f);
+		public Vector3 TopCirclePoint_9 = new Vector3(-0.069f, 0.98f, 0.025f);
 
 		[Header("하단 원 포지션 (12시, 3시, 6시, 9시)")]
-		public Vector3 BottomCirclePoint_12 = new Vector3(0f, 0.695f, 0.145f);
-		public Vector3 BottomCirclePoint_3 = new Vector3(0.2f, 0.71f, 0f);
-		public Vector3 BottomCirclePoint_6 = new Vector3(0f, 0.705f, -0.18f);
-		public Vector3 BottomCirclePoint_9 = new Vector3(-0.2f, 0.71f, 0f);
+		public Vector3 BottomCirclePoint_12 = new Vector3(0f, 0.695f, 0.11f);
+		public Vector3 BottomCirclePoint_3 = new Vector3(0.195f, 0.71f, 0f);
+		public Vector3 BottomCirclePoint_6 = new Vector3(0f, 0.705f, -0.174f);
+		public Vector3 BottomCirclePoint_9 = new Vector3(-0.195f, 0.71f, 0f);
 
 		[Header("전면 곡률")]
 		[Range(-0.1f, 0.1f)]
 		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
-		public float FrontCurvature = 0.023f;
+		public float FrontCurvature = 0.03f;
 
 		[Header("후면 곡률")]
 		[Range(-0.1f, 0.1f)]
 		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
-		public float BackCurvature = 0.053f;
+		public float BackCurvature = 0.045f;
 
 		[Header("설정")]
 		[Range(4, 12)]
 		public int ColliderCount = 8;
 
 		[Range(-0.1f, 0.1f)]
-		public float TargetOffset = -0.015f;
+		public float TargetOffset = 0f;
 
 		[Range(0.01f, 1f)]
-		public float TargetRadius = 0.085f;
+		public float TargetRadius = 0.09f;
 
 		[Range(0.01f, 1f)]
-		public float TargetHeight = 0.45f;
+		public float TargetHeight = 0.5f;
 
 		[Range(0.001f, 0.1f)]
-		public float GizmoSize = 0.015f;
+		public float GizmoSize = 0.005f;
 
 		public Transform HipsTransform;
 		public Transform LeftLegTransform;
