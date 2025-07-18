@@ -55,6 +55,9 @@ namespace com.vrsuya.utility {
 		[Range(0.001f, 0.1f)]
 		public float GizmoSize = 0.015f;
 
+		public Transform HipsTransform;
+		public Transform LeftLegTransform;
+		public Transform RightLegTransform;
 		public string ColliderNamePrefix = "SkirtCollider";
 
 		private Vector3[] TopCircle;
@@ -98,16 +101,26 @@ namespace com.vrsuya.utility {
 				Vector3 NewPosition = CenterPosition + VectorDirection * TargetRadius;
 				Quaternion NewRotation = Quaternion.LookRotation(Vector3.Cross(LineDirection, Vector3.up), LineDirection);
 
+				Transform ReferenceTransform = GetReferenceTransform(NewAngle);
+				Vector3 LocalPosition = NewPosition;
+				Quaternion LocalRotation = NewRotation;
+				if (ReferenceTransform != null) {
+					LocalPosition = ReferenceTransform.InverseTransformPoint(NewPosition);
+					LocalRotation = Quaternion.Inverse(ReferenceTransform.rotation) * NewRotation;
+				}
+
 				GameObject NewGameObject = new GameObject($"{ColliderNamePrefix}_{Step + 1}");
 				Undo.RegisterCreatedObjectUndo(NewGameObject, UndoGroupName);
 				NewGameObject.transform.parent = this.transform;
-				NewGameObject.transform.position = NewPosition;
-				NewGameObject.transform.rotation = NewRotation;
 
 				VRCPhysBoneCollider NewCollider = NewGameObject.AddComponent<VRCPhysBoneCollider>();
+				NewCollider.rootTransform = ReferenceTransform;
 				NewCollider.shapeType = VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule;
 				NewCollider.radius = TargetRadius;
 				NewCollider.height = TargetHeight;
+				NewCollider.position = LocalPosition;
+				NewCollider.rotation = LocalRotation;
+				NewCollider.insideBounds = true;
 				Undo.CollapseUndoOperations(UndoGroupIndex);
 			}
 			Debug.Log($"[VRSuya] Generated {ColliderCount} PhysBone Colliders");
@@ -169,6 +182,19 @@ namespace com.vrsuya.utility {
 				}
 			}
 			return;
+		}
+
+		private Transform GetReferenceTransform(float TargetAngle) {
+			TargetAngle = TargetAngle % 360f;
+			if (TargetAngle < 0) TargetAngle += 360f;
+			if (TargetAngle == 0f || TargetAngle == 180f) {
+				return HipsTransform;
+			} else if (TargetAngle > 0f && TargetAngle < 180f) {
+				return RightLegTransform;
+			} else if (TargetAngle > 180f && TargetAngle < 360f) {
+				return LeftLegTransform;
+			}
+			return null;
 		}
 
 		void OnDrawGizmos() {
