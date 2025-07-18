@@ -58,6 +58,9 @@ namespace com.vrsuya.utility {
 		[Range(-0.1f, 0.1f)]
 		public float TargetOffset = 0f;
 
+		[Range(-0.1f, 0.1f)]
+		public float TargetShiftOffset = 0f;
+
 		[Range(0.01f, 1f)]
 		public float TargetRadius = 0.09f;
 
@@ -112,7 +115,7 @@ namespace com.vrsuya.utility {
 				Vector3 VectorDirection = GetRadialDirection(NewAngle);
 				Vector3 LineDirection = (TopPosition - BottomPosition).normalized;
 
-				Vector3 NewPosition = CenterPosition + VectorDirection * TargetRadius;
+				Vector3 NewPosition = CenterPosition + VectorDirection * TargetRadius + LineDirection * TargetShiftOffset;
 				Quaternion NewRotation = Quaternion.LookRotation(Vector3.Cross(LineDirection, Vector3.up), LineDirection);
 
 				Transform ReferenceTransform = GetReferenceTransform(NewAngle);
@@ -243,7 +246,8 @@ namespace com.vrsuya.utility {
 
 					Vector3 CenterPosition = (TopPosition + BottomPosition) * 0.5f;
 					Vector3 VectorDirection = GetRadialDirection(TargetAngle);
-					Vector3 NewPosition = CenterPosition + VectorDirection * TargetRadius;
+					Vector3 LineDirection = (TopPosition - BottomPosition).normalized;
+					Vector3 NewPosition = CenterPosition + VectorDirection * TargetRadius + LineDirection * TargetShiftOffset;
 
 					Gizmos.color = Color.blue;
 					Gizmos.DrawWireSphere(transform.TransformPoint(NewPosition), TargetRadius);
