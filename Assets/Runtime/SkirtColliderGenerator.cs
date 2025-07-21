@@ -20,21 +20,17 @@ namespace com.vrsuya.utility {
 	[AddComponentMenu("VRSuya/VRSuya SkirtColliderGenerator")]
 	public class SkirtColliderGenerator : MonoBehaviour {
 
-		[Header("상단 원 포지션 (12시, 3시, 6시, 9시)")]
 		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.976f, 0.09f);
 		public Vector3 TopCirclePoint_3 = new Vector3(0.069f, 0.98f, 0.025f);
 		public Vector3 TopCirclePoint_6 = new Vector3(0f, 0.985f, -0.0285f);
 		public Vector3 TopCirclePoint_9 = new Vector3(-0.069f, 0.98f, 0.025f);
 
-		[Header("하단 원 포지션 (12시, 3시, 6시, 9시)")]
 		public Vector3 BottomCirclePoint_12 = new Vector3(0f, 0.695f, 0.11f);
 		public Vector3 BottomCirclePoint_3 = new Vector3(0.195f, 0.71f, 0f);
 		public Vector3 BottomCirclePoint_6 = new Vector3(0f, 0.705f, -0.174f);
 		public Vector3 BottomCirclePoint_9 = new Vector3(-0.195f, 0.71f, 0f);
 
-		[Header("전면 곡률")]
 		[Range(-0.1f, 0.1f)]
-		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
 		public float FrontCurvature = 0.03f;
 
 		[Range(-0.1f, 0.1f)]
@@ -43,9 +39,7 @@ namespace com.vrsuya.utility {
 		[Range(-0.1f, 0.1f)]
 		public float BottomFrontCurvature = 0.015f;
 
-		[Header("후면 곡률")]
 		[Range(-0.1f, 0.1f)]
-		[Tooltip("0 = 선형 보간, 양수 = 바깥쪽으로 볼록, 음수 = 안쪽으로 오목")]
 		public float BackCurvature = 0.045f;
 
 		[Range(-0.1f, 0.1f)]
@@ -54,7 +48,6 @@ namespace com.vrsuya.utility {
 		[Range(-0.1f, 0.1f)]
 		public float BottomBackCurvature = 0.02f;
 
-		[Header("설정")]
 		[Range(0, 5)]
 		public int SampleCount = 2;
 
@@ -118,7 +111,6 @@ namespace com.vrsuya.utility {
 			return;
 		}
 
-		[ContextMenu("Generate PhysBone Colliders")]
 		public void GeneratePhysBoneColliders() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
