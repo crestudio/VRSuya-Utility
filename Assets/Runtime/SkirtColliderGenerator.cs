@@ -20,15 +20,15 @@ namespace com.vrsuya.utility {
 	[AddComponentMenu("VRSuya/VRSuya SkirtColliderGenerator")]
 	public class SkirtColliderGenerator : MonoBehaviour {
 
-		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.976f, 0.09f);
-		public Vector3 TopCirclePoint_3 = new Vector3(0.069f, 0.98f, 0.025f);
-		public Vector3 TopCirclePoint_6 = new Vector3(0f, 0.985f, -0.0285f);
-		public Vector3 TopCirclePoint_9 = new Vector3(-0.069f, 0.98f, 0.025f);
+		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.976f, 0.0865f);
+		public Vector3 TopCirclePoint_3 = new Vector3(0.069f, 0.98f, 0.028f);
+		public Vector3 TopCirclePoint_6 = new Vector3(0f, 0.985f, -0.0265f);
+		public Vector3 TopCirclePoint_9 = new Vector3(-0.069f, 0.98f, 0.028f);
 
-		public Vector3 BottomCirclePoint_12 = new Vector3(0f, 0.695f, 0.11f);
-		public Vector3 BottomCirclePoint_3 = new Vector3(0.195f, 0.71f, 0f);
-		public Vector3 BottomCirclePoint_6 = new Vector3(0f, 0.705f, -0.174f);
-		public Vector3 BottomCirclePoint_9 = new Vector3(-0.195f, 0.71f, 0f);
+		public Vector3 BottomCirclePoint_12 = new Vector3(0f, 0.695f, 0.115f);
+		public Vector3 BottomCirclePoint_3 = new Vector3(0.195f, 0.71f, -0.009f);
+		public Vector3 BottomCirclePoint_6 = new Vector3(0f, 0.705f, -0.173f);
+		public Vector3 BottomCirclePoint_9 = new Vector3(-0.195f, 0.71f, -0.009f);
 
 		[Range(-0.1f, 0.1f)]
 		public float FrontCurvature = 0.03f;
@@ -40,13 +40,13 @@ namespace com.vrsuya.utility {
 		public float BottomFrontCurvature = 0.015f;
 
 		[Range(-0.1f, 0.1f)]
-		public float BackCurvature = 0.045f;
+		public float BackCurvature = 0.003f;
 
 		[Range(-0.1f, 0.1f)]
-		public float TopBackCurvature = -0.02f;
+		public float TopBackCurvature = 0f;
 
 		[Range(-0.1f, 0.1f)]
-		public float BottomBackCurvature = 0.02f;
+		public float BottomBackCurvature = 0.041f;
 
 		[Range(0, 5)]
 		public int SampleCount = 2;
