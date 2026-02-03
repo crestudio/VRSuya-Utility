@@ -16,6 +16,7 @@ namespace com.vrsuya.utility {
 	public class MaterialTemplate : ScriptableObject {
 
 		public GameObject TargetGameObject = null;
+		public Material ReferenceMaterial = null;
 		public Material[] TargetMaterials = new Material[0];
 		public Texture2D[] TargetTexture2Ds = new Texture2D[0];
 
@@ -167,11 +168,11 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 Basic 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonBasicPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float Cutoff = 0.5f;
-			float Cull = 2.0f;
-			float FlipNormal = 1.0f;
-			float BackfaceForceShadow = 1.0f;
-			float AlphaMaskValue = 0.0f;
+			float Cutoff = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Cutoff") : 0.5f;
+			float Cull = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Cull") : 2.0f;
+			float FlipNormal = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_FlipNormal") : 1.0f;
+			float BackfaceForceShadow = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BackfaceForceShadow") : 1.0f;
+			float AlphaMaskValue = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_AlphaMaskValue") : 0.0f;
 			if (TargetMaterial.GetFloat("_Cutoff") != Cutoff) { TargetMaterial.SetFloat("_Cutoff", Cutoff); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Cull") != Cull) { TargetMaterial.SetFloat("_Cull", Cull); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_FlipNormal") != FlipNormal) { TargetMaterial.SetFloat("_FlipNormal", FlipNormal); IsDrity = true; }
@@ -187,13 +188,13 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 Lighting 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonLightingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float LightMinLimit = 0.0f;
-			float LightMaxLimit = 1.0f;
-			float MonochromeLighting = 0.0f;
-			float ShadowEnvStrength = 1.0f;
-			float AsUnlit = 0.0f;
-			float VertexLightStrength = 0.0f;
-			Color LightDirectionOverride = new Color(0.0f, 0.001f, 0.0f, 0.0f);
+			float LightMinLimit = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_LightMinLimit") : 0.0f;
+			float LightMaxLimit = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_LightMaxLimit") : 1.0f;
+			float MonochromeLighting = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_MonochromeLighting") : 0.0f;
+			float ShadowEnvStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowEnvStrength") : 1.0f;
+			float AsUnlit = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_AsUnlit") : 0.0f;
+			float VertexLightStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_VertexLightStrength") : 0.0f;
+			Color LightDirectionOverride = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_LightDirectionOverride") : new Color(0.0f, 0.001f, 0.0f, 0.0f);
 			if (TargetMaterial.GetFloat("_LightMinLimit") != LightMinLimit) { TargetMaterial.SetFloat("_LightMinLimit", LightMinLimit); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_LightMaxLimit") != LightMaxLimit) { TargetMaterial.SetFloat("_LightMaxLimit", LightMaxLimit); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_MonochromeLighting") != MonochromeLighting) { TargetMaterial.SetFloat("_MonochromeLighting", MonochromeLighting); IsDrity = true; }
@@ -211,19 +212,18 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonShadowPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			bool IsTransparent = TargetMaterial.shader.name.Contains("Transparent");
-			float ShadowBorder = (!IsTransparent) ? 0.6f : 0.0f;
-			float ShadowBlur = (!IsTransparent) ? 0.15f : 0.0f;
-			float ShadowNormalStrength = (!IsTransparent) ? 1.0f : 0.0f;
-			float Shadow2ndBorder = (!IsTransparent) ? 0.4f : 0.0f;
-			float Shadow2ndBlur = (!IsTransparent) ? 0.15f : 0.0f;
-			float Shadow2ndNormalStrength = (!IsTransparent) ? 1.0f : 0.0f;
-			float Shadow3rdBorder = (!IsTransparent) ? 0.2f : 0.0f;
-			float Shadow3rdBlur = (!IsTransparent) ? 0.15f : 0.0f;
-			float Shadow3rdNormalStrength = (!IsTransparent) ? 1.0f : 0.0f;
-			float ShadowBorderRange = (!IsTransparent) ? 0.0f : 0.0f;
-			float ShadowMainStrength = (!IsTransparent) ? 0.0f : 0.0f;
-			float ShadowEnvStrength = (!IsTransparent) ? 1.0f : 0.0f;
+			float ShadowBorder = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowBorder") : 0.6f;
+			float ShadowBlur = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowBlur") : 0.15f;
+			float ShadowNormalStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowNormalStrength") : 1.0f;
+			float Shadow2ndBorder = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow2ndBorder") : 0.4f;
+			float Shadow2ndBlur = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow2ndBlur") : 0.15f;
+			float Shadow2ndNormalStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow2ndNormalStrength") : 1.0f;
+			float Shadow3rdBorder = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow3rdBorder") : 0.2f;
+			float Shadow3rdBlur = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow3rdBlur") : 0.15f;
+			float Shadow3rdNormalStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow3rdNormalStrength") : 1.0f;
+			float ShadowBorderRange = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowBorderRange") : 0.0f;
+			float ShadowMainStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowMainStrength") : 0.0f;
+			float ShadowEnvStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowEnvStrength") : 1.0f;
 			if (TargetMaterial.name.Contains("Head")) {
 				ShadowBorder = 0.25f;
 				Shadow2ndBorder = 0.15f;
@@ -251,10 +251,9 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 Receive Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonReceiveShadowPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			bool IsTransparent = TargetMaterial.name.Contains("Transparent");
-			float ShadowReceive = (!IsTransparent) ? 1.0f : 0.0f;
-			float Shadow2ndReceive = (!IsTransparent) ? 1.0f : 0.0f;
-			float Shadow3rdReceive = (!IsTransparent) ? 1.0f : 0.0f;
+			float ShadowReceive = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowReceive") : 1.0f;
+			float Shadow2ndReceive = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow2ndReceive") : 1.0f;
+			float Shadow3rdReceive = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow3rdReceive") : 1.0f;
 			if (TargetMaterial.GetFloat("_ShadowReceive") != ShadowReceive) { TargetMaterial.SetFloat("_ShadowReceive", ShadowReceive); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Shadow2ndReceive") != Shadow2ndReceive) { TargetMaterial.SetFloat("_Shadow2ndReceive", Shadow2ndReceive); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Shadow3rdReceive") != Shadow3rdReceive) { TargetMaterial.SetFloat("_Shadow3rdReceive", Shadow3rdReceive); IsDrity = true; }
@@ -268,7 +267,7 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 BackfaceMask 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonBackfaceMaskPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float BackfaceMask = 1.0f;
+			float BackfaceMask = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_MatCapBackfaceMask") : 1.0f;
 			if (TargetMaterial.GetFloat("_BacklightBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_BacklightBackfaceMask", BackfaceMask); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_GlitterBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_GlitterBackfaceMask", BackfaceMask); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_MatCap2ndBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_MatCap2ndBackfaceMask", BackfaceMask); IsDrity = true; }
@@ -284,10 +283,10 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 릴툰 머테리얼에서 Backlight 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdatelilToonBacklightPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float BacklightMainStrength = 0.3f;
-			float BacklightBorder = 0.8f;
-			float BacklightBlur = 0.3f;
-			float BacklightDirectivity = 2.0f;
+			float BacklightMainStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BacklightMainStrength") : 0.3f;
+			float BacklightBorder = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BacklightBorder") : 0.8f;
+			float BacklightBlur = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BacklightBlur") : 0.3f;
+			float BacklightDirectivity = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BacklightDirectivity") : 2.0f;
 			if (TargetMaterial.GetFloat("_BacklightMainStrength") != BacklightMainStrength) { TargetMaterial.SetFloat("_BacklightMainStrength", BacklightMainStrength); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_BacklightBorder") != BacklightBorder) { TargetMaterial.SetFloat("_BacklightBorder", BacklightBorder); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_BacklightBlur") != BacklightBlur) { TargetMaterial.SetFloat("_BacklightBlur", BacklightBlur); IsDrity = true; }
@@ -304,7 +303,7 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 UTS 머테리얼에서 텍스쳐 공유 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateTextureSharedPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float TextureShared = 1.0f;
+			float TextureShared = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Use_BaseAs1st") : 1.0f;
 			if (TargetMaterial.GetFloat("_Use_BaseAs1st") != TextureShared) { TargetMaterial.SetFloat("_Use_BaseAs1st", TextureShared); IsDrity = true; }
 			if (TargetMaterial.GetTexture("_1st_ShadeMap") != null) { TargetMaterial.SetTexture("_1st_ShadeMap", null); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Use_1stAs2nd") != TextureShared) { TargetMaterial.SetFloat("_Use_1stAs2nd", TextureShared); IsDrity = true; }
@@ -319,9 +318,9 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 UTS 머테리얼에서 노멀맵 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateNormalMapPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float Is_NormalMapToBase = 1.0f;
-			float Is_NormalMapToHighColor = 1.0f;
-			float Is_NormalMapToRimLight = 1.0f;
+			float Is_NormalMapToBase = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_NormalMapToBase") : 1.0f;
+			float Is_NormalMapToHighColor = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_NormalMapToHighColor") : 1.0f;
+			float Is_NormalMapToRimLight = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_NormalMapToRimLight") : 1.0f;
 			if (TargetMaterial.GetFloat("_Is_NormalMapToBase") != Is_NormalMapToBase) { TargetMaterial.SetFloat("_Is_NormalMapToBase", Is_NormalMapToBase); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Is_NormalMapToHighColor") != Is_NormalMapToHighColor) { TargetMaterial.SetFloat("_Is_NormalMapToHighColor", Is_NormalMapToHighColor); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Is_NormalMapToRimLight") != Is_NormalMapToRimLight) { TargetMaterial.SetFloat("_Is_NormalMapToRimLight", Is_NormalMapToRimLight); IsDrity = true; }
@@ -335,8 +334,8 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 UTS 머테리얼에서 기본 쉐이딩 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateBasicShadingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float Set_SystemShadowsToBase = 0.0f;
-			float Is_Filter_HiCutPointLightColor = 0.0f;
+			float Set_SystemShadowsToBase = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Set_SystemShadowsToBase") : 0.0f;
+			float Is_Filter_HiCutPointLightColor = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_Filter_HiCutPointLightColor") : 0.0f;
 			if (TargetMaterial.GetFloat("_Set_SystemShadowsToBase") != Set_SystemShadowsToBase) { TargetMaterial.SetFloat("_Set_SystemShadowsToBase", Set_SystemShadowsToBase); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Is_Filter_HiCutPointLightColor") != Is_Filter_HiCutPointLightColor) { TargetMaterial.SetFloat("_Is_Filter_HiCutPointLightColor", Is_Filter_HiCutPointLightColor); IsDrity = true; }
 			if (IsDrity) {
@@ -349,14 +348,14 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 UTS 머테리얼에서 주광색 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateLightColorPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float Is_LightColor_1st_Shade = 1.0f;
-			float Is_LightColor_2nd_Shade = 1.0f;
-			float Is_LightColor_Ap_RimLight = 1.0f;
-			float Is_LightColor_Base = 1.0f;
-			float Is_LightColor_HighColor = 1.0f;
-			float Is_LightColor_MatCap = 1.0f;
-			float Is_LightColor_Outline = 1.0f;
-			float Is_LightColor_RimLight = 1.0f;
+			float Is_LightColor_1st_Shade = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_1st_Shade") : 1.0f;
+			float Is_LightColor_2nd_Shade = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_2nd_Shade") : 1.0f;
+			float Is_LightColor_Ap_RimLight = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_Ap_RimLight") : 1.0f;
+			float Is_LightColor_Base = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_Base") : 1.0f;
+			float Is_LightColor_HighColor = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_HighColor") : 1.0f;
+			float Is_LightColor_MatCap = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_MatCap") : 1.0f;
+			float Is_LightColor_Outline = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_Outline") : 1.0f;
+			float Is_LightColor_RimLight = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_RimLight") : 1.0f;
 			if (TargetMaterial.GetFloat("_Is_LightColor_1st_Shade") != Is_LightColor_1st_Shade) { TargetMaterial.SetFloat("_Is_LightColor_1st_Shade", Is_LightColor_1st_Shade); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Is_LightColor_2nd_Shade") != Is_LightColor_2nd_Shade) { TargetMaterial.SetFloat("_Is_LightColor_2nd_Shade", Is_LightColor_2nd_Shade); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Is_LightColor_Ap_RimLight") != Is_LightColor_Ap_RimLight) { TargetMaterial.SetFloat("_Is_LightColor_Ap_RimLight", Is_LightColor_Ap_RimLight); IsDrity = true; }
@@ -377,10 +376,10 @@ namespace com.vrsuya.utility {
 		/// <summary>해당 UTS 머테리얼에서 환경광 프로퍼티 값을 일괄 변경합니다.</summary>
 		private void UpdateEnvironmentalLightingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
-			float GI_Intensity = 0.0f;
-			float Unlit_Intensity = 1.0f;
-			float Is_Filter_LightColor = 0.0f;
-			float Is_BLD = 0.0f;
+			float GI_Intensity = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_GI_Intensity") : 0.0f;
+			float Unlit_Intensity = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Unlit_Intensity") : 1.0f;
+			float Is_Filter_LightColor = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_Filter_LightColor") : 0.0f;
+			float Is_BLD = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_BLD") : 0.0f;
 			if (TargetMaterial.GetFloat("_GI_Intensity") != GI_Intensity) { TargetMaterial.SetFloat("_GI_Intensity", GI_Intensity); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Unlit_Intensity") != Unlit_Intensity) { TargetMaterial.SetFloat("_Unlit_Intensity", Unlit_Intensity); IsDrity = true; }
 			if (TargetMaterial.GetFloat("_Is_Filter_LightColor") != Is_Filter_LightColor) { TargetMaterial.SetFloat("_Is_Filter_LightColor", Is_Filter_LightColor); IsDrity = true; }
