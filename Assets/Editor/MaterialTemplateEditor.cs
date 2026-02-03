@@ -104,7 +104,18 @@ namespace com.vrsuya.utility {
 			}
 			SerializedMaterialTemplate.Update();
 			EditorGUILayout.PropertyField(SerializedTargetGameObject, new GUIContent("아바타"));
+			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("머테리얼"));
+			if (GUILayout.Button("lilToon 머테리얼 추가")) {
+				MaterialTemplateInstance.AddlilToonMaterials();
+			}
+			if (GUILayout.Button("poiyomi 머테리얼 추가")) {
+				MaterialTemplateInstance.AddpoiyomiMaterials();
+			}
+			if (GUILayout.Button("UTS 머테리얼 추가")) {
+				MaterialTemplateInstance.AddUnityChanToonShaderMaterials();
+			}
+			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 			EditorGUILayout.PropertyField(SerializedTargetTexture2Ds, new GUIContent("텍스쳐"));
 			if (GUILayout.Button("아바타 텍스쳐 추가")) {
 				MaterialTemplateInstance.AddAvatarTextures();
@@ -118,22 +129,10 @@ namespace com.vrsuya.utility {
 			if (GUILayout.Button("모든 DXT1 아닌 텍스쳐 추가")) {
 				MaterialTemplateInstance.AddNotDXT1Textures();
 			}
+			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 			EditorGUILayout.LabelField("변환을 적용할 쉐이더", EditorStyles.boldLabel);
 			EditorGUI.indentLevel++;
 			EditorGUILayout.PropertyField(SerializedUpdatelilToon, new GUIContent("lilToon"));
-			if (GUILayout.Button("lilToon 머테리얼 추가")) {
-				MaterialTemplateInstance.AddlilToonMaterials();
-			}
-			EditorGUILayout.PropertyField(SerializedUpdatepoiyomi, new GUIContent("poiyomi"));
-			if (GUILayout.Button("poiyomi 머테리얼 추가")) {
-				MaterialTemplateInstance.AddpoiyomiMaterials();
-			}
-			EditorGUILayout.PropertyField(SerializedUpdateUnityChanToonShader, new GUIContent("UnityChanToonShader"));
-			if (GUILayout.Button("UTS 머테리얼 추가")) {
-				MaterialTemplateInstance.AddUnityChanToonShaderMaterials();
-			}
-			EditorGUI.indentLevel--;
-			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			FoldlilToon = EditorGUILayout.Foldout(FoldlilToon, "lilToon 프로퍼티");
 			if (FoldlilToon) {
 				EditorGUI.indentLevel++;
@@ -148,6 +147,8 @@ namespace com.vrsuya.utility {
 				EditorGUILayout.PropertyField(SerializedUpdateGlobalIllumination, new GUIContent("Global Illumination 설정"));
 				EditorGUI.indentLevel--;
 			}
+			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
+			EditorGUILayout.PropertyField(SerializedUpdatepoiyomi, new GUIContent("poiyomi"));
 			Foldpoiyomi = EditorGUILayout.Foldout(Foldpoiyomi, "poiyomi 프로퍼티");
 			if (Foldpoiyomi) {
 				EditorGUI.indentLevel++;
@@ -156,6 +157,8 @@ namespace com.vrsuya.utility {
 				EditorGUILayout.PropertyField(SerializedUpdateGlobalIllumination, new GUIContent("Global Illumination 설정"));
 				EditorGUI.indentLevel--;
 			}
+			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
+			EditorGUILayout.PropertyField(SerializedUpdateUnityChanToonShader, new GUIContent("UnityChanToonShader"));
 			FoldUnityChanToonShader = EditorGUILayout.Foldout(FoldUnityChanToonShader, "UnityChanToonShader 프로퍼티");
 			if (FoldUnityChanToonShader) {
 				EditorGUI.indentLevel++;
@@ -169,6 +172,8 @@ namespace com.vrsuya.utility {
 				EditorGUILayout.PropertyField(SerializedUpdateGlobalIllumination, new GUIContent("Global Illumination 설정"));
 				EditorGUI.indentLevel--;
 			}
+			EditorGUI.indentLevel--;
+			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			FoldTexture = EditorGUILayout.Foldout(FoldTexture, "텍스쳐 프로퍼티");
 			if (FoldTexture) {
 				EditorGUI.indentLevel++;
