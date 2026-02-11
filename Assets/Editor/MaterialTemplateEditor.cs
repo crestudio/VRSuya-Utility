@@ -94,7 +94,6 @@ namespace com.vrsuya.utility {
 		static void CreateWindow() {
 			MaterialTemplateEditor AppWindow = (MaterialTemplateEditor)GetWindow(typeof(MaterialTemplateEditor), true, "MaterialTemplate");
 			AppWindow.minSize = new Vector2(550, 425);
-			return;
 		}
 
 		void OnGUI() {

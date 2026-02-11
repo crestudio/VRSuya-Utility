@@ -58,7 +58,6 @@ namespace com.vrsuya.utility {
 		// 컴포넌트 최초 로드시 동작
 		private void OnEnable() {
 			RefreshAvatarProprety();
-			return;
 		}
 
 		/// <summary>
@@ -68,7 +67,6 @@ namespace com.vrsuya.utility {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			TargetTextures = CleanupAvatarTextureList();
 			if (AvatarMaterials.Length > 0 && TargetTextures.Count > 0) ChangeTexture2Ds();
-			return;
 		}
 
 		/// <summary>주어진 아바타가 사용하고 있는 머테리얼, 텍스쳐를 추출합니다.</summary>
@@ -78,7 +76,6 @@ namespace com.vrsuya.utility {
 			}
 			AvatarMaterials = GetAvatarMaterials(AvatarGameObject);
 			AvatarTextures = GetAvatarTextures(AvatarGameObject);
-			return;
 		}
 
 		/// <summary>주어진 GameObject가 사용하고 있는 텍스쳐를 추출합니다.</summary>
@@ -164,7 +161,6 @@ namespace com.vrsuya.utility {
 				}
 			}
 			Debug.Log("[TextureReplacer] " + ChangedCount + " textures have been replaced");
-			return;
 		}
 	}
 }

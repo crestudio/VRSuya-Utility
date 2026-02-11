@@ -46,13 +46,11 @@ namespace com.vrsuya.utility {
 			SerializedColorDelta3 = SerializedTargetColorDelta.FindPropertyRelative("ColorDelta3");
 			SerializedRimLightDelta = SerializedTargetColorDelta.FindPropertyRelative("RimLightDelta");
 			SerializedRimShadeDelta = SerializedTargetColorDelta.FindPropertyRelative("RimShadeDelta");
-			return;
 		}
 
 		public static void CreateWindow() {
 			ColorGeneratorEditor_NewColorDelta AppWindow = (ColorGeneratorEditor_NewColorDelta)GetWindowWithRect(typeof(ColorGeneratorEditor_NewColorDelta), DefaultWindowRect, true, "New ColorDelta");
 			AppWindow.minSize = new Vector2(365, 435);
-			return;
 		}
 
 		void OnGUI() {
@@ -125,7 +123,6 @@ namespace com.vrsuya.utility {
 			GUILayout.Space(BorderX);
 			GUILayout.EndHorizontal();
 			SerializedColorGenerator.ApplyModifiedProperties();
-			return;
 		}
 	}
 }

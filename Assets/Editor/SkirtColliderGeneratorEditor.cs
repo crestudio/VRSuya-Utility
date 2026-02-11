@@ -64,7 +64,6 @@ namespace com.vrsuya.utility {
 			SerializedLeftLegTransform = serializedObject.FindProperty("LeftLegTransform");
 			SerializedRightLegTransform = serializedObject.FindProperty("RightLegTransform");
 			SerializedColliderNamePrefix = serializedObject.FindProperty("ColliderNamePrefix");
-			return;
 		}
 
         public override void OnInspectorGUI() {
@@ -119,7 +118,6 @@ namespace com.vrsuya.utility {
 			if (GUILayout.Button("Generate")) {
 				(target as SkirtColliderGenerator).GeneratePhysBoneColliders();
 			}
-			return;
 		}
     }
 }

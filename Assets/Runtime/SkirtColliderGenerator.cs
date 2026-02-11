@@ -81,19 +81,16 @@ namespace com.vrsuya.utility {
 		void Start() {
 			GetHumanoidTransform();
 			UpdatePropertys();
-			return;
 		}
 
 		void OnValidate() {
 			UpdatePropertys();
-			return;
 		}
 
 		private void UpdatePropertys() {
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
 			ColliderCount = 4 + SampleCount * 4;
-			return;
 		}
 
 		private void GetHumanoidTransform() {
@@ -108,7 +105,6 @@ namespace com.vrsuya.utility {
 					RightLegTransform = AvatarAnimator.GetBoneTransform(HumanBodyBones.RightUpperLeg);
 				}
 			}
-			return;
 		}
 
 		public void GeneratePhysBoneColliders() {
@@ -161,7 +157,6 @@ namespace com.vrsuya.utility {
 				Undo.CollapseUndoOperations(UndoGroupIndex);
 			}
 			Debug.Log($"[VRSuya] Generated {ColliderCount} PhysBone Colliders");
-			return;
 		}
 
 		private Vector3 GetInterpolatedPosition(Vector3[] TargetCircle, float TargetAngle) {
@@ -257,7 +252,6 @@ namespace com.vrsuya.utility {
 					Gizmos.DrawWireSphere(transform.TransformPoint(NewPosition), TargetRadius);
 				}
 			}
-			return;
 		}
 	}
 }

@@ -87,7 +87,6 @@ namespace com.vrsuya.utility {
 				}
 				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} Renderer Settings");
 			}
-			return;
 		}
 
 		public void RequestUpdateBounds() {
@@ -113,7 +112,6 @@ namespace com.vrsuya.utility {
 				}
 				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} Bounds");
 			}
-			return;
 		}
 
 		public void RequestUpdateTwosidedShadow() {
@@ -139,7 +137,6 @@ namespace com.vrsuya.utility {
 				}
 				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} AnchorOverride");
 			}
-			return;
 		}
 
 		public void RequestUpdateProbes() {
@@ -175,7 +172,6 @@ namespace com.vrsuya.utility {
 				}
 				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} AnchorOverride");
 			}
-			return;
 		}
 
 		public void RequestUpdateAnchorOverride() {
@@ -202,7 +198,6 @@ namespace com.vrsuya.utility {
 				}
 				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} AnchorOverride");
 			}
-			return;
 		}
 
 		private (SkinnedMeshRenderer[], MeshRenderer[]) GetAvatarRenderers(GameObject TargetGameObject) {

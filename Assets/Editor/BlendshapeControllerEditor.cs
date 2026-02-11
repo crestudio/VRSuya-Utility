@@ -66,7 +66,6 @@ namespace com.vrsuya.utility {
 				(target as BlendshapeController).UpdateBlendshapeList();
 				ExceedLimitBlendshape = new List<string>();
 			}
-			return;
 		}
     }
 }

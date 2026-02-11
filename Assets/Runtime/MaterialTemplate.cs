@@ -63,11 +63,6 @@ namespace com.vrsuya.utility {
 			UnityChanToonShader
 		}
 
-		// 컴포넌트 최초 로드시 동작
-		void OnEnable() {
-			return;
-		}
-
 		/// <summary>
 		/// 본 프로그램의 메인 세팅 로직입니다.
 		/// </summary>
@@ -97,25 +92,21 @@ namespace com.vrsuya.utility {
 				}
 			}
 			Debug.Log($"[VRSuya] 머테리얼 일괄 변경 처리가 완료 되었습니다!");
-			return;
 		}
 
 		/// <summary>타켓 머테리얼 목록에 lilToon 쉐이더 머테리얼 전수를 삽입합니다.</summary>
 		public void AddlilToonMaterials() {
 			TargetMaterials = TargetMaterials.Concat(GetRequestMaterials(ShaderType.lilToon)).ToArray();
-			return;
 		}
 
 		/// <summary>타켓 머테리얼 목록에 poiyomi 쉐이더 머테리얼 전수를 삽입합니다.</summary>
 		public void AddpoiyomiMaterials() {
 			TargetMaterials = TargetMaterials.Concat(GetRequestMaterials(ShaderType.poiyomi)).ToArray();
-			return;
 		}
 
 		/// <summary>타켓 머테리얼 목록에 UnityChanToonShader 쉐이더 머테리얼 전수를 삽입합니다.</summary>
 		public void AddUnityChanToonShaderMaterials() {
 			TargetMaterials = TargetMaterials.Concat(GetRequestMaterials(ShaderType.UnityChanToonShader)).ToArray();
-			return;
 		}
 
 		/// <summary>해당 머테리얼이 어떠한 쉐이더를 사용하는지 String으로 반환합니다.</summary>
@@ -139,7 +130,6 @@ namespace com.vrsuya.utility {
 			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
-			return;
 		}
 
 		/// <summary>poiyomi 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
@@ -147,7 +137,6 @@ namespace com.vrsuya.utility {
 			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
-			return;
 		}
 
 		/// <summary>UnityChanToonShader 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
@@ -160,7 +149,6 @@ namespace com.vrsuya.utility {
 			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
-			return;
 		}
 
 		// lilToon 프로퍼티
@@ -182,7 +170,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Basic 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Lighting 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -206,7 +193,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 라이팅 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -245,7 +231,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Receive Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -261,7 +246,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 영향 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 BackfaceMask 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -277,7 +261,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 BackfaceMask 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Backlight 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -295,7 +278,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Backlight 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		// UnityChanToonShader 프로퍼티
@@ -312,7 +294,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 텍스쳐 공유 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 노멀맵 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -328,7 +309,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 노멀맵 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 기본 쉐이딩 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -342,7 +322,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 기본 쉐이딩 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 주광색 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -370,7 +349,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 주광색 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 환경광 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -388,7 +366,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 환경광 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		// 공용 프로퍼티
@@ -403,7 +380,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 RenderQueue 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 머테리얼에서 GPU Instancing 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -415,7 +391,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GPU 인스턴싱 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>해당 머테리얼에서 GI 프로퍼티 값을 일괄 변경합니다.</summary>
@@ -429,7 +404,6 @@ namespace com.vrsuya.utility {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GI 프로퍼티가 변경되었습니다.");
 			}
-			return;
 		}
 
 		/// <summary>파일 목록에서 요청한 쉐이더 타입의 머테리얼 목록을 반환합니다.</summary>
@@ -462,7 +436,6 @@ namespace com.vrsuya.utility {
 			AssetProcessor AssetProcessorInstance = new AssetProcessor();
 			Texture2D[] newAvatarTexture2Ds = AssetProcessorInstance.AddAvatarTextures(TargetGameObject);
 			TargetTexture2Ds = TargetTexture2Ds.Concat(newAvatarTexture2Ds).ToArray();
-			return;
 		}
 
 		/// <summary>에셋에서 텍스쳐들을 가져옵니다.</summary>
@@ -480,7 +453,6 @@ namespace com.vrsuya.utility {
 				Array.Sort(newTexture2Ds, (a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
 				TargetTexture2Ds = TargetTexture2Ds.Concat(newTexture2Ds).ToArray();
 			}
-			return;
 		}
 
 		/// <summary>주어진 아바타에서 DXT1이 아닌 텍스쳐들을 가져옵니다.</summary>
@@ -505,7 +477,6 @@ namespace com.vrsuya.utility {
 				Array.Sort(AvatarNotDXT1Textures, (a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
 				TargetTexture2Ds = TargetTexture2Ds.Concat(AvatarNotDXT1Textures).ToArray();
 			}
-			return;
 		}
 
 		/// <summary>에셋에서 DXT1이 아닌 텍스쳐들을 가져옵니다.</summary>
@@ -540,7 +511,6 @@ namespace com.vrsuya.utility {
 				Array.Sort(newTexture2Ds, (a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
 				TargetTexture2Ds = TargetTexture2Ds.Concat(newTexture2Ds).ToArray();
 			}
-			return;
 		}
 
 		/// <summary>주어진 Texture2D가 텍스쳐인지 분석해서 반환합니다.</summary>
@@ -736,7 +706,6 @@ namespace com.vrsuya.utility {
 					Debug.Log($"[VRSuya] {TargetTexture.name} 텍스쳐 공유 프로퍼티가 변경되었습니다.");
 				}
 			}
-			return;
 		}
 	}
 }

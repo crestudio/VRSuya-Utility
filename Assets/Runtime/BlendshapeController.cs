@@ -28,7 +28,6 @@ namespace com.vrsuya.utility {
 			if (!TargetSkinnedMeshRenderer) TargetSkinnedMeshRenderer = this.gameObject.GetComponent<SkinnedMeshRenderer>();
 			if (!TargetAnimator) TargetAnimator = this.transform.parent.GetComponent<Animator>();
 			UpdateBlendshapeList();
-			return;
 		}
 
 		/// <summary>Blendshape 리스트를 업데이트 합니다.</summary>
@@ -38,7 +37,6 @@ namespace com.vrsuya.utility {
 			if (TargetSkinnedMeshRenderer && TargetAnimator) TargetBlendShapeNames = GetAnimationBlendshapeName(TargetAnimator);
 			BlendShapeList = new Dictionary<string, int>();
 			CreateBlendshapeList();
-			return;
 		}
 
 		/// <summary>애니메이션에 존재하는 Blendshape 명으로 리스트를 작성합니다.</summary>
@@ -50,7 +48,6 @@ namespace com.vrsuya.utility {
 					BlendShapeList.Add(TargetMesh.GetBlendShapeName(Index), Index);
 				}
 			}
-			return;
 		}
 
 		/// <summary>모든 AnimatorController의 Blendshape 이름 리스트를 반환합니다.</summary>

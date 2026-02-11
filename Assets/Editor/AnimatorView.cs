@@ -21,7 +21,6 @@ namespace com.vrsuya.utility {
 		/// <summary>Unity Editor가 매 프레임마다 Scene을 업데이트 하도록 합니다.</summary>
 		static AnimatorView() {
 			EditorApplication.update += OnEditorUpdate;
-			return;
 		}
 
 		/// <summary>해당 오브젝트를 기준으로 Scene 뷰를 정렬합니다.</summary>
@@ -71,7 +70,6 @@ namespace com.vrsuya.utility {
 					}
 				}
 			}
-			return;
 		}
 
 		/// <summary>Scene이 어느 방향을 향하고 있는지 검사합니다.</summary>
@@ -87,8 +85,6 @@ namespace com.vrsuya.utility {
 					SceneViewModes = new Dictionary<SceneView, string>();
 				}
 			}
-			
-			return;
 		}
 
 		/// <summary>Vector 방향을 반환합니다.</summary>

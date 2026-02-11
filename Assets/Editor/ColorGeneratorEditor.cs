@@ -56,14 +56,12 @@ namespace com.vrsuya.utility {
 			SerializedRimShadowColor = SerializedColorGenerator.FindProperty("RimShadeColor");
 			SerializedTargetMaterial = SerializedColorGenerator.FindProperty("TargetMaterial");
 			SerializedTargetMaterials = SerializedColorGenerator.FindProperty("TargetMaterials");
-			return;
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/ColorGenerator", priority = 1000)]
 		static void CreateWindow() {
 			ColorGeneratorEditor AppWindow = (ColorGeneratorEditor)GetWindow(typeof(ColorGeneratorEditor), true, "ColorGenerator");
 			AppWindow.minSize = new Vector2(550, 425);
-			return;
 		}
 
 		void OnGUI() {
@@ -194,14 +192,12 @@ namespace com.vrsuya.utility {
 			GUILayout.EndHorizontal();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			SerializedColorGenerator.ApplyModifiedProperties();
-			return;
 		}
 
 		private void UpdateRect(Vector2 CurrentWindowSize) {
 			ShadowRectWidth = (CurrentWindowSize.x - BorderX * 2) / 4;
 			ShadeRectWidth = (CurrentWindowSize.x - BorderX * 2) / 2;
 			ButtonWidth = (CurrentWindowSize.x - BorderX * 2) - (ShadeRectWidth * 1.5f) - SpaceWidth - ColorFieldOffset;
-			return;
 		}
 
 		private (Rect, Rect, Rect, Rect) GetShadeBoxPosition() {
