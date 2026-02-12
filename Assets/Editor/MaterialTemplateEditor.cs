@@ -104,7 +104,7 @@ namespace com.vrsuya.utility {
 			}
 			SerializedMaterialTemplate.Update();
 			EditorGUILayout.PropertyField(SerializedTargetGameObject, new GUIContent("아바타"));
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("머테리얼"));
 			if (GUILayout.Button("lilToon 머테리얼 추가")) {
 				MaterialTemplateInstance.AddlilToonMaterials();
@@ -115,7 +115,7 @@ namespace com.vrsuya.utility {
 			if (GUILayout.Button("UTS 머테리얼 추가")) {
 				MaterialTemplateInstance.AddUnityChanToonShaderMaterials();
 			}
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.PropertyField(SerializedTargetTexture2Ds, new GUIContent("텍스쳐"));
 			if (GUILayout.Button("아바타 텍스쳐 추가")) {
 				MaterialTemplateInstance.AddAvatarTextures();
@@ -129,7 +129,7 @@ namespace com.vrsuya.utility {
 			if (GUILayout.Button("모든 DXT1 아닌 텍스쳐 추가")) {
 				MaterialTemplateInstance.AddNotDXT1Textures();
 			}
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.LabelField("변환을 적용할 쉐이더", EditorStyles.boldLabel);
 			EditorGUI.indentLevel++;
 			EditorGUILayout.PropertyField(SerializedUpdatelilToon, new GUIContent("lilToon"));
@@ -191,7 +191,7 @@ namespace com.vrsuya.utility {
 				EditorGUILayout.HelpBox(SerializedReturnString.stringValue, MessageType.Info);
 			}
 			SerializedMaterialTemplate.ApplyModifiedProperties();
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			if (GUILayout.Button("업데이트")) {
 				MaterialTemplateInstance.UpdateMaterialPropertys();
 				Repaint();

@@ -109,7 +109,7 @@ namespace com.vrsuya.utility {
 			GUILayout.EndHorizontal();
 			GUI.enabled = true;
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(BorderX);

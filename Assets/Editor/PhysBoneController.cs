@@ -333,7 +333,7 @@ namespace com.vrsuya.utility {
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (!string.IsNullOrEmpty(TargetPhysBone.parameter)) {
 					Undo.RegisterCreatedObjectUndo(TargetPhysBone, UndoGroupName);
-					TargetPhysBone.parameter = "";
+					TargetPhysBone.parameter = string.Empty;
 					EditorUtility.SetDirty(TargetPhysBone);
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}

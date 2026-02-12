@@ -94,7 +94,7 @@ namespace com.vrsuya.utility {
 				(target as TextureReplacer).RefreshAvatarProprety();
 				Repaint();
 			}
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			serializedObject.ApplyModifiedProperties();
 			if (GUILayout.Button(LanguageHelper.GetContextString("String_Replace"))) {
 				(target as TextureReplacer).RequestUpdateAvatarTextures();

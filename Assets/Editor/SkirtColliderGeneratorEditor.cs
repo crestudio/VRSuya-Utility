@@ -75,7 +75,7 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedLeftLegTransform, new GUIContent("Left Leg"));
 			EditorGUILayout.PropertyField(SerializedRightLegTransform, new GUIContent("Right Leg"));
 			EditorGUI.indentLevel--;
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.LabelField("Top Circle Points");
 			EditorGUI.indentLevel++;
 			EditorGUILayout.PropertyField(SerializedTopCirclePoint_12, new GUIContent("Front"));
@@ -90,7 +90,7 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedBottomCirclePoint_6, new GUIContent("Back"));
 			EditorGUILayout.PropertyField(SerializedBottomCirclePoint_9, new GUIContent("Left"));
 			EditorGUI.indentLevel--;
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.LabelField("Front Curvature");
 			EditorGUI.indentLevel++;
 			EditorGUILayout.PropertyField(SerializedFrontCurvature, new GUIContent("Full"));
@@ -103,7 +103,7 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedTopBackCurvature, new GUIContent("Top"));
 			EditorGUILayout.PropertyField(SerializedBottomBackCurvature, new GUIContent("Bottom"));
 			EditorGUI.indentLevel--;
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.LabelField("Option");
 			EditorGUI.indentLevel++;
 			EditorGUILayout.PropertyField(SerializedSampleCount, new GUIContent("Sample Count"));

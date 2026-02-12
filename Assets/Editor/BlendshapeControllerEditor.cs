@@ -30,7 +30,7 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedTargetSkinnedMeshRenderer, new GUIContent("SkinnedMeshRenderer"));
 			EditorGUILayout.PropertyField(SerializedTargetAnimator, new GUIContent("Animator"));
 			if (Instance.BlendShapeList.Count > 0) {
-				EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+				EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 				for (int Index = 0; Index < Instance.BlendShapeList.Count; Index++) {
 					string BlendShapeName = Instance.BlendShapeList.Keys.ElementAt(Index);
 					float CurrentValue = Instance.TargetSkinnedMeshRenderer.GetBlendShapeWeight(Instance.BlendShapeList.Values.ElementAt(Index));
@@ -52,7 +52,7 @@ namespace com.vrsuya.utility {
 				}
 			}
 			if (ExceedLimitBlendshape.Count > 0) {
-				EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+				EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 				EditorGUILayout.LabelField("Out-of-Range Blendshape List");
 				EditorGUI.indentLevel++;
 				foreach (string ExceedBlendshape in ExceedLimitBlendshape) {
@@ -60,7 +60,7 @@ namespace com.vrsuya.utility {
 				}
 				EditorGUI.indentLevel--;
 			}
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			serializedObject.ApplyModifiedProperties();
 			if (GUILayout.Button("Update List")) {
 				(target as BlendshapeController).UpdateBlendshapeList();
