@@ -49,8 +49,7 @@ namespace com.vrsuya.utility {
 		}
 
 		public static void CreateWindow() {
-			ColorGeneratorEditor_NewColorDelta AppWindow = (ColorGeneratorEditor_NewColorDelta)GetWindowWithRect(typeof(ColorGeneratorEditor_NewColorDelta), DefaultWindowRect, true, "New ColorDelta");
-			AppWindow.minSize = new Vector2(365, 435);
+			ColorGeneratorEditor_NewColorDelta AppWindow = GetWindowWithRect<ColorGeneratorEditor_NewColorDelta>(new Rect(0, 0, 365, 435), true, "New ColorDelta");
 		}
 
 		void OnGUI() {

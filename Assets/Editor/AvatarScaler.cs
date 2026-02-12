@@ -449,7 +449,7 @@ namespace com.vrsuya.utility {
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Custom", priority = 1200)]
 		static void CreateWindow() {
-			AvatarScalerEditor AppWindow = (AvatarScalerEditor)GetWindowWithRect(typeof(AvatarScalerEditor), new Rect(0, 0, 230, 100), true, "AvatarScaler");
+			AvatarScalerEditor AppWindow = GetWindowWithRect<AvatarScalerEditor>(new Rect(0, 0, 230, 100), true, "AvatarScaler");
 		}
 
 		void OnGUI() {
