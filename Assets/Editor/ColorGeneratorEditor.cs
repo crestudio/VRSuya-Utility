@@ -12,7 +12,7 @@ namespace com.vrsuya.utility {
 
 	public class ColorGeneratorEditor : EditorWindow {
 
-		private static SerializedObject SerializedColorGenerator;
+		static SerializedObject SerializedColorGenerator;
 		SerializedProperty SerializedShadeColor1;
 		SerializedProperty SerializedShadeColor2;
 		SerializedProperty SerializedShadeColor3;
@@ -22,27 +22,27 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedTargetMaterial;
 		SerializedProperty SerializedTargetMaterials;
 
-		private int SelectedColorDeltaIndex = 0;
-		private int CurrentColorDeltaIndex = 0;
-		private string[] ColorDeltaNameList;
+		int SelectedColorDeltaIndex = 0;
+		int CurrentColorDeltaIndex = 0;
+		string[] ColorDeltaNameList;
 
 		// ColorBox Rect 변수
-		private float BorderX = 30f;
-		private float BorderY = EditorGUIUtility.singleLineHeight * 3;
-		private float ShadowRectWidth = float.NaN;
-		private float ShadeRectWidth = float.NaN;
-		private float RectHeight = 100f;
-		private float ColorFieldOffset = 2f;
-		private float ButtonWidth = float.NaN;
-		private float SpaceWidth = 10f;
-		private Rect ShadeBoxPosition1 = new Rect();
-		private Rect ShadeBoxPosition2 = new Rect();
-		private Rect ShadeBoxPosition3 = new Rect();
-		private Rect ShadeBoxPosition4 = new Rect();
-		private Rect RimLightBoxPosition1 = new Rect();
-		private Rect RimLightBoxPosition2 = new Rect();
-		private Rect RimShadeBoxPosition1 = new Rect();
-		private Rect RimShadeBoxPosition2 = new Rect();
+		float BorderX = 30f;
+		float BorderY = EditorGUIUtility.singleLineHeight * 3;
+		float ShadowRectWidth = float.NaN;
+		float ShadeRectWidth = float.NaN;
+		float RectHeight = 100f;
+		float ColorFieldOffset = 2f;
+		float ButtonWidth = float.NaN;
+		float SpaceWidth = 10f;
+		Rect ShadeBoxPosition1 = new Rect();
+		Rect ShadeBoxPosition2 = new Rect();
+		Rect ShadeBoxPosition3 = new Rect();
+		Rect ShadeBoxPosition4 = new Rect();
+		Rect RimLightBoxPosition1 = new Rect();
+		Rect RimLightBoxPosition2 = new Rect();
+		Rect RimShadeBoxPosition1 = new Rect();
+		Rect RimShadeBoxPosition2 = new Rect();
 
 		void OnEnable() {
 			if (SerializedColorGenerator == null) {
@@ -194,13 +194,13 @@ namespace com.vrsuya.utility {
 			SerializedColorGenerator.ApplyModifiedProperties();
 		}
 
-		private void UpdateRect(Vector2 CurrentWindowSize) {
+		void UpdateRect(Vector2 CurrentWindowSize) {
 			ShadowRectWidth = (CurrentWindowSize.x - BorderX * 2) / 4;
 			ShadeRectWidth = (CurrentWindowSize.x - BorderX * 2) / 2;
 			ButtonWidth = (CurrentWindowSize.x - BorderX * 2) - (ShadeRectWidth * 1.5f) - SpaceWidth - ColorFieldOffset;
 		}
 
-		private (Rect, Rect, Rect, Rect) GetShadeBoxPosition() {
+		(Rect, Rect, Rect, Rect) GetShadeBoxPosition() {
 			Rect NewShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
 			Rect NewShadeBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
 			Rect NewShadeBoxPosition3 = new Rect(BorderX + ShadowRectWidth * 2, BorderY, ShadowRectWidth, RectHeight + (RectHeight / 4));
@@ -208,7 +208,7 @@ namespace com.vrsuya.utility {
 			return (NewShadeBoxPosition1, NewShadeBoxPosition2, NewShadeBoxPosition3, NewShadeBoxPosition4);
 		}
 
-		private (Rect, Rect, Rect, Rect) GetRimShadeBoxPosition() {
+		(Rect, Rect, Rect, Rect) GetRimShadeBoxPosition() {
 			Rect NewRimLightBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 0, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
 			Rect NewRimLightBoxPosition2 = new Rect(BorderX + ShadowRectWidth * 1, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
 			Rect NewRimShadeBoxPosition1 = new Rect(BorderX + ShadowRectWidth * 2, BorderY + RectHeight, ShadowRectWidth, RectHeight / 4);
@@ -216,7 +216,7 @@ namespace com.vrsuya.utility {
 			return (NewRimLightBoxPosition1, NewRimLightBoxPosition2, NewRimShadeBoxPosition1, NewRimShadeBoxPosition2);
 		}
 
-		private Color MultiplyColor(Color OriginalColor, Color TargetColor) {
+		Color MultiplyColor(Color OriginalColor, Color TargetColor) {
 			float NewR = OriginalColor.r * TargetColor.r;
 			float NewG = OriginalColor.g * TargetColor.g;
 			float NewB = OriginalColor.b * TargetColor.b;

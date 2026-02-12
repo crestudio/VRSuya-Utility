@@ -20,7 +20,7 @@ namespace com.vrsuya.utility {
 
 	public class PortraitCamera : MonoBehaviour {
 
-		private enum ColorType {
+		enum ColorType {
 			Levin, Macchiato,
 			White, Gray, Black,
 			Almond, Apricot, AshGray, CherryBlossom, CottonCandy, Cream,
@@ -30,7 +30,7 @@ namespace com.vrsuya.utility {
 			Red, Green, Blue
 		};
 
-		private static Dictionary<ColorType, string> ColorList = new Dictionary<ColorType, string>() {
+		static Dictionary<ColorType, string> ColorList = new Dictionary<ColorType, string>() {
 			{ ColorType.Levin, "#26BFBB" },
 			{ ColorType.Macchiato, "#BF0000" },
 			{ ColorType.White, "#FFFFFF" },
@@ -216,7 +216,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>지정된 색상으로 아바타 프로필용 카메라를 생성합니다.</summary>
-		private static Camera AddNewCamera(string HEXColorCode) {
+		static Camera AddNewCamera(string HEXColorCode) {
 			Avatar AvatarInstance = new Avatar();
 			VRC_AvatarDescriptor TargetAvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
 			if (TargetAvatarDescriptor) {
@@ -241,7 +241,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>아바타의 뷰 포트를 기준으로 카메라의 위치를 반환합니다.</summary>
 		/// <returns>최종 카메라의 벡터 좌표</returns>
-		private static Vector3 GetCameraPosition(VRC_AvatarDescriptor AvatarDescriptor) {
+		static Vector3 GetCameraPosition(VRC_AvatarDescriptor AvatarDescriptor) {
 			Vector3 newVector3 = new Vector3(0.0f, 1.2f, 13.5f);
 			Vector3 Offset = new Vector3(0.0f, -0.02f, 14.0f);
 			Transform AvatarTransform = AvatarDescriptor.gameObject.transform;
@@ -252,14 +252,14 @@ namespace com.vrsuya.utility {
 
 		/// <summary>아바타를 기준으로 카메라의 회전을 반환합니다.</summary>
 		/// <returns>최종 카메라의 회전계</returns>
-		private static Quaternion GetCameraRotation(VRC_AvatarDescriptor AvatarDescriptor) {
+		static Quaternion GetCameraRotation(VRC_AvatarDescriptor AvatarDescriptor) {
 			Quaternion AvatarRotation = AvatarDescriptor.gameObject.transform.rotation;
 			Quaternion ReferenceRotation = Quaternion.Euler(0, 180, 0);
 			Quaternion RotationDifference = AvatarRotation * Quaternion.Inverse(ReferenceRotation);
 			return RotationDifference;
 		}
 
-		private static void ApplyCustomCameraSettings(Camera TargetCamera) {
+		static void ApplyCustomCameraSettings(Camera TargetCamera) {
 			VisualElement VRCSdkControlPanel = FindVRCSdkControlPanel();
 			if (VRCSdkControlPanel == null) {
 				Debug.Log("No VRCSdkControlPanel");
@@ -272,7 +272,7 @@ namespace com.vrsuya.utility {
 			SetPrivateField(ThumbnailFoldout, "_customCamera", TargetCamera);
 		}
 
-		private static VisualElement FindVRCSdkControlPanel() {
+		static VisualElement FindVRCSdkControlPanel() {
 			EditorWindow[] AllWindows = Resources.FindObjectsOfTypeAll<EditorWindow>();
 			foreach (EditorWindow CurrentWindow in AllWindows) {
 				if (CurrentWindow.GetType().Name == "VRCSdkControlPanel") {
@@ -282,11 +282,11 @@ namespace com.vrsuya.utility {
 			return null;
 		}
 
-		private static VisualElement FindThumbnailFoldout(VisualElement TargetVisualElement) {
+		static VisualElement FindThumbnailFoldout(VisualElement TargetVisualElement) {
 			return TargetVisualElement.Q<VisualElement>(null, "ThumbnailFoldout");
 		}
 
-		private static void SetPrivateField<T>(object TargetObject, string TargetFieldName, T TargetValue) {
+		static void SetPrivateField<T>(object TargetObject, string TargetFieldName, T TargetValue) {
 			FieldInfo TargetFieldInfo = TargetObject.GetType().GetField(TargetFieldName, BindingFlags.NonPublic | BindingFlags.Instance);
 			if (TargetFieldInfo != null) {
 				TargetFieldInfo.SetValue(TargetObject, TargetValue);

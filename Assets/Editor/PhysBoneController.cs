@@ -21,10 +21,10 @@ namespace com.vrsuya.utility {
 	[ExecuteInEditMode]
 	public class PhysBoneController : EditorWindow {
 
-		private static string UndoGroupName = "VRSuya PhysBoneController";
-		private static int UndoGroupIndex;
+		static string UndoGroupName = "VRSuya PhysBoneController";
+		static int UndoGroupIndex;
 
-		private static readonly Dictionary<HumanBodyBones, HumanBodyBones> BoneColliderPair = new Dictionary<HumanBodyBones, HumanBodyBones> {
+		static readonly Dictionary<HumanBodyBones, HumanBodyBones> BoneColliderPair = new Dictionary<HumanBodyBones, HumanBodyBones> {
 			{ HumanBodyBones.Hips, HumanBodyBones.Spine },
 			{ HumanBodyBones.Spine, HumanBodyBones.Chest },
 			{ HumanBodyBones.Chest, HumanBodyBones.Neck },
@@ -40,7 +40,7 @@ namespace com.vrsuya.utility {
 			{ HumanBodyBones.LeftUpperLeg, HumanBodyBones.LeftLowerLeg },
 			{ HumanBodyBones.RightUpperLeg, HumanBodyBones.RightLowerLeg }
 		};
-		private static readonly Dictionary<string, HumanBodyBones[]> PhysBoneColliderPair = new Dictionary<string, HumanBodyBones[]> {
+		static readonly Dictionary<string, HumanBodyBones[]> PhysBoneColliderPair = new Dictionary<string, HumanBodyBones[]> {
 			{ "Ear", new HumanBodyBones[0] },
 			{ "Hair", new HumanBodyBones[] {
 				HumanBodyBones.Head,
@@ -343,13 +343,13 @@ namespace com.vrsuya.utility {
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 리스트를 가져옵니다.</summary>
 		/// <returns>Scene에 존재하는 모든 PhysBone 컴포넌트 리스트</returns>
-		private static List<VRCPhysBone> GetPhysBoneComponents() {
+		static List<VRCPhysBone> GetPhysBoneComponents() {
 			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBone>(true)).ToList();
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone Collider의 리스트를 가져옵니다.</summary>
 		/// <returns>Scene에 존재하는 모든 PhysBone Collider 컴포넌트 리스트</returns>
-		private static List<VRCPhysBoneColliderBase> GetPhysBoneColliderComponents() {
+		static List<VRCPhysBoneColliderBase> GetPhysBoneColliderComponents() {
 			return SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(gameObject => gameObject.GetComponentsInChildren<VRCPhysBoneColliderBase>(true)).ToList();
 		}
 

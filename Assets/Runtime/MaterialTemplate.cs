@@ -111,7 +111,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>해당 머테리얼이 어떠한 쉐이더를 사용하는지 String으로 반환합니다.</summary>
 		/// <returns>머테리얼이 사용하고 있는 쉐이더</returns>
-		private string GetShaderType(Material TargetMaterial) {
+		string GetShaderType(Material TargetMaterial) {
 			string ShaderType = TargetMaterial.shader.name;
 			if (TargetMaterial.shader.name.Contains("lilToon")) ShaderType = "lilToon";
 			if (TargetMaterial.shader.name.Contains("poiyomi")) ShaderType = "poiyomi";
@@ -120,7 +120,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>릴툰 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
-		private void UpdatelilToonPropertys(Material TargetMaterial) {
+		void UpdatelilToonPropertys(Material TargetMaterial) {
 			if (UpdatelilToonBasic) UpdatelilToonBasicPropertys(TargetMaterial);
 			if (UpdatelilToonLighting) UpdatelilToonLightingPropertys(TargetMaterial);
 			if (UpdatelilToonShadow) UpdatelilToonShadowPropertys(TargetMaterial);
@@ -133,14 +133,14 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>poiyomi 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
-		private void UpdatepoiyomiPropertys(Material TargetMaterial) {
+		void UpdatepoiyomiPropertys(Material TargetMaterial) {
 			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
 		}
 
 		/// <summary>UnityChanToonShader 머테리얼의 메인 일괄처리 프로세스 입니다.</summary>
-		private void UpdateUnityChanToonShaderPropertys(Material TargetMaterial) {
+		void UpdateUnityChanToonShaderPropertys(Material TargetMaterial) {
 			if (UpdateUTSTextureShared) UpdateTextureSharedPropertys(TargetMaterial);
 			if (UpdateUTSNormalMap) UpdateNormalMapPropertys(TargetMaterial);
 			if (UpdateUTSBasicShading) UpdateBasicShadingPropertys(TargetMaterial);
@@ -154,7 +154,7 @@ namespace com.vrsuya.utility {
 		// lilToon 프로퍼티
 
 		/// <summary>해당 릴툰 머테리얼에서 Basic 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdatelilToonBasicPropertys(Material TargetMaterial) {
+		void UpdatelilToonBasicPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float Cutoff = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Cutoff") : 0.5f;
 			float Cull = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Cull") : 2.0f;
@@ -173,7 +173,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Lighting 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdatelilToonLightingPropertys(Material TargetMaterial) {
+		void UpdatelilToonLightingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float LightMinLimit = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_LightMinLimit") : 0.0f;
 			float LightMaxLimit = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_LightMaxLimit") : 1.0f;
@@ -196,7 +196,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdatelilToonShadowPropertys(Material TargetMaterial) {
+		void UpdatelilToonShadowPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float ShadowBorder = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowBorder") : 0.6f;
 			float ShadowBlur = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowBlur") : 0.15f;
@@ -234,7 +234,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Receive Shadow 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdatelilToonReceiveShadowPropertys(Material TargetMaterial) {
+		void UpdatelilToonReceiveShadowPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float ShadowReceive = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_ShadowReceive") : 1.0f;
 			float Shadow2ndReceive = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Shadow2ndReceive") : 1.0f;
@@ -249,7 +249,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 BackfaceMask 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdatelilToonBackfaceMaskPropertys(Material TargetMaterial) {
+		void UpdatelilToonBackfaceMaskPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float BackfaceMask = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_MatCapBackfaceMask") : 1.0f;
 			if (TargetMaterial.GetFloat("_BacklightBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_BacklightBackfaceMask", BackfaceMask); IsDrity = true; }
@@ -264,7 +264,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 릴툰 머테리얼에서 Backlight 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdatelilToonBacklightPropertys(Material TargetMaterial) {
+		void UpdatelilToonBacklightPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float BacklightMainStrength = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BacklightMainStrength") : 0.3f;
 			float BacklightBorder = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_BacklightBorder") : 0.8f;
@@ -283,7 +283,7 @@ namespace com.vrsuya.utility {
 		// UnityChanToonShader 프로퍼티
 
 		/// <summary>해당 UTS 머테리얼에서 텍스쳐 공유 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateTextureSharedPropertys(Material TargetMaterial) {
+		void UpdateTextureSharedPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float TextureShared = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Use_BaseAs1st") : 1.0f;
 			if (TargetMaterial.GetFloat("_Use_BaseAs1st") != TextureShared) { TargetMaterial.SetFloat("_Use_BaseAs1st", TextureShared); IsDrity = true; }
@@ -297,7 +297,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 노멀맵 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateNormalMapPropertys(Material TargetMaterial) {
+		void UpdateNormalMapPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float Is_NormalMapToBase = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_NormalMapToBase") : 1.0f;
 			float Is_NormalMapToHighColor = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_NormalMapToHighColor") : 1.0f;
@@ -312,7 +312,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 기본 쉐이딩 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateBasicShadingPropertys(Material TargetMaterial) {
+		void UpdateBasicShadingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float Set_SystemShadowsToBase = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Set_SystemShadowsToBase") : 0.0f;
 			float Is_Filter_HiCutPointLightColor = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_Filter_HiCutPointLightColor") : 0.0f;
@@ -325,7 +325,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 주광색 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateLightColorPropertys(Material TargetMaterial) {
+		void UpdateLightColorPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float Is_LightColor_1st_Shade = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_1st_Shade") : 1.0f;
 			float Is_LightColor_2nd_Shade = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Is_LightColor_2nd_Shade") : 1.0f;
@@ -352,7 +352,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 UTS 머테리얼에서 환경광 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateEnvironmentalLightingPropertys(Material TargetMaterial) {
+		void UpdateEnvironmentalLightingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			float GI_Intensity = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_GI_Intensity") : 0.0f;
 			float Unlit_Intensity = (ReferenceMaterial) ? ReferenceMaterial.GetFloat("_Unlit_Intensity") : 1.0f;
@@ -371,7 +371,7 @@ namespace com.vrsuya.utility {
 		// 공용 프로퍼티
 
 		/// <summary>해당 머테리얼에서 RenderQueue 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateRenderQueuePropertys(Material TargetMaterial) {
+		void UpdateRenderQueuePropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			bool IsTransparent = TargetMaterial.shader.name.Contains("Transparent");
 			int RenderQueue = (!IsTransparent) ? -1 : 3000;
@@ -383,7 +383,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 머테리얼에서 GPU Instancing 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateGPUInstancingPropertys(Material TargetMaterial) {
+		void UpdateGPUInstancingPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			bool EnableInstancingVariants = true;
 			if (TargetMaterial.enableInstancing != EnableInstancingVariants) { TargetMaterial.enableInstancing = EnableInstancingVariants; IsDrity = true; }
@@ -394,7 +394,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 머테리얼에서 GI 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateGlobalIlluminationPropertys(Material TargetMaterial) {
+		void UpdateGlobalIlluminationPropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			MaterialGlobalIlluminationFlags GlobalIlluminationFlags = MaterialGlobalIlluminationFlags.BakedEmissive;
 			bool DoubleSidedGI = true;
@@ -408,7 +408,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>파일 목록에서 요청한 쉐이더 타입의 머테리얼 목록을 반환합니다.</summary>
 		/// <returns>해당 쉐이더의 머테리얼 배열</returns>
-		private Material[] GetRequestMaterials(ShaderType TargetShader) {
+		Material[] GetRequestMaterials(ShaderType TargetShader) {
 			Material[] ReturnMaterials = new Material[0];
 			string[] MaterialsGUID = AssetDatabase.FindAssets("t:Material", new[] { "Assets" });
 			foreach (string TargetMaterialGUID in MaterialsGUID) {
@@ -515,7 +515,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>주어진 Texture2D가 텍스쳐인지 분석해서 반환합니다.</summary>
 		/// <returns>이미지 텍스쳐 여부</returns>
-		private bool HasTextureImporter(Texture2D TargetTexture) {
+		bool HasTextureImporter(Texture2D TargetTexture) {
 			string AssetPath = AssetDatabase.GetAssetPath(TargetTexture);
 			if (string.IsNullOrEmpty(AssetPath)) return false;
 			TextureImporter TargetTextureImporter = AssetImporter.GetAtPath(AssetPath) as TextureImporter;
@@ -528,7 +528,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>주어진 이미지에서 알파 값이 존재하는지 여부를 분석해서 반환합니다.</summary>
 		/// <returns>해당 이미지 알파 값 존재 여부</returns>
-		private bool HasAlphaInImage(Texture2D TargetTexture) {
+		bool HasAlphaInImage(Texture2D TargetTexture) {
 			if (!TargetTexture) return false;
 			string AssetPath = AssetDatabase.GetAssetPath(TargetTexture);
 			TextureImporter TargetTextureImporter = AssetImporter.GetAtPath(AssetPath) as TextureImporter;
@@ -564,7 +564,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>주어진 이미지가 RGB 여부를 분석해서 반환합니다.</summary>
 		/// <returns>해당 이미지 RGB 여부</returns>
-		private bool IsTextureRGB(Texture2D TargetTexture) {
+		bool IsTextureRGB(Texture2D TargetTexture) {
 			if (!TargetTexture) return false;
 			Color[] Pixels = TargetTexture.GetPixels();
 			bool IsRGB = false;
@@ -584,7 +584,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>주어진 이미지가 노멀 맵인지 분석해서 반환합니다.</summary>
 		/// <returns>해당 이미지 노멀 맵 여부</returns>
-		private bool IsTextureNormalMap(Texture2D TargetTexture) {
+		bool IsTextureNormalMap(Texture2D TargetTexture) {
 			if (!TargetTexture) return false;
 			Color ReferenceColor = new Color(0.5f, 0.5f, 1.0f);
 			float Tolerance = 0.3f;
@@ -608,7 +608,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>주어진 컬러가 노멀 맵 중앙 값에 가까운지 반환합니다.</summary>
 		/// <returns>컬러가 노멀 중앙 값에 가까운지 여부</returns>
-		private bool IsColorCloseToReference(Color TargetColor, Color ReferenceColor, float ToleranceSquared) {
+		bool IsColorCloseToReference(Color TargetColor, Color ReferenceColor, float ToleranceSquared) {
 			float DistanceSquared = (TargetColor.r - ReferenceColor.r) * (TargetColor.r - ReferenceColor.r) +
 									(TargetColor.g - ReferenceColor.g) * (TargetColor.g - ReferenceColor.g) +
 									(TargetColor.b - ReferenceColor.b) * (TargetColor.b - ReferenceColor.b);
@@ -618,7 +618,7 @@ namespace com.vrsuya.utility {
 		// 텍스쳐 프로퍼티
 
 		/// <summary>해당 텍스쳐에서 텍스쳐 공유 프로퍼티 값을 일괄 변경합니다.</summary>
-		private void UpdateTexture2DSharedPropertys(Texture2D TargetTexture) {
+		void UpdateTexture2DSharedPropertys(Texture2D TargetTexture) {
 			bool IsDrity = false;
 			bool TargetStreamingMipmaps = true;
 			bool TargetAlphaIsTransparency = false;

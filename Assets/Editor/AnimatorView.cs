@@ -16,7 +16,7 @@ namespace com.vrsuya.utility {
 	[InitializeOnLoad]
 	public class AnimatorView : MonoBehaviour {
 
-		private static Dictionary<SceneView, string> SceneViewModes = new Dictionary<SceneView, string>();
+		static Dictionary<SceneView, string> SceneViewModes = new Dictionary<SceneView, string>();
 
 		/// <summary>Unity Editor가 매 프레임마다 Scene을 업데이트 하도록 합니다.</summary>
 		static AnimatorView() {
@@ -24,7 +24,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>해당 오브젝트를 기준으로 Scene 뷰를 정렬합니다.</summary>
-		private static void OnEditorUpdate() {
+		static void OnEditorUpdate() {
 			if (AnimatorViewEditor.IsSceneViewLocked) {
 				if ((GameObject)AnimatorViewEditor.TargetGameObject) {
 					CheckSceneViewModes();
@@ -73,7 +73,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>Scene이 어느 방향을 향하고 있는지 검사합니다.</summary>
-		private static void CheckSceneViewModes() {
+		static void CheckSceneViewModes() {
 			if (AnimatorViewEditor.IsRotationLocked) {
 				if (SceneViewModes.Count == 0) {
 					foreach (SceneView TargetSceneView in SceneView.sceneViews) {
@@ -88,7 +88,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>Vector 방향을 반환합니다.</summary>
-		private static string GetViewName(Vector3 Direction) {
+		static string GetViewName(Vector3 Direction) {
 			if (Direction == Vector3.down) return "Top";
 			if (Direction == Vector3.up) return "Bottom";
 			if (Direction == Vector3.left) return "Right";

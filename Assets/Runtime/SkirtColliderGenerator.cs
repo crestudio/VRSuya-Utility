@@ -71,12 +71,12 @@ namespace com.vrsuya.utility {
 		public Transform RightLegTransform;
 		public string ColliderNamePrefix = "SkirtCollider";
 
-		private int ColliderCount;
-		private Vector3[] TopCircle;
-		private Vector3[] BottomCircle;
+		int ColliderCount;
+		Vector3[] TopCircle;
+		Vector3[] BottomCircle;
 
-		private static string UndoGroupName = "VRSuya SkirtColliderGenerator";
-		private static int UndoGroupIndex;
+		static string UndoGroupName = "VRSuya SkirtColliderGenerator";
+		static int UndoGroupIndex;
 
 		void Start() {
 			GetHumanoidTransform();
@@ -87,13 +87,13 @@ namespace com.vrsuya.utility {
 			UpdatePropertys();
 		}
 
-		private void UpdatePropertys() {
+		void UpdatePropertys() {
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
 			ColliderCount = 4 + SampleCount * 4;
 		}
 
-		private void GetHumanoidTransform() {
+		void GetHumanoidTransform() {
 			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
 			GameObject TargetGameObject = this.gameObject;
 			GameObject AvatarGameObject = AvatarInstance.GetAvatarGameObject(TargetGameObject);
@@ -159,7 +159,7 @@ namespace com.vrsuya.utility {
 			Debug.Log($"[VRSuya] Generated {ColliderCount} PhysBone Colliders");
 		}
 
-		private Vector3 GetInterpolatedPosition(Vector3[] TargetCircle, float TargetAngle) {
+		Vector3 GetInterpolatedPosition(Vector3[] TargetCircle, float TargetAngle) {
 			TargetAngle = TargetAngle % 360f;
 			if (TargetAngle < 0) TargetAngle += 360f;
 
@@ -194,7 +194,7 @@ namespace com.vrsuya.utility {
 			return BasePoint + RadialDirection * TargetOffset + RadialDirection * FullDistance + RadialDirection * SubDistance;
 		}
 
-		private float CalculateCurvatureDistance(float TargetPoint, float Curvature) {
+		float CalculateCurvatureDistance(float TargetPoint, float Curvature) {
 			if (Mathf.Abs(Curvature) < 0.001f) {
 				return 0f;
 			}
@@ -202,12 +202,12 @@ namespace com.vrsuya.utility {
 			return Curvature * NormalizedDistance;
 		}
 
-		private Vector3 GetRadialDirection(float TargetAngle) {
+		Vector3 GetRadialDirection(float TargetAngle) {
 			float NewRadian = TargetAngle * Mathf.Deg2Rad;
 			return new Vector3(Mathf.Sin(NewRadian), 0, Mathf.Cos(NewRadian));
 		}
 
-		private Transform GetReferenceTransform(float TargetAngle) {
+		Transform GetReferenceTransform(float TargetAngle) {
 			TargetAngle = TargetAngle % 360f;
 			if (TargetAngle < 0) TargetAngle += 360f;
 			if (TargetAngle == 0f || TargetAngle == 180f) {

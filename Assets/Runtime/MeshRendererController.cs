@@ -18,8 +18,8 @@ namespace com.vrsuya.utility {
 
 	public class MeshRendererController : ScriptableObject {
 
-		private readonly string UndoGroupName = "VRSuya MeshRendererController";
-		private int UndoGroupIndex;
+		readonly string UndoGroupName = "VRSuya MeshRendererController";
+		int UndoGroupIndex;
 
 		public void RequestUpdateAvatarRenders() {
 			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
@@ -200,11 +200,11 @@ namespace com.vrsuya.utility {
 			}
 		}
 
-		private (SkinnedMeshRenderer[], MeshRenderer[]) GetAvatarRenderers(GameObject TargetGameObject) {
+		(SkinnedMeshRenderer[], MeshRenderer[]) GetAvatarRenderers(GameObject TargetGameObject) {
 			return (TargetGameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true), TargetGameObject.GetComponentsInChildren<MeshRenderer>(true));
 		}
 
-		private Transform GetAnchorOverride(GameObject TargetGameObject) {
+		Transform GetAnchorOverride(GameObject TargetGameObject) {
 			Animator TargetAnimator = TargetGameObject.GetComponent<Animator>();
 			if (TargetAnimator) {
 				Transform TargetHeadTransform = TargetAnimator.GetBoneTransform(HumanBodyBones.Head);

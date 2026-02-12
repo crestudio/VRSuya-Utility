@@ -31,7 +31,7 @@ namespace com.vrsuya.utility {
 			// 검색용 신규 아바타 추가 위치
 		}
 
-		private readonly static Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
+		readonly static Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
 			{ Avatar.Airi, 0.8852937f },
 			{ Avatar.Chiffon, 0.880152f },
 			{ Avatar.Chise, 0.8845909f },
@@ -59,7 +59,7 @@ namespace com.vrsuya.utility {
 			// 검색용 신규 아바타 추가 위치
 		};
 
-		private readonly static Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
+		readonly static Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
 			{ Avatar.Airi, new string[] { "Airi", "아이리", "愛莉" } },
 			{ Avatar.Chiffon, new string[] { "Chiffon", "쉬폰", "シフォン" } },
 			{ Avatar.Chise, new string[] { "Chise", "치세", "チセ" } },
@@ -89,7 +89,7 @@ namespace com.vrsuya.utility {
 
 		public static Avatar CurrentAvatarType = Avatar.Kikyo;
 		public static bool AutomaticAvatarRecognition = true;
-		private static int UndoGroupIndex;
+		static int UndoGroupIndex;
 
 		/// <summary>아바타 이름을 분석하여 자동으로 타입을 변환할지 결정합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", priority = 1000)]
@@ -309,7 +309,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>아바타 메뉴의 변수 상태를 체크합니다.</summary>
-		private static void CheckAvatarMenu() {
+		static void CheckAvatarMenu() {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", AutomaticAvatarRecognition);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", CurrentAvatarType == Avatar.Airi);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", CurrentAvatarType == Avatar.Chiffon);
@@ -339,7 +339,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>지정된 키를 목표로 아바타 스케일을 변경합니다.</summary>
-		private static void ScaleAvatar(int TargetHeight) {
+		static void ScaleAvatar(int TargetHeight) {
 			if (GetVRCAvatar().Length > 0) {
 				Undo.IncrementCurrentGroup();
 				Undo.SetCurrentGroupName("VRSuya AvatarScaler");
@@ -362,7 +362,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>아바타 이름을 분석하여 어떤 아바타인지 반환합니다.</summary>
 		/// <returns>아바타 타입</returns>
-		private static Avatar GetCurrentAvatarType(VRC_AvatarDescriptor TargetAvatarDescriptor) {
+		static Avatar GetCurrentAvatarType(VRC_AvatarDescriptor TargetAvatarDescriptor) {
 			string AvatarName = TargetAvatarDescriptor.gameObject.name;
 			Avatar newCurrentAvatarType = CurrentAvatarType;
 			foreach (var TargetAvatarNames in AvatarNames) {
@@ -379,7 +379,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>아바타의 스케일을 변경합니다.</summary>
-		private static void ScaleAvatarTransform(GameObject TargetAvatar, float TargetScale) {
+		static void ScaleAvatarTransform(GameObject TargetAvatar, float TargetScale) {
 			Transform TargetAvatarTransform = TargetAvatar.transform;
 			Undo.RecordObject(TargetAvatarTransform, "Changed Avatar Transform");
 			TargetAvatarTransform.localScale = TargetAvatarTransform.localScale * TargetScale;
@@ -388,7 +388,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>아바타의 뷰 포지션을 변경합니다.</summary>
-		private static void ScaleAvatarViewPosition(VRC_AvatarDescriptor TargetAvatarDescriptor, float TargetScale) {
+		static void ScaleAvatarViewPosition(VRC_AvatarDescriptor TargetAvatarDescriptor, float TargetScale) {
 			Undo.RecordObject(TargetAvatarDescriptor, "Changed Avatar View Position");
 			TargetAvatarDescriptor.ViewPosition = TargetAvatarDescriptor.ViewPosition * TargetScale;
 			EditorUtility.SetDirty(TargetAvatarDescriptor);
@@ -397,7 +397,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>Scene에서 조건에 맞는 VRC AvatarDescriptor 컴포넌트 아바타 1개를 반환합니다.</summary>
 		/// <returns>조건에 맞는 VRC 아바타</returns>
-		private static VRC_AvatarDescriptor[] GetVRCAvatar() {
+		static VRC_AvatarDescriptor[] GetVRCAvatar() {
 			VRC_AvatarDescriptor[] TargetAvatarDescriptors = GetAvatarDescriptorFromVRCSDKBuilder();
 			if (TargetAvatarDescriptors.Length == 0) TargetAvatarDescriptors = GetAvatarDescriptorFromSelection();
 			if (TargetAvatarDescriptors.Length == 0) TargetAvatarDescriptors = GetAvatarDescriptorFromVRCTool();
@@ -406,13 +406,13 @@ namespace com.vrsuya.utility {
 
 		/// <summary>VRCSDK Builder에서 활성화 상태인 VRC 아바타를 반환합니다.</summary>
 		/// <returns>VRCSDK Builder에서 활성화 상태인 VRC 아바타</returns>
-		private static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCSDKBuilder() {
+		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCSDKBuilder() {
 			return new VRC_AvatarDescriptor[0];
 		}
 
 		/// <summary>Unity 하이어라키에서 선택한 GameObject 중에서 VRC AvatarDescriptor 컴포넌트가 존재하는 아바타를 1개를 반환합니다.</summary>
 		/// <returns>선택 중인 VRC 아바타</returns>
-		private static VRC_AvatarDescriptor[] GetAvatarDescriptorFromSelection() {
+		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromSelection() {
 			GameObject[] SelectedGameObjects = Selection.gameObjects;
 			if (SelectedGameObjects.Length == 1) {
 				VRC_AvatarDescriptor SelectedVRCAvatarDescriptor = SelectedGameObjects[0].GetComponent<VRC_AvatarDescriptor>();
@@ -432,7 +432,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>Scene에서 활성화 상태인 VRC AvatarDescriptor 컴포넌트가 존재하는 아바타를 1개를 반환합니다.</summary>
 		/// <returns>Scene에서 활성화 상태인 VRC 아바타</returns>
-		private static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCTool() {
+		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCTool() {
 			VRC_AvatarDescriptor[] AllVRCAvatarDescriptor = VRC.Tools.FindSceneObjectsOfTypeAll<VRC_AvatarDescriptor>().ToArray();
 			if (AllVRCAvatarDescriptor.Length > 0) {
 				return AllVRCAvatarDescriptor.Where(Avatar => Avatar.gameObject.activeInHierarchy).ToArray();

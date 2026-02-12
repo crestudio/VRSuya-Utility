@@ -10,7 +10,7 @@ namespace com.vrsuya.utility {
 
 	public class ColorGeneratorEditor_NewColorDelta : EditorWindow {
 
-		private static SerializedObject SerializedColorGenerator;
+		static SerializedObject SerializedColorGenerator;
 		SerializedProperty SerializedTargetColorDelta;
 		SerializedProperty SerializedShadeName_EN;
 		SerializedProperty SerializedShadeName_KO;
@@ -23,13 +23,13 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedRimLightDelta;
 		SerializedProperty SerializedRimShadeDelta;
 
-		private static readonly Rect DefaultWindowRect = new Rect(0, 0, 420, 435);
+		static readonly Rect DefaultWindowRect = new Rect(0, 0, 420, 435);
 
 		// ColorBox Rect 변수
-		private float BorderX = 30f;
-		private float BorderY = 30f;
-		private float ScreenWidth;
-		private float ButtonWidth = 150f;
+		float BorderX = 30f;
+		float BorderY = 30f;
+		float ScreenWidth;
+		float ButtonWidth = 150f;
 
 		void OnEnable() {
 			if (SerializedColorGenerator == null) {

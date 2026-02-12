@@ -34,7 +34,7 @@ namespace com.vrsuya.utility {
 		}
 
 		// 영어 사전 데이터
-		private static Dictionary<string, string> String_English = new Dictionary<string, string>() {
+		static Dictionary<string, string> String_English = new Dictionary<string, string>() {
 			{ "String_Language", "Language" },
 			{ "String_TargetAvatar", "Target Avatar" },
 			{ "String_TargetMaterial", "Materials in use" },
@@ -53,7 +53,7 @@ namespace com.vrsuya.utility {
 		};
 
 		// 한국어 사전 데이터
-		private static Dictionary<string, string> String_Korean = new Dictionary<string, string>() {
+		static Dictionary<string, string> String_Korean = new Dictionary<string, string>() {
 			{ "String_Language", "언어" },
 			{ "String_TargetAvatar", "대상 아바타" },
 			{ "String_TargetMaterial", "사용 중인 머테리얼" },
@@ -72,7 +72,7 @@ namespace com.vrsuya.utility {
 		};
 
 		// 일본어 사전 데이터
-		private static Dictionary<string, string> String_Japanese = new Dictionary<string, string>() {
+		static Dictionary<string, string> String_Japanese = new Dictionary<string, string>() {
 			{ "String_Language", "言語" },
 			{ "String_TargetAvatar", "対象アバター" },
 			{ "String_TargetMaterial", "使用中のマテリアル" },

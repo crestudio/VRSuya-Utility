@@ -17,7 +17,7 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedTargetSkinnedMeshRenderer;
 		SerializedProperty SerializedTargetAnimator;
 
-		private List<string> ExceedLimitBlendshape = new List<string>();
+		List<string> ExceedLimitBlendshape = new List<string>();
 
 		void OnEnable() {
 			SerializedTargetSkinnedMeshRenderer = serializedObject.FindProperty("TargetSkinnedMeshRenderer");

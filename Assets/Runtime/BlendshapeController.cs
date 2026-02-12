@@ -20,9 +20,9 @@ namespace com.vrsuya.utility {
 		public SkinnedMeshRenderer TargetSkinnedMeshRenderer = null;
 		public Animator TargetAnimator = null;
 
-		private List<string> TargetBlendShapeNames = new List<string>();
+		List<string> TargetBlendShapeNames = new List<string>();
 		public Dictionary<string, int> BlendShapeList = new Dictionary<string, int>();
-		private readonly string[] dictHeadNames = new string[] { "Body", "Head", "Face" };
+		readonly string[] dictHeadNames = new string[] { "Body", "Head", "Face" };
 
 		void Start() {
 			if (!TargetSkinnedMeshRenderer) TargetSkinnedMeshRenderer = this.gameObject.GetComponent<SkinnedMeshRenderer>();
@@ -40,7 +40,7 @@ namespace com.vrsuya.utility {
 		}
 
 		/// <summary>애니메이션에 존재하는 Blendshape 명으로 리스트를 작성합니다.</summary>
-		private void CreateBlendshapeList() {
+		void CreateBlendshapeList() {
 			Mesh TargetMesh = TargetSkinnedMeshRenderer.sharedMesh;
 			int BlendShapeCount = TargetMesh.blendShapeCount;
 			for (int Index = 0; Index < BlendShapeCount; Index++) {
@@ -52,7 +52,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 AnimatorController의 Blendshape 이름 리스트를 반환합니다.</summary>
 		/// <returns>AnimatorController의 Blendshape 이름 리스트</returns>
-		private List<string> GetAnimationBlendshapeName(Animator TargetAnimator) {
+		List<string> GetAnimationBlendshapeName(Animator TargetAnimator) {
 			List<string> newBlendshapeName = new List<string>();
 			if (TargetAnimator) {
 				AnimationClip[] AllAnimationClips = GetAnimationClips((AnimatorController)TargetAnimator.runtimeAnimatorController);
@@ -76,7 +76,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 AnimatorController의 AnimationClip 어레이를 반환합니다.</summary>
 		/// <returns>AnimatorController의 AnimationClip 어레이</returns>
-		private AnimationClip[] GetAnimationClips(AnimatorController TargetAnimatorController) {
+		AnimationClip[] GetAnimationClips(AnimatorController TargetAnimatorController) {
 			List<AnimatorStateMachine> RootStateMachines = TargetAnimatorController.layers.Select(AnimationLayer => AnimationLayer.stateMachine).ToList();
 			List<AnimatorStateMachine> AllStateMachines = new List<AnimatorStateMachine>();
 			List<AnimatorState> AllAnimatorState = new List<AnimatorState>();
@@ -100,7 +100,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 State 어레이를 반환합니다.</summary>
 		/// <returns>State 어레이</returns>
-		private AnimatorState[] GetAllStates(AnimatorStateMachine TargetStateMachine) {
+		AnimatorState[] GetAllStates(AnimatorStateMachine TargetStateMachine) {
 			AnimatorState[] States = TargetStateMachine.states.Select(ExistChildState => ExistChildState.state).ToArray();
 			if (TargetStateMachine.stateMachines.Length > 0) {
 				foreach (var TargetChildStatetMachine in TargetStateMachine.stateMachines) {
@@ -112,7 +112,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 StateMachine 어레이를 반환합니다.</summary>
 		/// <returns>StateMachine 어레이</returns>
-		private AnimatorStateMachine[] GetAllStateMachines(AnimatorStateMachine TargetStateMachine) {
+		AnimatorStateMachine[] GetAllStateMachines(AnimatorStateMachine TargetStateMachine) {
 			AnimatorStateMachine[] StateMachines = new AnimatorStateMachine[] { TargetStateMachine };
 			if (TargetStateMachine.stateMachines.Length > 0) {
 				foreach (var TargetChildStateMachine in TargetStateMachine.stateMachines) {
@@ -124,7 +124,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 AnimationClip 어레이를 반환합니다.</summary>
 		/// <returns>AnimationClip 어레이</returns>
-		private AnimationClip[] GetAnimationClips(Motion TargetMotion) {
+		AnimationClip[] GetAnimationClips(Motion TargetMotion) {
 			AnimationClip[] MotionAnimationClips = new AnimationClip[0];
 			if (TargetMotion is AnimationClip) {
 				MotionAnimationClips = MotionAnimationClips.Concat(new AnimationClip[] { (AnimationClip)TargetMotion }).ToArray();

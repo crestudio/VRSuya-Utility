@@ -39,7 +39,7 @@ namespace com.vrsuya.utility {
 		public static List<ColorDelta> ColorDeltaList = new List<ColorDelta>();
 		public ColorDelta TargetColorDelta;
 
-		private ShadeType ShadeShadeType = ShadeType.Body;
+		ShadeType ShadeShadeType = ShadeType.Body;
 		public int ShadeTypeIndex = 0;
 
 		public Color ShadeColor1;
@@ -53,13 +53,13 @@ namespace com.vrsuya.utility {
 		public Material[] TargetMaterials = new Material[0];
 
 		// Instance 변수
-		private static ColorGenerator ColorGeneratorInstance;
+		static ColorGenerator ColorGeneratorInstance;
 
 		// Unity Undo 변수
-		private readonly string UndoGroupName = "VRSuya ColorGenerator";
-		private int UndoGroupIndex;
+		readonly string UndoGroupName = "VRSuya ColorGenerator";
+		int UndoGroupIndex;
 
-		private void OnEnable() {
+		void OnEnable() {
 			LoadColorDeltas();
 			if (ColorDeltaList.Count > 0) {
 				TargetColorDelta = ColorDeltaList[0];
@@ -138,7 +138,7 @@ namespace com.vrsuya.utility {
 			Debug.Log($"[VRSuya] {NewColorDelta.Name_EN} 설정을 생성하였습니다.");
 		}
 
-		private ColorDelta GetNewColorDelta() {
+		ColorDelta GetNewColorDelta() {
 			string NewColorDeltaName = (TargetMaterial) ? TargetMaterial.name : $"ColorGenerator_{Random.Range(1000, 10000)}";
 			ShadeType NewShadeType = ShadeType.Body;
 			string NewReferenceColor = ColorToHex(ShadeColor1);
@@ -161,7 +161,7 @@ namespace com.vrsuya.utility {
 			};
 		}
 
-		private void LoadColorDeltas() {
+		void LoadColorDeltas() {
 			string ColorDeltaPath = Path.Combine(Application.dataPath, "VRSuya/ColorDelta");
 			if (!Directory.Exists(ColorDeltaPath)) {
 				Directory.CreateDirectory(ColorDeltaPath);
@@ -205,7 +205,7 @@ namespace com.vrsuya.utility {
 			TargetColorDelta = ColorDeltaList[TargetIndex];
 		}
 
-		private void CreateSampleColorDelta() {
+		void CreateSampleColorDelta() {
 			ColorDelta SampleColorDelta = new ColorDelta {
 				Name_EN = "Glossy",
 				Name_KO = "윤광",
@@ -231,7 +231,7 @@ namespace com.vrsuya.utility {
 			RimShadeColor = GetDeltaColor(ShadeColor4, TargetColorDelta.RimShadeDelta, false);
 		}
 
-		private Vector3 GetHSVColorDelta(Color OriginalColor, Color TargetColor) {
+		Vector3 GetHSVColorDelta(Color OriginalColor, Color TargetColor) {
 			Vector3 OriginalHSV = ConvertRGBToHSV(OriginalColor);
 			Vector3 TargetHSV = ConvertRGBToHSV(TargetColor);
 			float DeltaH = Mathf.Round((TargetHSV.x - OriginalHSV.x) * 360);
@@ -245,11 +245,11 @@ namespace com.vrsuya.utility {
 			return new Vector3(DeltaH, DeltaS, DeltaV);
 		}
 
-		private static Vector3 ConvertHSVtoUnityHSV(Vector3 TargetHSV) {
+		static Vector3 ConvertHSVtoUnityHSV(Vector3 TargetHSV) {
 			return new Vector3(TargetHSV.x / 360, TargetHSV.y / 100, TargetHSV.z / 100);
 		}
 
-		private static Color GetDeltaColor(Color TargetColor, Vector3 TargetDelta, bool Backward) {
+		static Color GetDeltaColor(Color TargetColor, Vector3 TargetDelta, bool Backward) {
 			Vector3 TargetHSV = ConvertRGBToHSV(TargetColor);
 			Vector3 UnityDeltaHSV = ConvertHSVtoUnityHSV(TargetDelta);
 			float NewH = (!Backward) ? TargetHSV.x + UnityDeltaHSV.x : TargetHSV.x - UnityDeltaHSV.x;
@@ -275,7 +275,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>해당 머테리얼이 어떠한 쉐이더를 사용하는지 String으로 반환합니다.</summary>
 		/// <returns>머테리얼이 사용하고 있는 쉐이더</returns>
-		private static string GetShaderType(Material TargetMaterial) {
+		static string GetShaderType(Material TargetMaterial) {
 			string ShaderType = TargetMaterial.shader.name;
 			if (TargetMaterial.shader.name.Contains("lilToon")) ShaderType = "lilToon";
 			if (TargetMaterial.shader.name.Contains("poiyomi")) ShaderType = "poiyomi";

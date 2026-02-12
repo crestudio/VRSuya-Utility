@@ -75,7 +75,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>주어진 아바타에서 애니메이션에서 사용된 머테리얼들을 가져와서 반환합니다.</summary>
 		/// <returns>아바타에 포함된 애니메이션 머테리얼 어레이</returns>
-		private Material[] GetAnimationMaterials(GameObject TargetGameObject) {
+		Material[] GetAnimationMaterials(GameObject TargetGameObject) {
 			List<Material> AnimationMaterials = new List<Material>();
 			TargetGameObject.TryGetComponent(typeof(VRCAvatarDescriptor), out Component AvatarDescriptor);
 			if (AvatarDescriptor) {
@@ -104,7 +104,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 FXLayer의 AnimationClip 어레이를 반환합니다.</summary>
 		/// <returns>FXLayer의 AnimationClip 어레이</returns>
-		private AnimationClip[] GetFXAnimationClips(AnimatorController TargetAnimatorController) {
+		AnimationClip[] GetFXAnimationClips(AnimatorController TargetAnimatorController) {
 			List<AnimatorStateMachine> RootStateMachines = TargetAnimatorController.layers.Select(AnimationLayer => AnimationLayer.stateMachine).ToList();
 			List<AnimatorStateMachine> AllStateMachines = new List<AnimatorStateMachine>();
 			List<AnimatorState> AllAnimatorState = new List<AnimatorState>();
@@ -128,7 +128,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 State 어레이를 반환합니다.</summary>
 		/// <returns>State 어레이</returns>
-		private AnimatorState[] GetAllStates(AnimatorStateMachine TargetStateMachine) {
+		AnimatorState[] GetAllStates(AnimatorStateMachine TargetStateMachine) {
 			AnimatorState[] States = TargetStateMachine.states.Select(ExistChildState => ExistChildState.state).ToArray();
 			if (TargetStateMachine.stateMachines.Length > 0) {
 				foreach (var TargetChildStatetMachine in TargetStateMachine.stateMachines) {
@@ -140,7 +140,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 StateMachine 어레이를 반환합니다.</summary>
 		/// <returns>StateMachine 어레이</returns>
-		private AnimatorStateMachine[] GetAllStateMachines(AnimatorStateMachine TargetStateMachine) {
+		AnimatorStateMachine[] GetAllStateMachines(AnimatorStateMachine TargetStateMachine) {
 			AnimatorStateMachine[] StateMachines = new AnimatorStateMachine[] { TargetStateMachine };
 			if (TargetStateMachine.stateMachines.Length > 0) {
 				foreach (var TargetChildStateMachine in TargetStateMachine.stateMachines) {
@@ -152,7 +152,7 @@ namespace com.vrsuya.utility {
 
 		/// <summary>모든 AnimationClip 어레이를 반환합니다.</summary>
 		/// <returns>AnimationClip 어레이</returns>
-		private AnimationClip[] GetAnimationClips(Motion TargetMotion) {
+		AnimationClip[] GetAnimationClips(Motion TargetMotion) {
 			AnimationClip[] MotionAnimationClips = new AnimationClip[0];
 			if (TargetMotion is AnimationClip) {
 				MotionAnimationClips = MotionAnimationClips.Concat(new AnimationClip[] { (AnimationClip)TargetMotion }).ToArray();
