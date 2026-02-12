@@ -33,7 +33,7 @@ namespace com.vrsuya.utility {
 					CreateConstraintComponents(ParentAvatarAnimator, ChildAnimator, HumanBodyBoneList);
 				}
 			}
-			Debug.Log("[VRSuya] Synced All Child Avatars");
+			Debug.Log($"[VRSuya] Synced All Child Avatars");
 		}
 
 		/// <summary>Scene에서 활성화 상태인 VRC AvatarDescriptor 컴포넌트를 가지고 있는 아바타 목록을 반환합니다.</summary>

@@ -262,11 +262,11 @@ namespace com.vrsuya.utility {
 		static void ApplyCustomCameraSettings(Camera TargetCamera) {
 			VisualElement VRCSdkControlPanel = FindVRCSdkControlPanel();
 			if (VRCSdkControlPanel == null) {
-				Debug.Log("No VRCSdkControlPanel");
+				Debug.Log($"[VRSuya] No VRCSdkControlPanel");
 			}
 			VisualElement ThumbnailFoldout = FindThumbnailFoldout(VRCSdkControlPanel);
 			if (ThumbnailFoldout == null) {
-				Debug.Log("No ThumbnailFoldout");
+				Debug.Log($"[VRSuya] No ThumbnailFoldout");
 			}
 			SetPrivateField(ThumbnailFoldout, "_useCustomCamera", true);
 			SetPrivateField(ThumbnailFoldout, "_customCamera", TargetCamera);
@@ -291,7 +291,7 @@ namespace com.vrsuya.utility {
 			if (TargetFieldInfo != null) {
 				TargetFieldInfo.SetValue(TargetObject, TargetValue);
 			} else {
-				Debug.Log("No " + TargetFieldName);
+				Debug.Log($"[VRSuya] No {TargetFieldName}");
 			}
 		}
 	}

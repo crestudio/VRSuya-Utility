@@ -168,7 +168,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_AlphaMaskValue") != AlphaMaskValue) { TargetMaterial.SetFloat("_AlphaMaskValue", AlphaMaskValue); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Basic 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Basic 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -191,7 +191,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetColor("_LightDirectionOverride") != LightDirectionOverride) { TargetMaterial.SetColor("_LightDirectionOverride", LightDirectionOverride); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 라이팅 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 라이팅 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -229,7 +229,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_ShadowEnvStrength") != ShadowEnvStrength) { TargetMaterial.SetFloat("_ShadowEnvStrength", ShadowEnvStrength); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -244,7 +244,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Shadow3rdReceive") != Shadow3rdReceive) { TargetMaterial.SetFloat("_Shadow3rdReceive", Shadow3rdReceive); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 영향 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 영향 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -259,7 +259,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_RimBackfaceMask") != BackfaceMask) { TargetMaterial.SetFloat("_RimBackfaceMask", BackfaceMask); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 BackfaceMask 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 BackfaceMask 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -276,7 +276,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_BacklightDirectivity") != BacklightDirectivity) { TargetMaterial.SetFloat("_BacklightDirectivity", BacklightDirectivity); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Backlight 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Backlight 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -292,7 +292,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetTexture("_2nd_ShadeMap") != null) { TargetMaterial.SetTexture("_2nd_ShadeMap", null); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 텍스쳐 공유 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 텍스쳐 공유 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -307,7 +307,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Is_NormalMapToRimLight") != Is_NormalMapToRimLight) { TargetMaterial.SetFloat("_Is_NormalMapToRimLight", Is_NormalMapToRimLight); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 노멀맵 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 노멀맵 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -320,7 +320,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Is_Filter_HiCutPointLightColor") != Is_Filter_HiCutPointLightColor) { TargetMaterial.SetFloat("_Is_Filter_HiCutPointLightColor", Is_Filter_HiCutPointLightColor); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 기본 쉐이딩 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 기본 쉐이딩 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -347,7 +347,7 @@ namespace com.vrsuya.utility {
 			}
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 주광색 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 주광색 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -364,7 +364,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.GetFloat("_Is_BLD") != Is_BLD) { TargetMaterial.SetFloat("_Is_BLD", Is_BLD); IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 환경광 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 UTS 쉐이더의 환경광 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -378,7 +378,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.renderQueue != RenderQueue) { TargetMaterial.renderQueue = RenderQueue; IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 RenderQueue 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 RenderQueue 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -389,7 +389,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.enableInstancing != EnableInstancingVariants) { TargetMaterial.enableInstancing = EnableInstancingVariants; IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GPU 인스턴싱 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GPU 인스턴싱 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -402,7 +402,7 @@ namespace com.vrsuya.utility {
 			if (TargetMaterial.doubleSidedGI != DoubleSidedGI) { TargetMaterial.doubleSidedGI = DoubleSidedGI; IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
-				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GI 프로퍼티가 변경되었습니다.");
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼의 GI 프로퍼티가 변경되었습니다");
 			}
 		}
 
@@ -499,12 +499,12 @@ namespace com.vrsuya.utility {
 					if (StandaloneTextureSettings.overridden == true &&
 						StandaloneTextureSettings.format != TextureImporterFormat.DXT1 &&
 						TargetTextureImporter.textureType != TextureImporterType.NormalMap) {
-						Debug.Log(TargetTexture.name + " : " + StandaloneTextureSettings.format.ToString());
+						Debug.Log($"[VRSuya] {TargetTexture.name} : {StandaloneTextureSettings.format.ToString()}");
 						newTexture2Ds = newTexture2Ds.Concat(new Texture2D[] { TargetTexture }).ToArray();
 					} else if (StandaloneTextureSettings.overridden == false &&
 						TargetTextureImporter.textureCompression != TextureImporterCompression.Compressed &&
 						TargetTextureImporter.textureType != TextureImporterType.NormalMap) {
-						Debug.Log(TargetTexture.name + " : " + TargetTextureImporter.textureCompression.ToString());
+						Debug.Log($"[VRSuya] {TargetTexture.name} : {TargetTextureImporter.textureCompression.ToString()}");
 						newTexture2Ds = newTexture2Ds.Concat(new Texture2D[] { TargetTexture }).ToArray();
 					}
 				}
@@ -703,7 +703,7 @@ namespace com.vrsuya.utility {
 				if (IsDrity) {
 					EditorUtility.SetDirty(TargetTexture);
 					TargetTextureImporter.SaveAndReimport();
-					Debug.Log($"[VRSuya] {TargetTexture.name} 텍스쳐 공유 프로퍼티가 변경되었습니다.");
+					Debug.Log($"[VRSuya] {TargetTexture.name} 텍스쳐 공유 프로퍼티가 변경되었습니다");
 				}
 			}
 		}

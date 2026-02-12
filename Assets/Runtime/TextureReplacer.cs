@@ -160,7 +160,7 @@ namespace com.vrsuya.utility {
 					}
 				}
 			}
-			Debug.Log("[TextureReplacer] " + ChangedCount + " textures have been replaced");
+			Debug.Log($"[VRSuya] {ChangedCount} textures have been replaced");
 		}
 	}
 }

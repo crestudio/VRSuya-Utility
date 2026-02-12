@@ -125,7 +125,7 @@ namespace com.vrsuya.utility {
 						if (RimShadeColor != Color.black) TargetMaterial.SetColor("_RimShadeColor", RimShadeColor);
 						EditorUtility.SetDirty(TargetMaterial);
 						Undo.CollapseUndoOperations(UndoGroupIndex);
-						Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼에 설정을 적용하였습니다.");
+						Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼에 설정을 적용하였습니다");
 					}
 				}
 			}
@@ -135,7 +135,7 @@ namespace com.vrsuya.utility {
 			ColorDelta NewColorDelta = GetNewColorDelta();
 			ColorDeltaList.Add(NewColorDelta);
 			TargetColorDelta = NewColorDelta;
-			Debug.Log($"[VRSuya] {NewColorDelta.Name_EN} 설정을 생성하였습니다.");
+			Debug.Log($"[VRSuya] {NewColorDelta.Name_EN} 설정을 생성하였습니다");
 		}
 
 		ColorDelta GetNewColorDelta() {

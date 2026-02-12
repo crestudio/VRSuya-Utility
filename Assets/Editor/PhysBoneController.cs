@@ -83,7 +83,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Version to 1.0");
+			Debug.Log($"[VRSuya] Changed All PhysBone Version to 1.0");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone을 1.1으로 변경합니다.</summary>
@@ -99,7 +99,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Version to 1.1");
+			Debug.Log($"[VRSuya] Changed All PhysBone Version to 1.1");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 버전을 Unity Console에 출력합니다.</summary>
@@ -107,7 +107,7 @@ namespace com.vrsuya.utility {
 		public static void DebugLogPhysBoneComponets() {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Current Version : " + TargetPhysBone.version);
+				Debug.Log($"[VRSuya] PhysBone Parent GameObject Name : {TargetPhysBone.name} / Current Version : {TargetPhysBone.version}");
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace com.vrsuya.utility {
 				if (IsDirty) EditorUtility.SetDirty(TargetPhysBone);
 				Undo.CollapseUndoOperations(UndoGroupIndex);
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone FoldOut to Closed");
+			Debug.Log($"[VRSuya] Changed All PhysBone FoldOut to Closed");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 속성들을 모두 엽니다.</summary>
@@ -152,7 +152,7 @@ namespace com.vrsuya.utility {
 				if (IsDirty) EditorUtility.SetDirty(TargetPhysBone);
 				Undo.CollapseUndoOperations(UndoGroupIndex);
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone FoldOut to Opened");
+			Debug.Log($"[VRSuya] Changed All PhysBone FoldOut to Opened");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 숨깁니다.</summary>
@@ -168,7 +168,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Gizmo to Hidden");
+			Debug.Log($"[VRSuya] Changed All PhysBone Gizmo to Hidden");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 기즈모를 보이게 합니다.</summary>
@@ -184,7 +184,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Gizmo to Show");
+			Debug.Log($"[VRSuya] Changed All PhysBone Gizmo to Show");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Immobile 타입을 All Motion으로 변경합니다.</summary>
@@ -200,7 +200,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Immobile to All Motion");
+			Debug.Log($"[VRSuya] Changed All PhysBone Immobile to All Motion");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Immobile 타입을 World으로 변경합니다.</summary>
@@ -216,7 +216,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Immobile to World");
+			Debug.Log($"[VRSuya] Changed All PhysBone Immobile to World");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 참으로 변경합니다.</summary>
@@ -232,7 +232,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Animated to True");
+			Debug.Log($"[VRSuya] Changed All PhysBone Animated to True");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 거짓으로 변경합니다.</summary>
@@ -248,7 +248,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Animated to False");
+			Debug.Log($"[VRSuya] Changed All PhysBone Animated to False");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Is Animated 속성을 Unity Console에 출력합니다.</summary>
@@ -257,9 +257,9 @@ namespace com.vrsuya.utility {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.isAnimated) {
-					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Is Animated : True");
+					Debug.LogWarning($"[VRSuya] PhysBone Parent GameObject Name : {TargetPhysBone.name} / Is Animated : True");
 				} else {
-					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Is Animated : False");
+					Debug.Log($"[VRSuya] PhysBone Parent GameObject Name : {TargetPhysBone.name} / Is Animated : False");
 				}
 			}
 		}
@@ -277,7 +277,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Reset to True");
+			Debug.Log($"[VRSuya] Changed All PhysBone Reset to True");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 거짓으로 변경합니다.</summary>
@@ -293,7 +293,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Changed All PhysBone Reset to False");
+			Debug.Log($"[VRSuya] Changed All PhysBone Reset to False");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Reset When Disabled 속성을 Unity Console에 출력합니다.</summary>
@@ -302,9 +302,9 @@ namespace com.vrsuya.utility {
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.resetWhenDisabled) {
-					Debug.LogWarning("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Reset When Disabled : True");
+					Debug.LogWarning($"[VRSuya] PhysBone Parent GameObject Name : {TargetPhysBone.name} / Reset When Disabled : True");
 				} else {
-					Debug.Log("[VRSuya] PhysBone Parent GameObject Name : " + TargetPhysBone.name + " / Reset When Disabled : False");
+					Debug.Log($"[VRSuya] PhysBone Parent GameObject Name : {TargetPhysBone.name} / Reset When Disabled : False");
 				}
 			}
 		}
@@ -322,7 +322,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Empty All PhysBone Colliders List");
+			Debug.Log($"[VRSuya] Empty All PhysBone Colliders List");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 Parameter를 비웁니다.</summary>
@@ -338,7 +338,7 @@ namespace com.vrsuya.utility {
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
 			}
-			Debug.Log("[VRSuya] Empty All PhysBone Parameter");
+			Debug.Log($"[VRSuya] Empty All PhysBone Parameter");
 		}
 
 		/// <summary>Scene에 존재하는 모든 PhysBone의 리스트를 가져옵니다.</summary>
@@ -406,7 +406,7 @@ namespace com.vrsuya.utility {
 						}
 						Undo.CollapseUndoOperations(UndoGroupIndex);
 					}
-					Debug.Log("[VRSuya] Created Humanoid PhysBone Colliders");
+					Debug.Log($"[VRSuya] Created Humanoid PhysBone Colliders");
 				}
 			}
 		}
@@ -481,7 +481,7 @@ namespace com.vrsuya.utility {
 						}
 					}
 				}
-				Debug.Log("[VRSuya] Assign All PhysBone Colliders");
+				Debug.Log($"[VRSuya] Assign All PhysBone Colliders");
 			}
 		}
 
@@ -524,7 +524,7 @@ namespace com.vrsuya.utility {
 						Undo.CollapseUndoOperations(UndoGroupIndex);
 					}
 				}
-				Debug.Log("[VRSuya] Remove All Hand PhysBone Colliders");
+				Debug.Log($"[VRSuya] Remove All Hand PhysBone Colliders");
 			}
 		}
 	}
