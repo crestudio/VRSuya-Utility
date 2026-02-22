@@ -18,6 +18,17 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedTargetMaterials;
 		SerializedProperty SerializedTargetTexture2Ds;
 
+		SerializedProperty SerializedTargetShadow1Color;
+		SerializedProperty SerializedTargetShadow2Color;
+		SerializedProperty SerializedTargetShadow3Color;
+		SerializedProperty SerializedTargetShadowBorderColor;
+		SerializedProperty SerializedTargetRimShadeColor;
+		SerializedProperty SerializedTargetBacklightColor;
+		SerializedProperty SerializedTargetReflectionColor;
+		SerializedProperty SerializedTargetRimLightColor;
+		SerializedProperty SerializedTargetOutlineColor;
+		SerializedProperty SerializedTargetOutlineHighlightColor;
+
 		SerializedProperty SerializedUpdatelilToon;
 		SerializedProperty SerializedUpdatepoiyomi;
 		SerializedProperty SerializedUpdateUnityChanToonShader;
@@ -28,6 +39,12 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedUpdatelilToonReceiveShadow;
 		SerializedProperty SerializedUpdatelilToonBackfaceMask;
 		SerializedProperty SerializedUpdatelilToonBacklight;
+		SerializedProperty SerializedUpdatelilToonShadowColor;
+		SerializedProperty SerializedUpdatelilToonRimShadeColor;
+		SerializedProperty SerializedUpdatelilToonBacklightColor;
+		SerializedProperty SerializedUpdatelilToonReflectionColor;
+		SerializedProperty SerializedUpdatelilToonRimLightColor;
+		SerializedProperty SerializedUpdatelilToonOutlineColor;
 
 		SerializedProperty SerializedUpdateUTSTextureShared;
 		SerializedProperty SerializedUpdateUTSNormalMap;
@@ -48,10 +65,12 @@ namespace com.vrsuya.utility {
 
 		SerializedProperty SerializedReturnString;
 
-		public static bool FoldlilToon = false;
-		public static bool Foldpoiyomi = false;
-		public static bool FoldUnityChanToonShader = false;
-		public static bool FoldTexture = false;
+		bool FoldlilToon = false;
+		bool FoldlilToonColorPalette = false;
+		bool FoldlilToonColor = false;
+		bool Foldpoiyomi = false;
+		bool FoldUnityChanToonShader = false;
+		bool FoldTexture = false;
 
 		void OnEnable() {
 			MaterialTemplateInstance = CreateInstance<MaterialTemplate>();
@@ -60,6 +79,17 @@ namespace com.vrsuya.utility {
 			SerializedReferenceMaterial = SerializedMaterialTemplate.FindProperty("ReferenceMaterial");
 			SerializedTargetMaterials = SerializedMaterialTemplate.FindProperty("TargetMaterials");
 			SerializedTargetTexture2Ds = SerializedMaterialTemplate.FindProperty("TargetTexture2Ds");
+
+			SerializedTargetShadow1Color = SerializedMaterialTemplate.FindProperty("TargetShadow1Color");
+			SerializedTargetShadow2Color = SerializedMaterialTemplate.FindProperty("TargetShadow2Color");
+			SerializedTargetShadow3Color = SerializedMaterialTemplate.FindProperty("TargetShadow3Color"); ;
+			SerializedTargetShadowBorderColor = SerializedMaterialTemplate.FindProperty("TargetShadowBorderColor");
+			SerializedTargetRimShadeColor = SerializedMaterialTemplate.FindProperty("TargetRimShadeColor");
+			SerializedTargetBacklightColor = SerializedMaterialTemplate.FindProperty("TargetBacklightColor");
+			SerializedTargetReflectionColor = SerializedMaterialTemplate.FindProperty("TargetReflectionColor");
+			SerializedTargetRimLightColor = SerializedMaterialTemplate.FindProperty("TargetRimLightColor");
+			SerializedTargetOutlineColor = SerializedMaterialTemplate.FindProperty("TargetOutlineColor"); ;
+			SerializedTargetOutlineHighlightColor = SerializedMaterialTemplate.FindProperty("TargetOutlineHighlightColor");
 
 			SerializedUpdatelilToon = SerializedMaterialTemplate.FindProperty("UpdatelilToon");
 			SerializedUpdatepoiyomi = SerializedMaterialTemplate.FindProperty("Updatepoiyomi");
@@ -71,6 +101,12 @@ namespace com.vrsuya.utility {
 			SerializedUpdatelilToonReceiveShadow = SerializedMaterialTemplate.FindProperty("UpdatelilToonReceiveShadow");
 			SerializedUpdatelilToonBackfaceMask = SerializedMaterialTemplate.FindProperty("UpdatelilToonBackfaceMask");
 			SerializedUpdatelilToonBacklight = SerializedMaterialTemplate.FindProperty("UpdatelilToonBacklight");
+			SerializedUpdatelilToonShadowColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonShadowColor");
+			SerializedUpdatelilToonRimShadeColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonRimShadeColor");
+			SerializedUpdatelilToonBacklightColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonBacklightColor"); ;
+			SerializedUpdatelilToonReflectionColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonReflectionColor"); ;
+			SerializedUpdatelilToonRimLightColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonRimLightColor");
+			SerializedUpdatelilToonOutlineColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonOutlineColor"); ;
 
 			SerializedUpdateUTSTextureShared = SerializedMaterialTemplate.FindProperty("UpdateUTSTextureShared");
 			SerializedUpdateUTSNormalMap = SerializedMaterialTemplate.FindProperty("UpdateUTSNormalMap");
@@ -96,7 +132,6 @@ namespace com.vrsuya.utility {
 		static void CreateWindow() {
 			MaterialTemplateEditor AppWindow = GetWindow<MaterialTemplateEditor>(true, "MaterialTemplate", true);
 			AppWindow.minSize = new Vector2(300, 550);
-			AppWindow.maxSize = new Vector2(300, 800);
 		}
 
 		void OnGUI() {
@@ -108,30 +143,52 @@ namespace com.vrsuya.utility {
 			EditorGUILayout.PropertyField(SerializedTargetGameObject, new GUIContent("아바타"));
 			EditorGUILayout.PropertyField(SerializedReferenceMaterial, new GUIContent("기준 머테리얼"));
 			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
-			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("머테리얼"));
-			if (GUILayout.Button("lilToon 머테리얼 추가")) {
-				MaterialTemplateInstance.AddlilToonMaterials();
-			}
-			if (GUILayout.Button("poiyomi 머테리얼 추가")) {
-				MaterialTemplateInstance.AddpoiyomiMaterials();
-			}
-			if (GUILayout.Button("UTS 머테리얼 추가")) {
-				MaterialTemplateInstance.AddUnityChanToonShaderMaterials();
+			FoldlilToonColorPalette = EditorGUILayout.Foldout(FoldlilToonColorPalette, "lilToon 컬러");
+			if (FoldlilToonColorPalette) {
+				EditorGUI.indentLevel++;
+				EditorGUILayout.PropertyField(SerializedTargetShadow1Color, new GUIContent("그림자 1"));
+				EditorGUILayout.PropertyField(SerializedTargetShadow2Color, new GUIContent("그림자 2"));
+				EditorGUILayout.PropertyField(SerializedTargetShadow3Color, new GUIContent("그림자 3"));
+				EditorGUILayout.PropertyField(SerializedTargetShadowBorderColor, new GUIContent("그림자 경계"));
+				EditorGUILayout.PropertyField(SerializedTargetRimShadeColor, new GUIContent("림 쉐도우"));
+				EditorGUILayout.PropertyField(SerializedTargetBacklightColor, new GUIContent("백라이트"));
+				EditorGUILayout.PropertyField(SerializedTargetReflectionColor, new GUIContent("반사"));
+				EditorGUILayout.PropertyField(SerializedTargetRimLightColor, new GUIContent("림 라이트"));
+				EditorGUILayout.PropertyField(SerializedTargetOutlineColor, new GUIContent("아웃라인"));
+				EditorGUILayout.PropertyField(SerializedTargetOutlineHighlightColor, new GUIContent("아웃라인 하이라이트"));
+				EditorGUI.indentLevel--;
 			}
 			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
+			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("머테리얼"));
+			EditorGUILayout.BeginHorizontal();
+			if (GUILayout.Button("lilToon")) {
+				MaterialTemplateInstance.AddlilToonMaterials();
+			}
+			if (GUILayout.Button("poiyomi")) {
+				MaterialTemplateInstance.AddpoiyomiMaterials();
+			}
+			if (GUILayout.Button("UTS")) {
+				MaterialTemplateInstance.AddUnityChanToonShaderMaterials();
+			}
+			EditorGUILayout.EndHorizontal();
+			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.PropertyField(SerializedTargetTexture2Ds, new GUIContent("텍스쳐"));
-			if (GUILayout.Button("아바타 텍스쳐 추가")) {
+			EditorGUILayout.BeginHorizontal();
+			if (GUILayout.Button("아바타")) {
 				MaterialTemplateInstance.AddAvatarTextures();
 			}
-			if (GUILayout.Button("모든 텍스쳐 추가")) {
+			if (GUILayout.Button("모두")) {
 				MaterialTemplateInstance.AddTexture2Ds();
 			}
-			if (GUILayout.Button("아바타 DXT1 아닌 텍스쳐 추가")) {
+			EditorGUILayout.EndHorizontal();
+			EditorGUILayout.BeginHorizontal();
+			if (GUILayout.Button("아바타(DXT1 제외)")) {
 				MaterialTemplateInstance.AddAvatarNotDXT1Textures();
 			}
-			if (GUILayout.Button("모든 DXT1 아닌 텍스쳐 추가")) {
+			if (GUILayout.Button("모두(DXT1 제외)")) {
 				MaterialTemplateInstance.AddNotDXT1Textures();
 			}
+			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.LabelField("변환을 적용할 쉐이더", EditorStyles.boldLabel);
 			EditorGUI.indentLevel++;
@@ -148,6 +205,17 @@ namespace com.vrsuya.utility {
 				EditorGUILayout.PropertyField(SerializedUpdateRenderQueue, new GUIContent("RenderQueue 설정"));
 				EditorGUILayout.PropertyField(SerializedUpdateGPUInstancing, new GUIContent("GPU 인스턴싱 설정"));
 				EditorGUILayout.PropertyField(SerializedUpdateGlobalIllumination, new GUIContent("Global Illumination 설정"));
+				EditorGUI.indentLevel--;
+			}
+			FoldlilToonColor = EditorGUILayout.Foldout(FoldlilToonColor, "lilToon 컬러");
+			if (FoldlilToonColor) {
+				EditorGUI.indentLevel++;
+				EditorGUILayout.PropertyField(SerializedUpdatelilToonShadowColor, new GUIContent("그림자 컬러 변경"));
+				EditorGUILayout.PropertyField(SerializedUpdatelilToonRimShadeColor, new GUIContent("림 쉐이드 컬러 변경"));
+				EditorGUILayout.PropertyField(SerializedUpdatelilToonBacklightColor, new GUIContent("백라이트 컬러 변경"));
+				EditorGUILayout.PropertyField(SerializedUpdatelilToonReflectionColor, new GUIContent("반사 컬러 변경"));
+				EditorGUILayout.PropertyField(SerializedUpdatelilToonRimLightColor, new GUIContent("림 라이트 컬러 변경"));
+				EditorGUILayout.PropertyField(SerializedUpdatelilToonOutlineColor, new GUIContent("아웃라인 컬러 변경"));
 				EditorGUI.indentLevel--;
 			}
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);

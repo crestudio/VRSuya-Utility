@@ -20,6 +20,17 @@ namespace com.vrsuya.utility {
 		public Material[] TargetMaterials = new Material[0];
 		public Texture2D[] TargetTexture2Ds = new Texture2D[0];
 
+		public Color TargetShadow1Color = Color.white;
+		public Color TargetShadow2Color = Color.white;
+		public Color TargetShadow3Color = Color.white;
+		public Color TargetShadowBorderColor = Color.white;
+		public Color TargetRimShadeColor = Color.white;
+		public Color TargetBacklightColor = Color.white;
+		public Color TargetReflectionColor = Color.white;
+		public Color TargetRimLightColor = Color.white;
+		public Color TargetOutlineColor = Color.white;
+		public Color TargetOutlineHighlightColor = Color.white;
+
 		// 쉐이더 별 업데이트 여부
 		public bool UpdatelilToon = true;
 		public bool Updatepoiyomi = true;
@@ -32,6 +43,12 @@ namespace com.vrsuya.utility {
 		public bool UpdatelilToonReceiveShadow = true;
 		public bool UpdatelilToonBackfaceMask = true;
 		public bool UpdatelilToonBacklight = true;
+		public bool UpdatelilToonShadowColor = true;
+		public bool UpdatelilToonRimShadeColor = true;
+		public bool UpdatelilToonBacklightColor = true;
+		public bool UpdatelilToonReflectionColor = true;
+		public bool UpdatelilToonRimLightColor = true;
+		public bool UpdatelilToonOutlineColor = true;
 
 		// 포이요미 프로퍼티 업데이트 설정
 
@@ -127,6 +144,12 @@ namespace com.vrsuya.utility {
 			if (UpdatelilToonReceiveShadow) UpdatelilToonReceiveShadowPropertys(TargetMaterial);
 			if (UpdatelilToonBackfaceMask) UpdatelilToonBackfaceMaskPropertys(TargetMaterial);
 			if (UpdatelilToonBacklight) UpdatelilToonBacklightPropertys(TargetMaterial);
+			if (UpdatelilToonShadowColor) UpdatelilToonShadowColors(TargetMaterial);
+			if (UpdatelilToonRimShadeColor) UpdatelilToonRimShadeColors(TargetMaterial);
+			if (UpdatelilToonBacklightColor) UpdatelilToonBacklightColors(TargetMaterial);
+			if (UpdatelilToonReflectionColor) UpdatelilToonReflectionColors(TargetMaterial);
+			if (UpdatelilToonRimLightColor) UpdatelilToonRimLightColors(TargetMaterial);
+			if (UpdatelilToonOutlineColor) UpdatelilToonOutlineColors(TargetMaterial);
 			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
@@ -277,6 +300,80 @@ namespace com.vrsuya.utility {
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Backlight 프로퍼티가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 그림자 관련 컬러를 일괄 변경합니다.</summary>
+		void UpdatelilToonShadowColors(Material TargetMaterial) {
+			bool IsDrity = false;
+			Color ShadowColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_ShadowColor") : TargetShadow1Color;
+			Color Shadow2ndColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_Shadow2ndColor") : TargetShadow2Color;
+			Color Shadow3rdColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_Shadow3rdColor") : TargetShadow3Color;
+			Color ShadowBorderColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_ShadowBorderColor") : TargetShadowBorderColor;
+			if (TargetMaterial.GetColor("_ShadowColor") != ShadowColor) { TargetMaterial.SetColor("_ShadowColor", ShadowColor); IsDrity = true; }
+			if (TargetMaterial.GetColor("_Shadow2ndColor") != Shadow2ndColor) { TargetMaterial.SetColor("_Shadow2ndColor", Shadow2ndColor); IsDrity = true; }
+			if (TargetMaterial.GetColor("_Shadow3rdColor") != Shadow3rdColor) { TargetMaterial.SetColor("_Shadow3rdColor", Shadow3rdColor); IsDrity = true; }
+			if (TargetMaterial.GetColor("_ShadowBorderColor") != ShadowBorderColor) { TargetMaterial.SetColor("_ShadowBorderColor", ShadowBorderColor); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 그림자 관련 컬러가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 림 쉐이드 컬러를 일괄 변경합니다.</summary>
+		void UpdatelilToonRimShadeColors(Material TargetMaterial) {
+			bool IsDrity = false;
+			Color RimShadeColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_RimShadeColor") : TargetRimShadeColor;
+			if (TargetMaterial.GetColor("_RimShadeColor") != RimShadeColor) { TargetMaterial.SetColor("_RimShadeColor", RimShadeColor); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 림 쉐이드 컬러가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 백라이트 컬러를 일괄 변경합니다.</summary>
+		void UpdatelilToonBacklightColors(Material TargetMaterial) {
+			bool IsDrity = false;
+			Color BacklightColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_BacklightColor") : TargetBacklightColor;
+			if (TargetMaterial.GetColor("_BacklightColor") != BacklightColor) { TargetMaterial.SetColor("_BacklightColor", BacklightColor); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 백라이트 컬러가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 반사 컬러를 일괄 변경합니다.</summary>
+		void UpdatelilToonReflectionColors(Material TargetMaterial) {
+			bool IsDrity = false;
+			Color ReflectionColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_ReflectionColor") : TargetReflectionColor;
+			if (TargetMaterial.GetColor("_ReflectionColor") != ReflectionColor) { TargetMaterial.SetColor("_ReflectionColor", ReflectionColor); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 반사 컬러가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 림 라이트 컬러를 일괄 변경합니다.</summary>
+		void UpdatelilToonRimLightColors(Material TargetMaterial) {
+			bool IsDrity = false;
+			Color RimColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_RimColor") : TargetRimLightColor;
+			if (TargetMaterial.GetColor("_RimColor") != RimColor) { TargetMaterial.SetColor("_RimColor", RimColor); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 림 라이트 컬러가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 아웃라인 컬러를 일괄 변경합니다.</summary>
+		void UpdatelilToonOutlineColors(Material TargetMaterial) {
+			bool IsDrity = false;
+			Color OutlineColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_OutlineColor") : TargetOutlineColor;
+			Color OutlineLitColor = (ReferenceMaterial) ? ReferenceMaterial.GetColor("_OutlineLitColor") : TargetOutlineHighlightColor;
+			if (TargetMaterial.GetColor("_OutlineColor") != OutlineColor) { TargetMaterial.SetColor("_OutlineColor", OutlineColor); IsDrity = true; }
+			if (TargetMaterial.GetColor("_OutlineLitColor") != OutlineLitColor) { TargetMaterial.SetColor("_OutlineLitColor", OutlineLitColor); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 아웃라인 컬러가 변경되었습니다");
 			}
 		}
 
