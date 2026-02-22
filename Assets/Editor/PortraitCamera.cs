@@ -61,157 +61,157 @@ namespace com.vrsuya.utility {
 
 		/// <summary>마끼아또 아바타 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Macchiato", priority = 1000)]
-		public static void AddMacchaitoCamera() {
+		static void AddMacchaitoCamera() {
 			AddNewCamera(ColorList[ColorType.Macchiato]);
 		}
 
 		/// <summary>레빈 아바타 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Levin", priority = 1000)]
-		public static void AddLevinCamera() {
+		static void AddLevinCamera() {
 			AddNewCamera(ColorList[ColorType.Levin]);
 		}
 
 		/// <summary>흰색 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/White", priority = 1100)]
-		public static void AddWhiteCamera() {
+		static void AddWhiteCamera() {
 			AddNewCamera(ColorList[ColorType.White]);
 		}
 
 		/// <summary>검은색 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Black", priority = 1100)]
-		public static void AddBlackCamera() {
+		static void AddBlackCamera() {
 			AddNewCamera(ColorList[ColorType.Black]);
 		}
 
 		/// <summary>회색 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Gray", priority = 1100)]
-		public static void AddGrayCamera() {
+		static void AddGrayCamera() {
 			AddNewCamera(ColorList[ColorType.Gray]);
 		}
 
 		/// <summary>Almond 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Almond", priority = 1200)]
-		public static void AddAlmondCamera() {
+		static void AddAlmondCamera() {
 			AddNewCamera(ColorList[ColorType.Almond]);
 		}
 
 		/// <summary>Apricot 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Apricot", priority = 1200)]
-		public static void AddApricotCamera() {
+		static void AddApricotCamera() {
 			AddNewCamera(ColorList[ColorType.Apricot]);
 		}
 
 		/// <summary>Ash Gray 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Ash Gray", priority = 1200)]
-		public static void AddAshGrayCamera() {
+		static void AddAshGrayCamera() {
 			AddNewCamera(ColorList[ColorType.AshGray]);
 		}
 
 		/// <summary>Cherry Blossom 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Cherry Blossom", priority = 1200)]
-		public static void AddACherryBlossomCamera() {
+		static void AddACherryBlossomCamera() {
 			AddNewCamera(ColorList[ColorType.CherryBlossom]);
 		}
 
 		/// <summary>Cotton Candy 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Cotton Candy", priority = 1200)]
-		public static void AddCottonCandyCamera() {
+		static void AddCottonCandyCamera() {
 			AddNewCamera(ColorList[ColorType.CottonCandy]);
 		}
 
 		/// <summary>Cream 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Cream", priority = 1200)]
-		public static void AddCreamCamera() {
+		static void AddCreamCamera() {
 			AddNewCamera(ColorList[ColorType.Cream]);
 		}
 
 		/// <summary>Lilac Fizz 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Lilac Fizz", priority = 1200)]
-		public static void AddLilacFizzCamera() {
+		static void AddLilacFizzCamera() {
 			AddNewCamera(ColorList[ColorType.LilacFizz]);
 		}
 
 		/// <summary>Linen 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Linen", priority = 1200)]
-		public static void AddLinenCamera() {
+		static void AddLinenCamera() {
 			AddNewCamera(ColorList[ColorType.Linen]);
 		}
 
 		/// <summary>Mauvelous 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Mauvelous", priority = 1200)]
-		public static void AddMauvelousCamera() {
+		static void AddMauvelousCamera() {
 			AddNewCamera(ColorList[ColorType.Mauvelous]);
 		}
 
 		/// <summary>Pale Turquoise 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Pale Turquoise", priority = 1200)]
-		public static void AddPaleTurquoiseCamera() {
+		static void AddPaleTurquoiseCamera() {
 			AddNewCamera(ColorList[ColorType.PaleTurquoise]);
 		}
 
 		/// <summary>Pastel Grey 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Pastel Grey", priority = 1200)]
-		public static void AddPastelGreyCamera() {
+		static void AddPastelGreyCamera() {
 			AddNewCamera(ColorList[ColorType.PastelGrey]);
 		}
 
 		/// <summary>Silver Sand 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Silver Sand", priority = 1200)]
-		public static void AddSilverSandCamera() {
+		static void AddSilverSandCamera() {
 			AddNewCamera(ColorList[ColorType.SilverSand]);
 		}
 
 		/// <summary>Sky Blue 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Sky Blue", priority = 1200)]
-		public static void AddSkyBlueCamera() {
+		static void AddSkyBlueCamera() {
 			AddNewCamera(ColorList[ColorType.SkyBlue]);
 		}
 
 		/// <summary>SpringBlossom 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Spring Blossom", priority = 1200)]
-		public static void AddSpringBlossomCamera() {
+		static void AddSpringBlossomCamera() {
 			AddNewCamera(ColorList[ColorType.SpringBlossom]);
 		}
 
 		/// <summary>Steel Blue 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Steel Blue", priority = 1200)]
-		public static void AddSteelBlueCamera() {
+		static void AddSteelBlueCamera() {
 			AddNewCamera(ColorList[ColorType.SteelBlue]);
 		}
 
 		/// <summary>Thistle 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Thistle", priority = 1200)]
-		public static void AddThistleCamera() {
+		static void AddThistleCamera() {
 			AddNewCamera(ColorList[ColorType.Thistle]);
 		}
 
 		/// <summary>Toasted 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Toasted", priority = 1200)]
-		public static void AddToastedCamera() {
+		static void AddToastedCamera() {
 			AddNewCamera(ColorList[ColorType.Toasted]);
 		}
 
 		/// <summary>Yellow 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Yellow", priority = 1200)]
-		public static void AddYellowCamera() {
+		static void AddYellowCamera() {
 			AddNewCamera(ColorList[ColorType.Yellow]);
 		}
 
 		/// <summary>빨간색 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Red", priority = 1300)]
-		public static void AddRedCamera() {
+		static void AddRedCamera() {
 			AddNewCamera(ColorList[ColorType.Red]);
 		}
 
 		/// <summary>초록색 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Green", priority = 1300)]
-		public static void AddGreenCamera() {
+		static void AddGreenCamera() {
 			AddNewCamera(ColorList[ColorType.Green]);
 		}
 
 		/// <summary>파란색 프로필용 카메라를 생성합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/PortraitCamera/Blue", priority = 1300)]
-		public static void AddBlueCamera() {
+		static void AddBlueCamera() {
 			AddNewCamera(ColorList[ColorType.Blue]);
 		}
 

@@ -22,7 +22,7 @@ namespace com.vrsuya.utility {
 	public class SyncChildAvatar : EditorWindow {
 
 		[MenuItem("Tools/VRSuya/Utility/Sync All Child Avatar Bone", priority = 1000)]
-		public static void SyncAllChildAvatar() {
+		static void SyncAllChildAvatar() {
             List<HumanBodyBones> HumanBodyBoneList = GetHumanBoneList();
             List<VRC_AvatarDescriptor> VRCAvatars = GetVRCAvatarList();
 			foreach (var VRCAvatar in VRCAvatars) {

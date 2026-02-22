@@ -93,152 +93,152 @@ namespace com.vrsuya.utility {
 
 		/// <summary>아바타 이름을 분석하여 자동으로 타입을 변환할지 결정합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", priority = 1000)]
-		public static void SetAvatarRecognition() {
+		static void SetAvatarRecognition() {
 			AutomaticAvatarRecognition = !AutomaticAvatarRecognition;
 			CheckAvatarMenu();
 		}
 
 		/// <summary>아바타를 지정된 타입에 맞춥니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", priority = 1100)]
-		public static void SetAvatarTypeAiri() {
+		static void SetAvatarTypeAiri() {
 			CurrentAvatarType = Avatar.Airi;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", priority = 1100)]
-		public static void SetAvatarTypeChiffon() {
+		static void SetAvatarTypeChiffon() {
 			CurrentAvatarType = Avatar.Chiffon;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chise", priority = 1100)]
-		public static void SetAvatarTypeChise() {
+		static void SetAvatarTypeChise() {
 			CurrentAvatarType = Avatar.Chise;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chocolat", priority = 1100)]
-		public static void SetAvatarTypeChocolat() {
+		static void SetAvatarTypeChocolat() {
 			CurrentAvatarType = Avatar.Chocolat;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Grus", priority = 1100)]
-		public static void SetAvatarTypeGrus() {
+		static void SetAvatarTypeGrus() {
 			CurrentAvatarType = Avatar.Grus;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Karin", priority = 1100)]
-		public static void SetAvatarTypeKarin() {
+		static void SetAvatarTypeKarin() {
 			CurrentAvatarType = Avatar.Karin;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kikyo", priority = 1100)]
-		public static void SetAvatarTypeKikyo() {
+		static void SetAvatarTypeKikyo() {
 			CurrentAvatarType = Avatar.Kikyo;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kipfel", priority = 1100)]
-		public static void SetAvatarTypeKipfel() {
+		static void SetAvatarTypeKipfel() {
 			CurrentAvatarType = Avatar.Kipfel;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kokoa", priority = 1100)]
-		public static void SetAvatarTypeKokoa() {
+		static void SetAvatarTypeKokoa() {
 			CurrentAvatarType = Avatar.Kokoa;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leefa", priority = 1100)]
-		public static void SetAvatarTypeLeefa() {
+		static void SetAvatarTypeLeefa() {
 			CurrentAvatarType = Avatar.Leefa;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lime", priority = 1100)]
-		public static void SetAvatarTypeLime() {
+		static void SetAvatarTypeLime() {
 			CurrentAvatarType = Avatar.Lime;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mamehinata", priority = 1100)]
-		public static void SetAvatarTypeMamehinata() {
+		static void SetAvatarTypeMamehinata() {
 			CurrentAvatarType = Avatar.Mamehinata;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Manuka", priority = 1100)]
-		public static void SetAvatarTypeManuka() {
+		static void SetAvatarTypeManuka() {
 			CurrentAvatarType = Avatar.Manuka;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", priority = 1100)]
-		public static void SetAvatarTypeMaya() {
+		static void SetAvatarTypeMaya() {
 			CurrentAvatarType = Avatar.Maya;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", priority = 1100)]
-		public static void SetAvatarTypeMiko() {
+		static void SetAvatarTypeMiko() {
 			CurrentAvatarType = Avatar.Miko;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", priority = 1100)]
-		public static void SetAvatarTypeMilfy() {
+		static void SetAvatarTypeMilfy() {
 			CurrentAvatarType = Avatar.Milfy;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milltina", priority = 1100)]
-		public static void SetAvatarTypeMilltina() {
+		static void SetAvatarTypeMilltina() {
 			CurrentAvatarType = Avatar.Milltina;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minase", priority = 1100)]
-		public static void SetAvatarTypeMinase() {
+		static void SetAvatarTypeMinase() {
 			CurrentAvatarType = Avatar.Minase;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Moe", priority = 1100)]
-		public static void SetAvatarTypeMoe() {
+		static void SetAvatarTypeMoe() {
 			CurrentAvatarType = Avatar.Moe;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Selestia", priority = 1100)]
-		public static void SetAvatarTypeSelestia() {
+		static void SetAvatarTypeSelestia() {
 			CurrentAvatarType = Avatar.Selestia;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinano", priority = 1100)]
-		public static void SetAvatarTypeShinano() {
+		static void SetAvatarTypeShinano() {
 			CurrentAvatarType = Avatar.Shinano;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinra", priority = 1100)]
-		public static void SetAvatarTypeShinra() {
+		static void SetAvatarTypeShinra() {
 			CurrentAvatarType = Avatar.Shinra;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sio", priority = 1100)]
-		public static void SetAvatarTypeSio() {
+		static void SetAvatarTypeSio() {
 			CurrentAvatarType = Avatar.Sio;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ukon", priority = 1100)]
-		public static void SetAvatarTypeUkon() {
+		static void SetAvatarTypeUkon() {
 			CurrentAvatarType = Avatar.Ukon;
 			CheckAvatarMenu();
 		}
@@ -246,61 +246,61 @@ namespace com.vrsuya.utility {
 
 		/// <summary>아바타의 키를 지정된 키에 맞춥니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/100cm", priority = 1100)]
-		public static void ScaleAvatar100cm() {
+		static void ScaleAvatar100cm() {
 			ScaleAvatar(100);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/110cm", priority = 1100)]
-		public static void ScaleAvatar110cm() {
+		static void ScaleAvatar110cm() {
 			ScaleAvatar(110);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/120cm", priority = 1100)]
-		public static void ScaleAvatar120cm() {
+		static void ScaleAvatar120cm() {
 			ScaleAvatar(120);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/130cm", priority = 1100)]
-		public static void ScaleAvatar130cm() {
+		static void ScaleAvatar130cm() {
 			ScaleAvatar(130);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/140cm", priority = 1100)]
-		public static void ScaleAvatar140cm() {
+		static void ScaleAvatar140cm() {
 			ScaleAvatar(140);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/150cm", priority = 1100)]
-		public static void ScaleAvatar150cm() {
+		static void ScaleAvatar150cm() {
 			ScaleAvatar(150);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/160cm", priority = 1100)]
-		public static void ScaleAvatar160cm() {
+		static void ScaleAvatar160cm() {
 			ScaleAvatar(160);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/170cm", priority = 1100)]
-		public static void ScaleAvatar170cm() {
+		static void ScaleAvatar170cm() {
 			ScaleAvatar(170);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/180cm", priority = 1100)]
-		public static void ScaleAvatar180cm() {
+		static void ScaleAvatar180cm() {
 			ScaleAvatar(180);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/190cm", priority = 1100)]
-		public static void ScaleAvatar190cm() {
+		static void ScaleAvatar190cm() {
 			ScaleAvatar(190);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/200cm", priority = 1100)]
-		public static void ScaleAvatar200cm() {
+		static void ScaleAvatar200cm() {
 			ScaleAvatar(200);
 		}
 
-		public static void ScaleAvatarHeight(int TargetAvatarHeight) {
+		internal static void ScaleAvatarHeight(int TargetAvatarHeight) {
 			ScaleAvatar(TargetAvatarHeight);
 		}
 
