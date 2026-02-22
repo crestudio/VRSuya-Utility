@@ -14,6 +14,7 @@ namespace com.vrsuya.utility {
 		SerializedObject SerializedMaterialTemplate;
 
 		SerializedProperty SerializedTargetGameObject;
+		SerializedProperty SerializedReferenceMaterial;
 		SerializedProperty SerializedTargetMaterials;
 		SerializedProperty SerializedTargetTexture2Ds;
 
@@ -56,6 +57,7 @@ namespace com.vrsuya.utility {
 			MaterialTemplateInstance = CreateInstance<MaterialTemplate>();
 			SerializedMaterialTemplate = new SerializedObject(MaterialTemplateInstance);
 			SerializedTargetGameObject = SerializedMaterialTemplate.FindProperty("TargetGameObject");
+			SerializedReferenceMaterial = SerializedMaterialTemplate.FindProperty("ReferenceMaterial");
 			SerializedTargetMaterials = SerializedMaterialTemplate.FindProperty("TargetMaterials");
 			SerializedTargetTexture2Ds = SerializedMaterialTemplate.FindProperty("TargetTexture2Ds");
 
@@ -104,6 +106,7 @@ namespace com.vrsuya.utility {
 			}
 			SerializedMaterialTemplate.Update();
 			EditorGUILayout.PropertyField(SerializedTargetGameObject, new GUIContent("아바타"));
+			EditorGUILayout.PropertyField(SerializedReferenceMaterial, new GUIContent("기준 머테리얼"));
 			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			EditorGUILayout.PropertyField(SerializedTargetMaterials, new GUIContent("머테리얼"));
 			if (GUILayout.Button("lilToon 머테리얼 추가")) {
