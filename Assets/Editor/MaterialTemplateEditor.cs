@@ -39,6 +39,11 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedUpdatelilToonReceiveShadow;
 		SerializedProperty SerializedUpdatelilToonBackfaceMask;
 		SerializedProperty SerializedUpdatelilToonBacklight;
+		SerializedProperty SerializedForcelilToonShadow;
+		SerializedProperty SerializedForcelilToonRimShade;
+		SerializedProperty SerializedForcelilToonBacklight;
+		SerializedProperty SerializedForcelilToonReflection;
+		SerializedProperty SerializedForcelilToonRimLight;
 		SerializedProperty SerializedUpdatelilToonShadowColor;
 		SerializedProperty SerializedUpdatelilToonRimShadeColor;
 		SerializedProperty SerializedUpdatelilToonBacklightColor;
@@ -70,6 +75,7 @@ namespace com.vrsuya.utility {
 		bool FoldTexture = false;
 		bool FoldTextureProperty = false;
 		bool FoldlilToon = false;
+		bool FoldlilToonForce = false;
 		bool FoldlilToonColorPalette = false;
 		bool FoldlilToonColor = false;
 		bool Foldpoiyomi = false;
@@ -104,6 +110,11 @@ namespace com.vrsuya.utility {
 			SerializedUpdatelilToonReceiveShadow = SerializedMaterialTemplate.FindProperty("UpdatelilToonReceiveShadow");
 			SerializedUpdatelilToonBackfaceMask = SerializedMaterialTemplate.FindProperty("UpdatelilToonBackfaceMask");
 			SerializedUpdatelilToonBacklight = SerializedMaterialTemplate.FindProperty("UpdatelilToonBacklight");
+			SerializedForcelilToonShadow = SerializedMaterialTemplate.FindProperty("ForcelilToonShadow");
+			SerializedForcelilToonRimShade = SerializedMaterialTemplate.FindProperty("ForcelilToonRimShade");
+			SerializedForcelilToonBacklight = SerializedMaterialTemplate.FindProperty("ForcelilToonBacklight"); ;
+			SerializedForcelilToonReflection = SerializedMaterialTemplate.FindProperty("ForcelilToonReflection");
+			SerializedForcelilToonRimLight = SerializedMaterialTemplate.FindProperty("ForcelilToonRimLight");
 			SerializedUpdatelilToonShadowColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonShadowColor");
 			SerializedUpdatelilToonRimShadeColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonRimShadeColor");
 			SerializedUpdatelilToonBacklightColor = SerializedMaterialTemplate.FindProperty("UpdatelilToonBacklightColor"); ;
@@ -177,6 +188,16 @@ namespace com.vrsuya.utility {
 						EditorGUILayout.PropertyField(SerializedUpdateRenderQueue, new GUIContent("RenderQueue 설정"));
 						EditorGUILayout.PropertyField(SerializedUpdateGPUInstancing, new GUIContent("GPU 인스턴싱 설정"));
 						EditorGUILayout.PropertyField(SerializedUpdateGlobalIllumination, new GUIContent("Global Illumination 설정"));
+						EditorGUI.indentLevel--;
+					}
+					FoldlilToonForce = EditorGUILayout.Foldout(FoldlilToonForce, "lilToon 강제 적용");
+					if (FoldlilToonForce) {
+						EditorGUI.indentLevel++;
+						EditorGUILayout.PropertyField(SerializedForcelilToonShadow, new GUIContent("그림자 사용"));
+						EditorGUILayout.PropertyField(SerializedForcelilToonRimShade, new GUIContent("림 쉐이드 사용"));
+						EditorGUILayout.PropertyField(SerializedForcelilToonBacklight, new GUIContent("백라이트 사용"));
+						EditorGUILayout.PropertyField(SerializedForcelilToonReflection, new GUIContent("반사 사용"));
+						EditorGUILayout.PropertyField(SerializedForcelilToonRimLight, new GUIContent("림 라이트 사용"));
 						EditorGUI.indentLevel--;
 					}
 					FoldlilToonColor = EditorGUILayout.Foldout(FoldlilToonColor, "lilToon 컬러");

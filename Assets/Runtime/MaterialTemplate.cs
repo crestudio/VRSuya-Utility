@@ -43,6 +43,11 @@ namespace com.vrsuya.utility {
 		public bool UpdatelilToonReceiveShadow = true;
 		public bool UpdatelilToonBackfaceMask = true;
 		public bool UpdatelilToonBacklight = true;
+		public bool ForcelilToonShadow = false;
+		public bool ForcelilToonRimShade = false;
+		public bool ForcelilToonBacklight = false;
+		public bool ForcelilToonReflection = false;
+		public bool ForcelilToonRimLight = false;
 		public bool UpdatelilToonShadowColor = true;
 		public bool UpdatelilToonRimShadeColor = true;
 		public bool UpdatelilToonBacklightColor = true;
@@ -150,6 +155,7 @@ namespace com.vrsuya.utility {
 			if (UpdatelilToonReflectionColor) UpdatelilToonReflectionColors(TargetMaterial);
 			if (UpdatelilToonRimLightColor) UpdatelilToonRimLightColors(TargetMaterial);
 			if (UpdatelilToonOutlineColor) UpdatelilToonOutlineColors(TargetMaterial);
+			ForcelilToonPropertys(TargetMaterial);
 			if (UpdateRenderQueue) UpdateRenderQueuePropertys(TargetMaterial);
 			if (UpdateGPUInstancing) UpdateGPUInstancingPropertys(TargetMaterial);
 			if (UpdateGlobalIllumination) UpdateGlobalIlluminationPropertys(TargetMaterial);
@@ -300,6 +306,20 @@ namespace com.vrsuya.utility {
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
 				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 Backlight 프로퍼티가 변경되었습니다");
+			}
+		}
+
+		/// <summary>해당 릴툰 머테리얼에서 Backlight 프로퍼티 값을 일괄 변경합니다.</summary>
+		void ForcelilToonPropertys(Material TargetMaterial) {
+			bool IsDrity = false;
+			if (ForcelilToonShadow) { TargetMaterial.SetFloat("_UseShadow", 1.0f); IsDrity = true; }
+			if (ForcelilToonRimShade) { TargetMaterial.SetFloat("_UseRimShade", 1.0f); IsDrity = true; }
+			if (ForcelilToonBacklight) { TargetMaterial.SetFloat("_UseBacklight", 1.0f); IsDrity = true; }
+			if (ForcelilToonReflection) { TargetMaterial.SetFloat("_UseReflection", 1.0f); IsDrity = true; }
+			if (ForcelilToonRimLight) { TargetMaterial.SetFloat("_UseRim", 1.0f); IsDrity = true; }
+			if (IsDrity) {
+				EditorUtility.SetDirty(TargetMaterial);
+				Debug.Log($"[VRSuya] {TargetMaterial.name} 머테리얼 릴툰 쉐이더의 효과 사용 여부가 변경되었습니다");
 			}
 		}
 
