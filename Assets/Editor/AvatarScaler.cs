@@ -87,7 +87,7 @@ namespace com.vrsuya.utility {
 			// 검색용 신규 아바타 추가 위치
 		};
 
-		public static Avatar CurrentAvatarType = Avatar.Kikyo;
+		public static Avatar CurrentAvatarType = Avatar.MANUKA;
 		public static bool AutomaticAvatarRecognition = true;
 		static int UndoGroupIndex;
 
