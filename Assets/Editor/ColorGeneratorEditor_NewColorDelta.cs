@@ -23,8 +23,6 @@ namespace com.vrsuya.utility {
 		SerializedProperty SerializedRimLightDelta;
 		SerializedProperty SerializedRimShadeDelta;
 
-		static readonly Rect DefaultWindowRect = new Rect(0, 0, 420, 435);
-
 		// ColorBox Rect 변수
 		float BorderX = 30f;
 		float BorderY = 30f;
