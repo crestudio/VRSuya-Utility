@@ -43,7 +43,7 @@ namespace com.vrsuya.utility {
 			// 검색용 신규 아바타 추가 위치
 		}
 
-		readonly static Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
+		static readonly Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
 			{ Avatar.Airi, 0.8852937f },
 			{ Avatar.Aldina, 0.000000000000000000000001f },
 			{ Avatar.Angura, 0.000000000000000000000001f },
@@ -134,7 +134,7 @@ namespace com.vrsuya.utility {
 			// 검색용 신규 아바타 추가 위치
 		};
 
-		readonly static Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
+		static readonly Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
 			{ Avatar.Airi, new string[] { "Airi", "아이리", "愛莉" } },
 			{ Avatar.Aldina, new string[] { "Aldina", "알디나", "アルディナ" } },
 			{ Avatar.Angura, new string[] { "Angura", "앙그라", "アングラ" } },
