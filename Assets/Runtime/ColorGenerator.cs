@@ -56,7 +56,7 @@ namespace com.vrsuya.utility {
 		static ColorGenerator ColorGeneratorInstance;
 
 		// Unity Undo 변수
-		readonly string UndoGroupName = "VRSuya ColorGenerator";
+		const string UndoGroupName = "VRSuya ColorGenerator";
 		int UndoGroupIndex;
 
 		void OnEnable() {

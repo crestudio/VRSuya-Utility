@@ -52,7 +52,7 @@ namespace com.vrsuya.utility {
 		public GameObject AvatarGameObject = null;
 		public Material[] AvatarMaterials = new Material[0];
 
-		readonly string UndoGroupName = "VRSuya TextureReplacer";
+		const string UndoGroupName = "VRSuya TextureReplacer";
 		int UndoGroupIndex;
 
 		// 컴포넌트 최초 로드시 동작

@@ -21,7 +21,7 @@ namespace com.vrsuya.utility {
 	[ExecuteInEditMode]
 	public class PhysBoneController : EditorWindow {
 
-		static string UndoGroupName = "VRSuya PhysBoneController";
+		const string UndoGroupName = "VRSuya PhysBoneController";
 		static int UndoGroupIndex;
 
 		static readonly Dictionary<HumanBodyBones, HumanBodyBones> BoneColliderPair = new Dictionary<HumanBodyBones, HumanBodyBones> {

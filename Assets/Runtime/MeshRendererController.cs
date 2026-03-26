@@ -18,7 +18,7 @@ namespace com.vrsuya.utility {
 
 	public class MeshRendererController : ScriptableObject {
 
-		readonly string UndoGroupName = "VRSuya MeshRendererController";
+		const string UndoGroupName = "VRSuya MeshRendererController";
 		int UndoGroupIndex;
 
 		public void RequestUpdateAvatarRenders() {

@@ -75,8 +75,8 @@ namespace com.vrsuya.utility {
 		Vector3[] TopCircle;
 		Vector3[] BottomCircle;
 
-		static string UndoGroupName = "VRSuya SkirtColliderGenerator";
-		static int UndoGroupIndex;
+		const string UndoGroupName = "VRSuya SkirtColliderGenerator";
+		int UndoGroupIndex;
 
 		void Start() {
 			GetHumanoidTransform();
