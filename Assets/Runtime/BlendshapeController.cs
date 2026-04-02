@@ -14,7 +14,7 @@ using UnityEditor.Animations;
 
 namespace VRSuya.Utility {
 
-	[AddComponentMenu("VRSuya/VRSuya Blendshape Viewer")]
+	[AddComponentMenu("VRSuya/VRSuya BlendshapeViewer")]
 	public class BlendshapeController : MonoBehaviour {
 
 		public SkinnedMeshRenderer TargetSkinnedMeshRenderer = null;

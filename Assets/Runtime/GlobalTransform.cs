@@ -7,7 +7,7 @@
 
 namespace VRSuya.Utility {
 
-	[AddComponentMenu("VRSuya/VRSuya Global Transform")]
+	[AddComponentMenu("VRSuya/VRSuya GlobalTransform")]
 	[RequireComponent(typeof(Transform))]
 	public class GlobalTransform : MonoBehaviour { }
 }

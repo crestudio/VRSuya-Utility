@@ -16,7 +16,7 @@ using static VRSuya.Core.Unity;
 namespace VRSuya.Utility {
 
 	[ExecuteInEditMode]
-	[AddComponentMenu("VRSuya/VRSuya Texture Replacer")]
+	[AddComponentMenu("VRSuya/VRSuya TextureReplacer")]
 	public class TextureReplacer : MonoBehaviour {
 
 		[Serializable]
