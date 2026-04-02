@@ -6,7 +6,7 @@ using UnityEditor;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	public class ColorGeneratorEditor_NewColorDelta : EditorWindow {
 

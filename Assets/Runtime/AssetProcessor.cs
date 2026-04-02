@@ -15,7 +15,7 @@ using static com.vrsuya.utility.TextureReplacer;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	[ExecuteInEditMode]
 	[AddComponentMenu("")]

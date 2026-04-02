@@ -13,7 +13,7 @@ using static VRSuya.Core.Unity;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	[ExecuteInEditMode]
 	[AddComponentMenu("VRSuya/VRSuya Texture Replacer")]

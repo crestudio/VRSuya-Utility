@@ -14,7 +14,7 @@ using Random = UnityEngine.Random;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	public class ColorGenerator : ScriptableObject {
 

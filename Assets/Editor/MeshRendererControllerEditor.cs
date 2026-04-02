@@ -7,7 +7,7 @@ using UnityEngine;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	[ExecuteInEditMode]
 	public class MeshRendererControllerEditor : EditorWindow {

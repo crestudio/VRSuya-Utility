@@ -12,7 +12,7 @@ using UnityEditor.Animations;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	[AddComponentMenu("VRSuya/VRSuya Blendshape Viewer")]
 	public class BlendshapeController : MonoBehaviour {

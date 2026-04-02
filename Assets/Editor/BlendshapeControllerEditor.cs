@@ -9,7 +9,7 @@ using UnityEditor;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
     [CustomEditor(typeof(BlendshapeController))]
     public class BlendshapeControllerEditor : Editor {

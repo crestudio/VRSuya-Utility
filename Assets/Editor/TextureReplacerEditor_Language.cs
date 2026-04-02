@@ -5,7 +5,7 @@
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	public class LanguageHelper : TextureReplacerEditor {
 

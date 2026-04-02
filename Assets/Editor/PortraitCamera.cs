@@ -16,7 +16,7 @@ using Avatar = VRSuya.Core.Avatar;
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
  */
 
-namespace com.vrsuya.utility {
+namespace VRSuya.Utility {
 
 	public class PortraitCamera : MonoBehaviour {
 
