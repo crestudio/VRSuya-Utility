@@ -8,7 +8,8 @@ using UnityEditor.Animations;
 using UnityEngine;
 
 using VRC.SDK3.Avatars.Components;
-using static com.vrsuya.utility.TextureReplacer;
+
+using static VRSuya.Utility.TextureReplacer;
 
 /*
  * VRSuya Utility
