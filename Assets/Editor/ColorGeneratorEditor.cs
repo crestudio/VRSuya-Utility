@@ -60,7 +60,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/ColorGenerator", priority = 1000)]
 		static void CreateWindow() {
-			ColorGeneratorEditor AppWindow = GetWindowWithRect<ColorGeneratorEditor>(new Rect(0, 0, 550, 425), true, "ColorGenerator");
+			ColorGeneratorEditor AppWindow = GetWindowWithRect<ColorGeneratorEditor>(new Rect(0, 0, 550, 425), true, "VRSuya ColorGenerator");
 		}
 
 		void OnGUI() {

@@ -16,9 +16,9 @@ namespace VRSuya.Utility {
 
 		Color BaseColor, Shadow1Color, Shadow2Color, Shadow3Color;
 
-		[MenuItem("Tools/VRSuya/Utility/OKLCH Color Gradient", priority = 1000)]
+		[MenuItem("Tools/VRSuya/Utility/OKLCHColorGradient", priority = 1000)]
 		static void CreateWindow() {
-			ColorGradientUtility AppWindow = GetWindow<ColorGradientUtility>(true, "OKLCH Gradient Picker", true);
+			ColorGradientUtility AppWindow = GetWindow<ColorGradientUtility>(true, "VRSuya OKLCHGradientPicker", true);
 			AppWindow.minSize = new Vector2(300, 200);
 		}
 

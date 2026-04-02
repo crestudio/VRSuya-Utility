@@ -109,7 +109,7 @@ namespace VRSuya.Utility {
 
 			[MenuItem("Tools/VRSuya/Utility/AnimatorView", priority = 1000)]
 			static void CreateWindow() {
-				AnimatorViewEditor AppWindow = GetWindowWithRect<AnimatorViewEditor>(new Rect(0, 0, 230, 180), true, "AnimatorView");
+				AnimatorViewEditor AppWindow = GetWindowWithRect<AnimatorViewEditor>(new Rect(0, 0, 230, 180), true, "VRSuya AnimatorView");
 			}
 
 			void OnGUI() {

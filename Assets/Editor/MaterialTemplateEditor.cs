@@ -144,7 +144,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/MaterialTemplate", priority = 1000)]
 		static void CreateWindow() {
-			MaterialTemplateEditor AppWindow = GetWindow<MaterialTemplateEditor>(true, "MaterialTemplate", true);
+			MaterialTemplateEditor AppWindow = GetWindow<MaterialTemplateEditor>(true, "VRSuya MaterialTemplate", true);
 			AppWindow.minSize = new Vector2(300, 550);
 		}
 

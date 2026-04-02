@@ -1037,7 +1037,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Custom", priority = 1200)]
 		static void CreateWindow() {
-			AvatarScalerEditor AppWindow = GetWindowWithRect<AvatarScalerEditor>(new Rect(0, 0, 230, 100), true, "AvatarScaler");
+			AvatarScalerEditor AppWindow = GetWindowWithRect<AvatarScalerEditor>(new Rect(0, 0, 230, 100), true, "VRSuya AvatarScaler");
 		}
 
 		void OnGUI() {

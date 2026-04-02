@@ -47,7 +47,7 @@ namespace VRSuya.Utility {
 		}
 
 		public static void CreateWindow() {
-			ColorGeneratorEditor_NewColorDelta AppWindow = GetWindowWithRect<ColorGeneratorEditor_NewColorDelta>(new Rect(0, 0, 365, 435), true, "New ColorDelta");
+			ColorGeneratorEditor_NewColorDelta AppWindow = GetWindowWithRect<ColorGeneratorEditor_NewColorDelta>(new Rect(0, 0, 365, 435), true, "VRSuya NewColorDelta");
 		}
 
 		void OnGUI() {
