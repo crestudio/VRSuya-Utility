@@ -29,7 +29,7 @@ namespace com.vrsuya.utility {
 			IMERIS,
 			Karin, Kikyo, Kipfel, Kokoa, Koyuki, KUMALY, Kuronatu,
 			Lapwing, Lazuli, Leefa, Leeme, Lime, LUMINA, Lunalitt,
-			Mafuyu, Maki, Mamehinata, MANUKA, Mariel, Marron, Maya, Merino, Miko, Milfy, Milk, Milltina, Minahoshi, Minase, Mint, Mir, Mishe, Moe,
+			Mafuyu, Maki, Mamehinata, MANUKA, Mariel, Marron, Maya, MAYO, Merino, Miko, Milfy, Milk, Milltina, Minahoshi, Minase, Mint, Mir, Mishe, Moe,
 			Nayu, Nehail, Nochica,
 			Platinum, Plum, Pochimaru,
 			Quiche,
@@ -85,6 +85,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Mariel, 0.000000000000000000000001f },
 			{ Avatar.Marron, 0.000000000000000000000001f },
 			{ Avatar.Maya, 0.8845845f },
+			{ Avatar.MAYO, 0.000000000000000000000001f },
 			{ Avatar.Merino, 0.000000000000000000000001f },
 			{ Avatar.Miko, 0.8785723f },
 			{ Avatar.Milfy, 0.7903f },
@@ -176,6 +177,7 @@ namespace com.vrsuya.utility {
 			{ Avatar.Mariel, new string[] { "Mariel", "마리엘", "まりえる" } },
 			{ Avatar.Marron, new string[] { "Marron", "마론", "マロン" } },
 			{ Avatar.Maya, new string[] { "Maya", "마야", "舞夜" } },
+			{ Avatar.MAYO, new string[] { "MAYO", "마요", "まよ" } },
 			{ Avatar.Merino, new string[] { "Merino", "메리노", "メリノ" } },
 			{ Avatar.Miko, new string[] { "Miko", "미코", "ミコ" } },
 			{ Avatar.Milfy, new string[] { "Milfy", "미르피", "ミルフィ" } },
@@ -480,6 +482,12 @@ namespace com.vrsuya.utility {
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", priority = 1100)]
 		static void SetAvatarTypeMaya() {
 			CurrentAvatarType = Avatar.Maya;
+			CheckAvatarMenu();
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/MAYO", priority = 1100)]
+		static void SetAvatarTypeMAYO() {
+			CurrentAvatarType = Avatar.MAYO;
 			CheckAvatarMenu();
 		}
 
@@ -868,6 +876,7 @@ namespace com.vrsuya.utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mariel", CurrentAvatarType == Avatar.Mariel);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Marron", CurrentAvatarType == Avatar.Marron);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", CurrentAvatarType == Avatar.Maya);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/MAYO", CurrentAvatarType == Avatar.MAYO);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Merino", CurrentAvatarType == Avatar.Merino);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", CurrentAvatarType == Avatar.Miko);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", CurrentAvatarType == Avatar.Milfy);
