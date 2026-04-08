@@ -27,7 +27,6 @@ namespace VRSuya.Utility {
 			return IsAnimatorController(Selection.objects);
 		}
 
-		/// <summary>AnimatorController에 존재하는 모든 State의 Write Defaults을 On으로 변경합니다</summary>
 		[MenuItem("Assets/VRSuya/Animator/Write Defaults On", priority = 1000)]
 		static void RequestAnimatorWriteDefaultsOn() {
 			if (Selection.objects.Length > 0) {
@@ -54,7 +53,6 @@ namespace VRSuya.Utility {
 			}
 		}
 
-		/// <summary>AnimatorController에 존재하는 모든 State의 Write Defaults을 Off으로 변경합니다</summary>
 		[MenuItem("Assets/VRSuya/Animator/Write Defaults Off", priority = 1000)]
 		static void RequestAnimatorWriteDefaultsOff() {
 			if (Selection.objects.Length > 0) {

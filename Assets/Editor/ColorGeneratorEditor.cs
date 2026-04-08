@@ -26,7 +26,6 @@ namespace VRSuya.Utility {
 		int CurrentColorDeltaIndex = 0;
 		string[] ColorDeltaNameList;
 
-		// ColorBox Rect 변수
 		float BorderX = 30f;
 		float BorderY = EditorGUIUtility.singleLineHeight * 3;
 		float ShadowRectWidth = float.NaN;

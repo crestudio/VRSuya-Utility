@@ -9,8 +9,6 @@ namespace VRSuya.Utility {
 
 	public class LanguageHelper : TextureReplacerEditor {
 
-		/// <summary>요청한 값을 설정된 언어에 맞춰 값을 반환합니다.</summary>
-		/// <returns>요청한 String의 현재 설정된 언어 버전</returns>
 		internal static string GetContextString(string RequestContext) {
 			string ReturnContext = RequestContext;
 			switch (LanguageIndex) {
@@ -33,7 +31,6 @@ namespace VRSuya.Utility {
 			return ReturnContext;
 		}
 
-		// 영어 사전 데이터
 		static Dictionary<string, string> String_English = new Dictionary<string, string>() {
 			{ "String_Language", "Language" },
 			{ "String_TargetAvatar", "Target Avatar" },
@@ -52,7 +49,6 @@ namespace VRSuya.Utility {
 			{ "NO_DATA", "The texture cannot be found in the specified object" }
 		};
 
-		// 한국어 사전 데이터
 		static Dictionary<string, string> String_Korean = new Dictionary<string, string>() {
 			{ "String_Language", "언어" },
 			{ "String_TargetAvatar", "대상 아바타" },
@@ -71,7 +67,6 @@ namespace VRSuya.Utility {
 			{ "NO_DATA", "해당 오브젝트에서 텍스쳐를 찾을 수 없습니다" }
 		};
 
-		// 일본어 사전 데이터
 		static Dictionary<string, string> String_Japanese = new Dictionary<string, string>() {
 			{ "String_Language", "言語" },
 			{ "String_TargetAvatar", "対象アバター" },

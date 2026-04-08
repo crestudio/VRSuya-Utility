@@ -231,14 +231,12 @@ namespace VRSuya.Utility {
 		public static bool AutomaticAvatarRecognition = true;
 		static int UndoGroupIndex;
 
-		/// <summary>아바타 이름을 분석하여 자동으로 타입을 변환할지 결정합니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", priority = 1000)]
 		static void SetAvatarRecognition() {
 			AutomaticAvatarRecognition = !AutomaticAvatarRecognition;
 			CheckAvatarMenu();
 		}
 
-		/// <summary>아바타를 지정된 타입에 맞춥니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", priority = 1100)]
 		static void SetAvatarTypeAiri() {
 			CurrentAvatarType = Avatar.Airi;
@@ -768,7 +766,6 @@ namespace VRSuya.Utility {
 		}
 		// 검색용 신규 아바타 추가 위치
 
-		/// <summary>아바타의 키를 지정된 키에 맞춥니다.</summary>
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/100cm", priority = 1100)]
 		static void ScaleAvatar100cm() {
 			ScaleAvatar(100);
@@ -832,7 +829,6 @@ namespace VRSuya.Utility {
 			CheckAvatarMenu();
 		}
 
-		/// <summary>아바타 메뉴의 변수 상태를 체크합니다.</summary>
 		static void CheckAvatarMenu() {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", AutomaticAvatarRecognition);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", CurrentAvatarType == Avatar.Airi);
@@ -926,7 +922,6 @@ namespace VRSuya.Utility {
 			// 검색용 신규 아바타 추가 위치
 		}
 
-		/// <summary>지정된 키를 목표로 아바타 스케일을 변경합니다.</summary>
 		static void ScaleAvatar(int TargetHeight) {
 			if (GetVRCAvatar().Length > 0) {
 				Undo.IncrementCurrentGroup();
@@ -948,8 +943,6 @@ namespace VRSuya.Utility {
 			}
 		}
 
-		/// <summary>아바타 이름을 분석하여 어떤 아바타인지 반환합니다.</summary>
-		/// <returns>아바타 타입</returns>
 		static Avatar GetCurrentAvatarType(VRC_AvatarDescriptor TargetAvatarDescriptor) {
 			string AvatarName = TargetAvatarDescriptor.gameObject.name;
 			Avatar newCurrentAvatarType = CurrentAvatarType;
@@ -966,7 +959,6 @@ namespace VRSuya.Utility {
 			return newCurrentAvatarType;
 		}
 
-		/// <summary>아바타의 스케일을 변경합니다.</summary>
 		static void ScaleAvatarTransform(GameObject TargetAvatar, float TargetScale) {
 			Transform TargetAvatarTransform = TargetAvatar.transform;
 			Undo.RecordObject(TargetAvatarTransform, "Changed Avatar Transform");
@@ -975,7 +967,6 @@ namespace VRSuya.Utility {
 			Undo.CollapseUndoOperations(UndoGroupIndex);
 		}
 
-		/// <summary>아바타의 뷰 포지션을 변경합니다.</summary>
 		static void ScaleAvatarViewPosition(VRC_AvatarDescriptor TargetAvatarDescriptor, float TargetScale) {
 			Undo.RecordObject(TargetAvatarDescriptor, "Changed Avatar View Position");
 			TargetAvatarDescriptor.ViewPosition = TargetAvatarDescriptor.ViewPosition * TargetScale;
@@ -983,8 +974,6 @@ namespace VRSuya.Utility {
 			Undo.CollapseUndoOperations(UndoGroupIndex);
 		}
 
-		/// <summary>Scene에서 조건에 맞는 VRC AvatarDescriptor 컴포넌트 아바타 1개를 반환합니다.</summary>
-		/// <returns>조건에 맞는 VRC 아바타</returns>
 		static VRC_AvatarDescriptor[] GetVRCAvatar() {
 			VRC_AvatarDescriptor[] TargetAvatarDescriptors = GetAvatarDescriptorFromVRCSDKBuilder();
 			if (TargetAvatarDescriptors.Length == 0) TargetAvatarDescriptors = GetAvatarDescriptorFromSelection();
@@ -992,14 +981,10 @@ namespace VRSuya.Utility {
 			return TargetAvatarDescriptors;
 		}
 
-		/// <summary>VRCSDK Builder에서 활성화 상태인 VRC 아바타를 반환합니다.</summary>
-		/// <returns>VRCSDK Builder에서 활성화 상태인 VRC 아바타</returns>
 		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCSDKBuilder() {
 			return new VRC_AvatarDescriptor[0];
 		}
 
-		/// <summary>Unity 하이어라키에서 선택한 GameObject 중에서 VRC AvatarDescriptor 컴포넌트가 존재하는 아바타를 1개를 반환합니다.</summary>
-		/// <returns>선택 중인 VRC 아바타</returns>
 		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromSelection() {
 			GameObject[] SelectedGameObjects = Selection.gameObjects;
 			if (SelectedGameObjects.Length == 1) {
@@ -1018,8 +1003,6 @@ namespace VRSuya.Utility {
 			}
 		}
 
-		/// <summary>Scene에서 활성화 상태인 VRC AvatarDescriptor 컴포넌트가 존재하는 아바타를 1개를 반환합니다.</summary>
-		/// <returns>Scene에서 활성화 상태인 VRC 아바타</returns>
 		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCTool() {
 			VRC_AvatarDescriptor[] AllVRCAvatarDescriptor = VRC.Tools.FindSceneObjectsOfTypeAll<VRC_AvatarDescriptor>().ToArray();
 			if (AllVRCAvatarDescriptor.Length > 0) {

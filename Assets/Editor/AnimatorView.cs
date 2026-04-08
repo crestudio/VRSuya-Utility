@@ -18,12 +18,10 @@ namespace VRSuya.Utility {
 
 		static Dictionary<SceneView, string> SceneViewModes = new Dictionary<SceneView, string>();
 
-		/// <summary>Unity Editor가 매 프레임마다 Scene을 업데이트 하도록 합니다.</summary>
 		static AnimatorView() {
 			EditorApplication.update += OnEditorUpdate;
 		}
 
-		/// <summary>해당 오브젝트를 기준으로 Scene 뷰를 정렬합니다.</summary>
 		static void OnEditorUpdate() {
 			if (AnimatorViewEditor.IsSceneViewLocked) {
 				if ((GameObject)AnimatorViewEditor.TargetGameObject) {
@@ -72,7 +70,6 @@ namespace VRSuya.Utility {
 			}
 		}
 
-		/// <summary>Scene이 어느 방향을 향하고 있는지 검사합니다.</summary>
 		static void CheckSceneViewModes() {
 			if (AnimatorViewEditor.IsRotationLocked) {
 				if (SceneViewModes.Count == 0) {
@@ -87,7 +84,6 @@ namespace VRSuya.Utility {
 			}
 		}
 
-		/// <summary>Vector 방향을 반환합니다.</summary>
 		static string GetViewName(Vector3 Direction) {
 			if (Direction == Vector3.down) return "Top";
 			if (Direction == Vector3.up) return "Bottom";

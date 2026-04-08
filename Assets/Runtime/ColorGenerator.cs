@@ -52,10 +52,8 @@ namespace VRSuya.Utility {
 		public Material TargetMaterial;
 		public Material[] TargetMaterials = new Material[0];
 
-		// Instance 변수
 		static ColorGenerator ColorGeneratorInstance;
 
-		// Unity Undo 변수
 		const string UndoGroupName = "VRSuya ColorGenerator";
 		int UndoGroupIndex;
 
@@ -273,8 +271,6 @@ namespace VRSuya.Utility {
 			return Color.HSVToRGB(NewH, NewS, NewV);
 		}
 
-		/// <summary>해당 머테리얼이 어떠한 쉐이더를 사용하는지 String으로 반환합니다.</summary>
-		/// <returns>머테리얼이 사용하고 있는 쉐이더</returns>
 		static string GetShaderType(Material TargetMaterial) {
 			string ShaderType = TargetMaterial.shader.name;
 			if (TargetMaterial.shader.name.Contains("lilToon")) ShaderType = "lilToon";

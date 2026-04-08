@@ -23,7 +23,6 @@ namespace VRSuya.Utility {
 		SerializedProperty SerializedRimLightDelta;
 		SerializedProperty SerializedRimShadeDelta;
 
-		// ColorBox Rect 변수
 		float BorderX = 30f;
 		float BorderY = 30f;
 		float ScreenWidth;

@@ -22,7 +22,6 @@ namespace VRSuya.Utility {
 	[AddComponentMenu("")]
 	public class AssetProcessor {
 
-		/// <summary>주어진 아바타에서 텍스쳐들을 가져옵니다.</summary>
 		public Texture2D[] AddAvatarTextures(GameObject TargetGameObject) {
 			Texture2D[] newAvatarTextures = new Texture2D[0];
 			Material[] AvatarMaterials = GetAvatarMaterials(TargetGameObject);
@@ -35,7 +34,6 @@ namespace VRSuya.Utility {
 			return newAvatarTextures;
 		}
 
-		/// <summary>주어진 아바타에서 텍스쳐 디테일들을 가져옵니다.</summary>
 		public TextureExpression[] AddAvatarTextureDetails(GameObject TargetGameObject) {
 			TextureExpression[] newAvatarTextureExpressions = new TextureExpression[0];
 			Material[] AvatarMaterials = GetAvatarMaterials(TargetGameObject);
@@ -48,8 +46,6 @@ namespace VRSuya.Utility {
 			return newAvatarTextureExpressions;
 		}
 
-		/// <summary>주어진 아바타에서 머테리얼들을 가져와서 반환합니다.</summary>
-		/// <returns>아바타에 포함된 머테리얼 어레이</returns>
 		public Material[] GetAvatarMaterials(GameObject TargetGameObject) {
 			List<Material> AvatarMaterials = new List<Material>();
 			SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers = TargetGameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
@@ -74,8 +70,6 @@ namespace VRSuya.Utility {
 			return AvatarMaterials.ToArray();
 		}
 
-		/// <summary>주어진 아바타에서 애니메이션에서 사용된 머테리얼들을 가져와서 반환합니다.</summary>
-		/// <returns>아바타에 포함된 애니메이션 머테리얼 어레이</returns>
 		Material[] GetAnimationMaterials(GameObject TargetGameObject) {
 			List<Material> AnimationMaterials = new List<Material>();
 			TargetGameObject.TryGetComponent(typeof(VRCAvatarDescriptor), out Component AvatarDescriptor);
@@ -103,8 +97,6 @@ namespace VRSuya.Utility {
 			return AnimationMaterials.ToArray();
 		}
 
-		/// <summary>모든 FXLayer의 AnimationClip 어레이를 반환합니다.</summary>
-		/// <returns>FXLayer의 AnimationClip 어레이</returns>
 		AnimationClip[] GetFXAnimationClips(AnimatorController TargetAnimatorController) {
 			List<AnimatorStateMachine> RootStateMachines = TargetAnimatorController.layers.Select(AnimationLayer => AnimationLayer.stateMachine).ToList();
 			List<AnimatorStateMachine> AllStateMachines = new List<AnimatorStateMachine>();
@@ -127,8 +119,6 @@ namespace VRSuya.Utility {
 			return AllAnimationClips.ToArray();
 		}
 
-		/// <summary>모든 State 어레이를 반환합니다.</summary>
-		/// <returns>State 어레이</returns>
 		AnimatorState[] GetAllStates(AnimatorStateMachine TargetStateMachine) {
 			AnimatorState[] States = TargetStateMachine.states.Select(ExistChildState => ExistChildState.state).ToArray();
 			if (TargetStateMachine.stateMachines.Length > 0) {
@@ -139,8 +129,6 @@ namespace VRSuya.Utility {
 			return States;
 		}
 
-		/// <summary>모든 StateMachine 어레이를 반환합니다.</summary>
-		/// <returns>StateMachine 어레이</returns>
 		AnimatorStateMachine[] GetAllStateMachines(AnimatorStateMachine TargetStateMachine) {
 			AnimatorStateMachine[] StateMachines = new AnimatorStateMachine[] { TargetStateMachine };
 			if (TargetStateMachine.stateMachines.Length > 0) {
@@ -151,8 +139,6 @@ namespace VRSuya.Utility {
 			return StateMachines;
 		}
 
-		/// <summary>모든 AnimationClip 어레이를 반환합니다.</summary>
-		/// <returns>AnimationClip 어레이</returns>
 		AnimationClip[] GetAnimationClips(Motion TargetMotion) {
 			AnimationClip[] MotionAnimationClips = new AnimationClip[0];
 			if (TargetMotion is AnimationClip) {
@@ -165,8 +151,6 @@ namespace VRSuya.Utility {
 			return MotionAnimationClips;
 		}
 
-		/// <summary>주어진 머테리얼에서 텍스쳐들을 가져와서 반환합니다.</summary>
-		/// <returns>머테리얼에 포함된 텍스쳐 어레이</returns>
 		public Texture2D[] GetMaterialTextures(Material TargetMaterial) {
 			Texture2D[] MaterialTexture2Ds = new Texture2D[0];
 			if (TargetMaterial) {
@@ -186,8 +170,6 @@ namespace VRSuya.Utility {
 			return MaterialTexture2Ds;
 		}
 
-		/// <summary>주어진 머테리얼에서 텍스쳐들을 가져와서 반환합니다.</summary>
-		/// <returns>머테리얼에 포함된 텍스쳐 어레이</returns>
 		public TextureExpression[] GetMaterialTextureDetails(Material TargetMaterial) {
 			TextureExpression[] MaterialTextureExpressions = new TextureExpression[0];
 			if (TargetMaterial) {

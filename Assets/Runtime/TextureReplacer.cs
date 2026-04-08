@@ -55,21 +55,16 @@ namespace VRSuya.Utility {
 		const string UndoGroupName = "VRSuya TextureReplacer";
 		int UndoGroupIndex;
 
-		// 컴포넌트 최초 로드시 동작
 		void OnEnable() {
 			RefreshAvatarProprety();
 		}
 
-		/// <summary>
-		/// 본 프로그램의 메인 세팅 로직입니다.
-		/// </summary>
 		public void RequestUpdateAvatarTextures() {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			TargetTextures = CleanupAvatarTextureList();
 			if (AvatarMaterials.Length > 0 && TargetTextures.Count > 0) ChangeTexture2Ds();
 		}
 
-		/// <summary>주어진 아바타가 사용하고 있는 머테리얼, 텍스쳐를 추출합니다.</summary>
 		public void RefreshAvatarProprety() {
 			if (!AvatarGameObject) {
 				AvatarGameObject = this.gameObject;
@@ -78,8 +73,6 @@ namespace VRSuya.Utility {
 			AvatarTextures = GetAvatarTextures(AvatarGameObject);
 		}
 
-		/// <summary>주어진 GameObject가 사용하고 있는 텍스쳐를 추출합니다.</summary>
-		/// <returns>GameObject가 사용하고 있는 Texture2D 리스트</returns>
 		List<TextureExpression> GetAvatarTextures(GameObject TargetGameObject) {
 			AssetProcessor AssetProcessorInstance = new AssetProcessor();
 			TextureExpression[] AvatarTextureExpressions = AssetProcessorInstance.AddAvatarTextureDetails(TargetGameObject);
@@ -112,16 +105,12 @@ namespace VRSuya.Utility {
 			return newAvatarTextureExpressions;
 		}
 
-		/// <summary>주어진 GameObject가 사용하고 있는 머테리얼를 추출합니다.</summary>
-		/// <returns>GameObject가 사용하고 있는 머테리얼 어레이</returns>
 		Material[] GetAvatarMaterials(GameObject TargetGameObject) {
 			AssetProcessor AssetProcessorInstance = new AssetProcessor();
 			Material[] newAvatarMaterials = AssetProcessorInstance.GetAvatarMaterials(TargetGameObject);
 			return newAvatarMaterials;
 		}
 
-		/// <summary>주어진 Texture2D 리스트에서 서로 다른 값만 추출합니다.</summary>
-		/// <returns>서로 다른 값을 가진 Texture2D 리스트</returns>
 		List<TextureExpression> CleanupAvatarTextureList() {
 			List<TextureExpression> newTargetTextureList = new List<TextureExpression>();
 			foreach (TextureExpression TargetExpression in AvatarTextures) {
@@ -132,7 +121,6 @@ namespace VRSuya.Utility {
 			return newTargetTextureList;
 		}
 
-		/// <summary>주어진 머테리얼에서 규칙에 맞춰서 Texture2D를 변경합니다.</summary>
 		void ChangeTexture2Ds() {
 			int ChangedCount = 0;
 			Texture2D[] TargetTexture2Ds = TargetTextures.Select(TargetTexture => TargetTexture.BeforeTexture).ToArray();
