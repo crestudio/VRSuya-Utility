@@ -46,12 +46,12 @@ namespace VRSuya.Utility {
 		public bool ForcelilToonBacklight = false;
 		public bool ForcelilToonReflection = false;
 		public bool ForcelilToonRimLight = false;
-		public bool UpdatelilToonShadowColor = true;
-		public bool UpdatelilToonRimShadeColor = true;
-		public bool UpdatelilToonBacklightColor = true;
-		public bool UpdatelilToonReflectionColor = true;
-		public bool UpdatelilToonRimLightColor = true;
-		public bool UpdatelilToonOutlineColor = true;
+		public bool UpdatelilToonShadowColor = false;
+		public bool UpdatelilToonRimShadeColor = false;
+		public bool UpdatelilToonBacklightColor = false;
+		public bool UpdatelilToonReflectionColor = false;
+		public bool UpdatelilToonRimLightColor = false;
+		public bool UpdatelilToonOutlineColor = false;
 
 		public bool UpdateUTSTextureShared = true;
 		public bool UpdateUTSNormalMap = true;
