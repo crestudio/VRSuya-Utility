@@ -29,12 +29,12 @@ namespace VRSuya.Utility {
 			IMERIS,
 			Karin, Kikyo, Kipfel, Kokoa, Koyuki, KUMALY, Kuronatu,
 			Lapwing, Lazuli, Leefa, Leeme, Lime, LUMINA, Lunalitt,
-			Mafuyu, Maki, Mamehinata, MANUKA, Mariel, Marron, Maya, MAYO, Merino, Miko, Milfy, Milk, Milltina, Minahoshi, Minase, Mint, Mir, Mishe, Moe,
+			Mafuyu, Maki, Mamehinata, MANUKA, Mariel, Marron, Maya, MAYO, Merino, Miko, Milfy, Milk, Milltina, Minahoshi, Minase, Mint, Mir, Misaki, Mishe, Moe,
 			Nayu, Nehail, Nochica,
 			Platinum, Plum, Pochimaru,
 			Quiche,
 			Rainy, Ramune, Ramune_Old, RINDO, Rokona, Rue, Rurune, Rusk,
-			SELESTIA, Sephira, Shinano, Shinra, SHIRAHA, Shiratsume, Sio, Sue, Sugar, Suzuhana,
+			SELESTIA, Sephira, Shami, Shinano, Shinra, SHIRAHA, Shiratsume, Sio, Sue, Sugar, Suzuhana,
 			Tien, TubeRose,
 			Ukon, Usasaki, Uzuki,
 			VIVH,
@@ -44,94 +44,96 @@ namespace VRSuya.Utility {
 		}
 
 		static readonly Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
-			{ Avatar.Airi, 0.8852937f },
-			{ Avatar.Aldina, 0.000000000000000000000001f },
-			{ Avatar.Angura, 0.000000000000000000000001f },
-			{ Avatar.Anon, 0.000000000000000000000001f },
-			{ Avatar.Anri, 0.000000000000000000000001f },
-			{ Avatar.Ash, 0.000000000000000000000001f },
-			{ Avatar.Chiffon, 0.880152f },
-			{ Avatar.Chise, 0.8845909f },
+			{ Avatar.Airi, 0.88529f },
+			{ Avatar.Aldina, 0.67435f },
+			{ Avatar.Angura, 0.74367f },
+			{ Avatar.Anon, 0.74478f },
+			{ Avatar.Anri, 0.59518f },
+			{ Avatar.Ash, 0.79229f },
+			{ Avatar.Chiffon, 0.88015f },
+			{ Avatar.Chise, 0.88459f },
 			{ Avatar.Chocolat, 0.88192f },
-			{ Avatar.Cygnet, 0.000000000000000000000001f },
-			{ Avatar.Eku, 0.000000000000000000000001f },
-			{ Avatar.Emmelie, 0.000000000000000000000001f },
-			{ Avatar.EYO, 0.000000000000000000000001f },
-			{ Avatar.Firina, 0.000000000000000000000001f },
-			{ Avatar.Flare, 0.000000000000000000000001f },
-			{ Avatar.Fuzzy, 0.000000000000000000000001f },
-			{ Avatar.Glaze, 0.000000000000000000000001f },
-			{ Avatar.Grus, 0.892328f },
-			{ Avatar.Hakka, 0.000000000000000000000001f },
-			{ Avatar.IMERIS, 0.000000000000000000000001f },
+			{ Avatar.Cygnet, 0.64929f },
+			{ Avatar.Eku, 0.78992f },
+			{ Avatar.Emmelie, 0.73042f },
+			{ Avatar.EYO, 0.72782f },
+			{ Avatar.Firina, 0.81974f },
+			{ Avatar.Flare, 0.80431f },
+			{ Avatar.Fuzzy, 0.82579f },
+			{ Avatar.Glaze, 0.72178f },
+			{ Avatar.Grus, 0.89232f },
+			{ Avatar.Hakka, 0.75674f },
+			{ Avatar.IMERIS, 0.70637f },
 			{ Avatar.Karin, 0.87956f },
-			{ Avatar.Kikyo, 0.892182f },
-			{ Avatar.Kipfel, 0.9284285f },
-			{ Avatar.Kokoa, 0.8910524f },
-			{ Avatar.Koyuki, 0.000000000000000000000001f },
-			{ Avatar.KUMALY, 0.000000000000000000000001f },
-			{ Avatar.Kuronatu, 0.000000000000000000000001f },
-			{ Avatar.Lapwing, 0.000000000000000000000001f },
-			{ Avatar.Lazuli, 0.000000000000000000000001f },
-			{ Avatar.Leefa, 0.886995f },
-			{ Avatar.Leeme, 0.000000000000000000000001f },
+			{ Avatar.Kikyo, 0.89218f },
+			{ Avatar.Kipfel, 0.92842f },
+			{ Avatar.Kokoa, 0.89105f },
+			{ Avatar.Koyuki, 0.77037f },
+			{ Avatar.KUMALY, 0.81845f },
+			{ Avatar.Kuronatu, 0.65784f },
+			{ Avatar.Lapwing, 0.66969f },
+			{ Avatar.Lazuli, 0.70999f },
+			{ Avatar.Leefa, 0.88699f },
+			{ Avatar.Leeme, 0.70895f },
 			{ Avatar.Lime, 0.89622f },
-			{ Avatar.LUMINA, 0.000000000000000000000001f },
-			{ Avatar.Lunalitt, 0.000000000000000000000001f },
-			{ Avatar.Mafuyu, 0.000000000000000000000001f },
-			{ Avatar.Maki, 0.000000000000000000000001f },
-			{ Avatar.Mamehinata, 0.8167276f },
-			{ Avatar.MANUKA, 0.8817998f },
-			{ Avatar.Mariel, 0.000000000000000000000001f },
-			{ Avatar.Marron, 0.000000000000000000000001f },
-			{ Avatar.Maya, 0.8845845f },
-			{ Avatar.MAYO, 0.000000000000000000000001f },
-			{ Avatar.Merino, 0.000000000000000000000001f },
-			{ Avatar.Miko, 0.8785723f },
-			{ Avatar.Milfy, 0.7903f },
-			{ Avatar.Milk, 0.000000000000000000000001f },
+			{ Avatar.LUMINA, 0.71797f },
+			{ Avatar.Lunalitt, 0.77447f },
+			{ Avatar.Mafuyu, 0.75831f },
+			{ Avatar.Maki, 0.75799f },
+			{ Avatar.Mamehinata, 0.81672f },
+			{ Avatar.MANUKA, 0.88179f },
+			{ Avatar.Mariel, 0.77157f },
+			{ Avatar.Marron, 0.81774f },
+			{ Avatar.Maya, 0.88458f },
+			{ Avatar.MAYO, 0.78089f },
+			{ Avatar.Merino, 0.73775f },
+			{ Avatar.Miko, 0.87857f },
+			{ Avatar.Milfy, 0.79031f },
+			{ Avatar.Milk, 0.93147f },
 			{ Avatar.Milltina, 0.88457f },
-			{ Avatar.Minahoshi, 0.000000000000000000000001f },
+			{ Avatar.Minahoshi, 0.99447f },
 			{ Avatar.Minase, 0.91609f },
-			{ Avatar.Mint, 0.000000000000000000000001f },
-			{ Avatar.Mir, 0.000000000000000000000001f },
-			{ Avatar.Mishe, 0.000000000000000000000001f },
-			{ Avatar.Moe, 0.897036f },
-			{ Avatar.Nayu, 0.000000000000000000000001f },
-			{ Avatar.Nehail, 0.000000000000000000000001f },
-			{ Avatar.Nochica, 0.000000000000000000000001f },
-			{ Avatar.Platinum, 0.000000000000000000000001f },
-			{ Avatar.Plum, 0.000000000000000000000001f },
-			{ Avatar.Pochimaru, 0.000000000000000000000001f },
-			{ Avatar.Quiche, 0.000000000000000000000001f },
-			{ Avatar.Rainy, 0.000000000000000000000001f },
-			{ Avatar.Ramune, 0.000000000000000000000001f },
-			{ Avatar.Ramune_Old, 0.000000000000000000000001f },
-			{ Avatar.RINDO, 0.000000000000000000000001f },
-			{ Avatar.Rokona, 0.000000000000000000000001f },
-			{ Avatar.Rue, 0.000000000000000000000001f },
-			{ Avatar.Rurune, 0.000000000000000000000001f },
-			{ Avatar.Rusk, 0.000000000000000000000001f },
-			{ Avatar.SELESTIA, 0.8838221f },
-			{ Avatar.Sephira, 0.000000000000000000000001f },
-			{ Avatar.Shinano, 0.8931774f },
-			{ Avatar.Shinra, 0.900882f },
-			{ Avatar.SHIRAHA, 0.000000000000000000000001f },
-			{ Avatar.Shiratsume, 0.000000000000000000000001f },
-			{ Avatar.Sio, 0.9020135f },
-			{ Avatar.Sue, 0.000000000000000000000001f },
-			{ Avatar.Sugar, 0.000000000000000000000001f },
-			{ Avatar.Suzuhana, 0.000000000000000000000001f },
-			{ Avatar.Tien, 0.000000000000000000000001f },
-			{ Avatar.TubeRose, 0.000000000000000000000001f },
-			{ Avatar.Ukon, 0.889545f },
-			{ Avatar.Usasaki, 0.000000000000000000000001f },
-			{ Avatar.Uzuki, 0.000000000000000000000001f },
-			{ Avatar.VIVH, 0.000000000000000000000001f },
-			{ Avatar.Wolferia, 0.000000000000000000000001f },
-			{ Avatar.Yoll, 0.000000000000000000000001f },
-			{ Avatar.YUGI_MIYO, 0.000000000000000000000001f },
-			{ Avatar.Yuuko, 0.000000000000000000000001f }
+			{ Avatar.Mint, 0.86175f },
+			{ Avatar.Mir, 0.63818f },
+			{ Avatar.Misaki, 0.66556f },
+			{ Avatar.Mishe, 0.81218f },
+			{ Avatar.Moe, 0.89703f },
+			{ Avatar.Nayu, 0.72969f },
+			{ Avatar.Nehail, 0.69458f },
+			{ Avatar.Nochica, 1.15158f },
+			{ Avatar.Platinum, 0.73878f },
+			{ Avatar.Plum, 0.80421f },
+			{ Avatar.Pochimaru, 2.36568f },
+			{ Avatar.Quiche, 0.70725f },
+			{ Avatar.Rainy, 0.76184f },
+			{ Avatar.Ramune, 0.77587f },
+			{ Avatar.Ramune_Old, 0.79858f },
+			{ Avatar.RINDO, 0.76298f },
+			{ Avatar.Rokona, 0.67214f },
+			{ Avatar.Rue, 0.90979f },
+			{ Avatar.Rurune, 0.71263f },
+			{ Avatar.Rusk, 0.83499f },
+			{ Avatar.SELESTIA, 0.88382f },
+			{ Avatar.Sephira, 0.80346f },
+			{ Avatar.Shami, 1.35346f },
+			{ Avatar.Shinano, 0.89317f },
+			{ Avatar.Shinra, 0.90088f },
+			{ Avatar.SHIRAHA, 0.79584f },
+			{ Avatar.Shiratsume, 0.78347f },
+			{ Avatar.Sio, 0.90201f },
+			{ Avatar.Sue, 0.72883f },
+			{ Avatar.Sugar, 0.76792f },
+			{ Avatar.Suzuhana, 0.75278f },
+			{ Avatar.Tien, 0.83276f },
+			{ Avatar.TubeRose, 0.68368f },
+			{ Avatar.Ukon, 0.88954f },
+			{ Avatar.Usasaki, 0.80831f },
+			{ Avatar.Uzuki, 0.77369f },
+			{ Avatar.VIVH, 0.57581f },
+			{ Avatar.Wolferia, 0.71184f },
+			{ Avatar.Yoll, 0.64192f },
+			{ Avatar.YUGI_MIYO, 0.77583f },
+			{ Avatar.Yuuko, 0.71272f }
 			// 검색용 신규 아바타 추가 위치
 		};
 
@@ -187,6 +189,7 @@ namespace VRSuya.Utility {
 			{ Avatar.Minase, new string[] { "Minase", "미나세", "水瀬" } },
 			{ Avatar.Mint, new string[] { "Mint", "민트", "ミント" } },
 			{ Avatar.Mir, new string[] { "Mir", "미르", "ミール" } },
+			{ Avatar.Misaki, new string[] { "Misaki", "미사키", "海咲" } },
 			{ Avatar.Mishe, new string[] { "Mishe", "미셰", "ミーシェ" } },
 			{ Avatar.Moe, new string[] { "Moe", "모에", "萌" } },
 			{ Avatar.Nayu, new string[] { "Nayu", "나유", "ナユ" } },
@@ -206,6 +209,7 @@ namespace VRSuya.Utility {
 			{ Avatar.Rusk, new string[] { "Rusk", "러스크", "ラスク" } },
 			{ Avatar.SELESTIA, new string[] { "SELESTIA", "셀레스티아", "セレスティア" } },
 			{ Avatar.Sephira, new string[] { "Sephira", "세피라", "セフィラ" } },
+			{ Avatar.Shami, new string[] { "Shami", "샤미", "シャミ" } },
 			{ Avatar.Shinano, new string[] { "Shinano", "시나노", "しなの" } },
 			{ Avatar.Shinra, new string[] { "Shinra", "신라", "森羅" } },
 			{ Avatar.SHIRAHA, new string[] { "SHIRAHA", "시라하", "シラハ" } },
@@ -543,6 +547,12 @@ namespace VRSuya.Utility {
 			CheckAvatarMenu();
 		}
 
+		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Misaki", priority = 1100)]
+		static void SetAvatarTypeMisaki() {
+			CurrentAvatarType = Avatar.Misaki;
+			CheckAvatarMenu();
+		}
+
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mishe", priority = 1100)]
 		static void SetAvatarTypeMishe() {
 			CurrentAvatarType = Avatar.Mishe;
@@ -654,6 +664,12 @@ namespace VRSuya.Utility {
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sephira", priority = 1100)]
 		static void SetAvatarTypeSephira() {
 			CurrentAvatarType = Avatar.Sephira;
+			CheckAvatarMenu();
+		}
+
+		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shami", priority = 1100)]
+		static void SetAvatarTypeShami() {
+			CurrentAvatarType = Avatar.Shami;
 			CheckAvatarMenu();
 		}
 
@@ -882,6 +898,7 @@ namespace VRSuya.Utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minase", CurrentAvatarType == Avatar.Minase);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mint", CurrentAvatarType == Avatar.Mint);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mir", CurrentAvatarType == Avatar.Mir);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Misaki", CurrentAvatarType == Avatar.Misaki);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mishe", CurrentAvatarType == Avatar.Mishe);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Moe", CurrentAvatarType == Avatar.Moe);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nayu", CurrentAvatarType == Avatar.Nayu);
@@ -901,6 +918,7 @@ namespace VRSuya.Utility {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rusk", CurrentAvatarType == Avatar.Rusk);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/SELESTIA", CurrentAvatarType == Avatar.SELESTIA);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sephira", CurrentAvatarType == Avatar.Sephira);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shami", CurrentAvatarType == Avatar.Shami);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinano", CurrentAvatarType == Avatar.Shinano);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinra", CurrentAvatarType == Avatar.Shinra);
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/SHIRAHA", CurrentAvatarType == Avatar.SHIRAHA);
