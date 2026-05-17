@@ -448,7 +448,7 @@ namespace VRSuya.Utility {
 		void UpdateRenderQueuePropertys(Material TargetMaterial) {
 			bool IsDrity = false;
 			bool IsTransparent = TargetMaterial.shader.name.Contains("Transparent");
-			int RenderQueue = -1;
+			int RenderQueue = (!IsTransparent) ? - 1 : 3000;
 			if (TargetMaterial.renderQueue != RenderQueue) { TargetMaterial.renderQueue = RenderQueue; IsDrity = true; }
 			if (IsDrity) {
 				EditorUtility.SetDirty(TargetMaterial);
