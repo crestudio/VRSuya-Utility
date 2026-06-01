@@ -17,7 +17,7 @@ namespace VRSuya.Utility {
 
 	[InitializeOnLoad]
 	[ExecuteInEditMode]
-	public class AvatarScaler : MonoBehaviour {
+	public class AvatarScaler : ScriptableObject {
 
 		public enum Avatar {
 			Airi, Aldina, Angura, Anon, Anri, Ash,
