@@ -18,7 +18,6 @@ using static VRSuya.Core.Unity;
 
 namespace VRSuya.Utility {
 
-	[ExecuteInEditMode]
 	public class PhysBoneController : EditorWindow {
 
 		const string UndoGroupName = "VRSuya PhysBoneController";

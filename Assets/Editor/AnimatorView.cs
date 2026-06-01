@@ -94,7 +94,6 @@ namespace VRSuya.Utility {
 			return "Custom";
 		}
 
-		[ExecuteInEditMode]
 		public class AnimatorViewEditor : EditorWindow {
 
 			public static bool IsSceneViewLocked = false;

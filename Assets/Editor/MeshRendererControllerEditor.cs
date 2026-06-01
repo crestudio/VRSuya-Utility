@@ -9,7 +9,6 @@ using UnityEngine;
 
 namespace VRSuya.Utility {
 
-	[ExecuteInEditMode]
 	public class MeshRendererControllerEditor : EditorWindow {
 
 		[MenuItem("Tools/VRSuya/Utility/MeshRenderer/Update Renderer Setting", priority = 1000)]

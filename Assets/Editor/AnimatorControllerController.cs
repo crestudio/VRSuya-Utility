@@ -14,7 +14,6 @@ using VRSuya.Core;
 
 namespace VRSuya.Utility {
 
-	[ExecuteInEditMode]
 	public class AnimatorControllerController : EditorWindow {
 
 		[MenuItem("Assets/VRSuya/Animator/Write Defaults On", true)]

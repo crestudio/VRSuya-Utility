@@ -18,8 +18,6 @@ using static VRSuya.Utility.TextureReplacer;
 
 namespace VRSuya.Utility {
 
-	[ExecuteInEditMode]
-	[AddComponentMenu("")]
 	public class AssetProcessor {
 
 		public Texture2D[] AddAvatarTextures(GameObject TargetGameObject) {

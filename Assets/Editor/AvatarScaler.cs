@@ -1031,7 +1031,6 @@ namespace VRSuya.Utility {
 		}
 	}
 
-	[ExecuteInEditMode]
 	public class AvatarScalerEditor : EditorWindow {
 
 		public static int TargetAvatarHeight = 150;
