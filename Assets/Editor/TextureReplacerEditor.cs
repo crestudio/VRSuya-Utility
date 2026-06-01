@@ -3,6 +3,8 @@
 using UnityEngine;
 using UnityEditor;
 
+using static VRSuya.Core.Translator;
+
 /*
  * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
@@ -18,9 +20,6 @@ namespace VRSuya.Utility {
 		SerializedProperty SerializedAvatarGameObject;
 		SerializedProperty SerializedAvatarMaterials;
 
-		public static int LanguageIndex = 0;
-		public readonly string[] LanguageType = new[] { "English", "한국어", "日本語" };
-
 		void OnEnable() {
 			SerializedAvatarTextures = serializedObject.FindProperty("AvatarTextures");
 
@@ -35,16 +34,16 @@ namespace VRSuya.Utility {
 			GUILayoutOption ArrowWidth = GUILayout.Width(15);
 			TextureReplacer newTextureReplacer = (TextureReplacer)target;
 			serializedObject.Update();
-			LanguageIndex = EditorGUILayout.Popup(LanguageHelper.GetContextString("String_Language"), LanguageIndex, LanguageType);
-			EditorGUILayout.PropertyField(SerializedAvatarGameObject, new GUIContent(LanguageHelper.GetContextString("String_TargetAvatar")));
+			LanguageIndex = EditorGUILayout.Popup(GetTranslatedString("String_Language"), LanguageIndex, LanguageOption);
+			EditorGUILayout.PropertyField(SerializedAvatarGameObject, new GUIContent(GetTranslatedString("String_Avatar")));
 			GUI.enabled = false;
-			EditorGUILayout.PropertyField(SerializedAvatarMaterials, new GUIContent(LanguageHelper.GetContextString("String_TargetMaterial")));
+			EditorGUILayout.PropertyField(SerializedAvatarMaterials, new GUIContent(GetTranslatedString("String_Material")));
 			GUI.enabled = true;
-			EditorGUILayout.LabelField(LanguageHelper.GetContextString("String_TargetTexture"), EditorStyles.boldLabel);
+			EditorGUILayout.LabelField(GetTranslatedString("String_Texture"), EditorStyles.boldLabel);
 			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField(LanguageHelper.GetContextString("String_Before"), CenteredStyle, PropertyWidth);
+			EditorGUILayout.LabelField(GetTranslatedString("String_Before"), CenteredStyle, PropertyWidth);
 			EditorGUILayout.LabelField("▶", CenteredStyle, ArrowWidth);
-			EditorGUILayout.LabelField(LanguageHelper.GetContextString("String_After"), CenteredStyle, PropertyWidth);
+			EditorGUILayout.LabelField(GetTranslatedString("String_After"), CenteredStyle, PropertyWidth);
 			EditorGUILayout.LabelField(string.Empty, ButtonWidth);
 			EditorGUILayout.EndHorizontal();
 			if (SerializedAvatarTextures.arraySize > 0) {
@@ -61,7 +60,7 @@ namespace VRSuya.Utility {
 					GUI.enabled = true;
 					EditorGUILayout.LabelField("▶", CenteredStyle, ArrowWidth);
 					EditorGUILayout.PropertyField(AfterProperty, GUIContent.none, PropertyWidth);
-					if (GUILayout.Button(ShowDetailValue ? LanguageHelper.GetContextString("String_Hide") : LanguageHelper.GetContextString("String_Show"), ButtonWidth)) {
+					if (GUILayout.Button(ShowDetailValue ? GetTranslatedString("String_Hide") : GetTranslatedString("String_Show"), ButtonWidth)) {
 						ShowProperty.boolValue = !ShowDetailValue;
 					}
 					EditorGUILayout.EndHorizontal();
@@ -87,27 +86,27 @@ namespace VRSuya.Utility {
 					}
 				}
 			} else {
-				EditorGUILayout.HelpBox(LanguageHelper.GetContextString("NO_DATA"), MessageType.Info);
+				EditorGUILayout.HelpBox(GetTranslatedString("NO_DATA"), MessageType.Info);
 			}
-			EditorGUILayout.HelpBox(LanguageHelper.GetContextString("String_Null"), MessageType.Info);
-			if (GUILayout.Button(LanguageHelper.GetContextString("String_Refresh"))) {
+			EditorGUILayout.HelpBox(GetTranslatedString("String_Null"), MessageType.Info);
+			if (GUILayout.Button(GetTranslatedString("String_Refresh"))) {
 				(target as TextureReplacer).RefreshAvatarProprety();
 				Repaint();
 			}
 			EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 			serializedObject.ApplyModifiedProperties();
-			if (GUILayout.Button(LanguageHelper.GetContextString("String_Replace"))) {
+			if (GUILayout.Button(GetTranslatedString("String_Replace"))) {
 				(target as TextureReplacer).RequestUpdateAvatarTextures();
 				(target as TextureReplacer).RefreshAvatarProprety();
 				Repaint();
 			}
 			EditorGUILayout.BeginHorizontal();
-			if (GUILayout.Button(LanguageHelper.GetContextString("String_Undo"))) {
+			if (GUILayout.Button(GetTranslatedString("String_Undo"))) {
 				Undo.PerformUndo();
 				(target as TextureReplacer).RefreshAvatarProprety();
 				Repaint();
 			}
-			if (GUILayout.Button(LanguageHelper.GetContextString("String_Save"))) {
+			if (GUILayout.Button(GetTranslatedString("String_Save"))) {
 				AssetDatabase.SaveAssets();
 			}
 			EditorGUILayout.EndHorizontal();
