@@ -216,10 +216,7 @@ namespace VRSuya.Utility {
 					} else {
 						GameObject NewChildAnchorOverride = new GameObject("AnchorOverride");
 						Undo.RegisterCreatedObjectUndo(NewChildAnchorOverride, UndoGroupName);
-						NewChildAnchorOverride.transform.SetParent(TargetHeadTransform);
-						NewChildAnchorOverride.transform.localPosition = Vector3.zero;
-						NewChildAnchorOverride.transform.localRotation = Quaternion.identity;
-						NewChildAnchorOverride.transform.localScale = Vector3.one;
+						NewChildAnchorOverride.transform.SetParent(TargetHeadTransform, false);
 						return NewChildAnchorOverride.transform;
 					}
 				} else {
