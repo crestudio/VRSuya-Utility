@@ -140,7 +140,7 @@ namespace VRSuya.Utility {
 					NewGameObject = ChildTransforms.First(Child => Child.name == NewGameObjectName).gameObject;
 				} else {
 					NewGameObject = new GameObject(NewGameObjectName);
-					NewGameObject.transform.parent = this.transform;
+					NewGameObject.transform.SetParent(this.transform, false);
 					Undo.RegisterCreatedObjectUndo(NewGameObject, UndoGroupName);
 				}
 
