@@ -7,7 +7,8 @@ using UnityEngine.Rendering;
 
 using VRC.SDKBase;
 
-using static VRSuya.Core.Unity;
+using Animator = UnityEngine.Animator;
+using Avatar = VRSuya.Core.Avatar;
 
 /*
  * VRSuya Utility
@@ -22,10 +23,9 @@ namespace VRSuya.Utility {
 		int UndoGroupIndex;
 
 		public void RequestUpdateAvatarRenders() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			VRC_AvatarDescriptor AvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor AvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (AvatarDescriptor) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
 				Transform AvatarAnchorOverride = GetAnchorOverride(AvatarGameObject);
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);
@@ -90,10 +90,9 @@ namespace VRSuya.Utility {
 		}
 
 		public void RequestUpdateBounds() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			VRC_AvatarDescriptor AvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor AvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (AvatarDescriptor) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);
 				Bounds NewBounds = new Bounds {
@@ -115,10 +114,9 @@ namespace VRSuya.Utility {
 		}
 
 		public void RequestUpdateTwosidedShadow() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			VRC_AvatarDescriptor AvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor AvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (AvatarDescriptor) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);
 				foreach (SkinnedMeshRenderer TargetSkinnedMeshRenderer in AvatarSkinnedMeshRenderers) {
@@ -140,10 +138,9 @@ namespace VRSuya.Utility {
 		}
 
 		public void RequestUpdateProbes() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			VRC_AvatarDescriptor AvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor AvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (AvatarDescriptor) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);
 				foreach (SkinnedMeshRenderer TargetSkinnedMeshRenderer in AvatarSkinnedMeshRenderers) {
@@ -175,10 +172,9 @@ namespace VRSuya.Utility {
 		}
 
 		public void RequestUpdateAnchorOverride() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			VRC_AvatarDescriptor AvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor AvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (AvatarDescriptor) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
 				Transform AvatarAnchorOverride = GetAnchorOverride(AvatarGameObject);
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);

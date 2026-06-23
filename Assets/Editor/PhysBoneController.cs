@@ -11,6 +11,8 @@ using VRC.SDK3.Dynamics.PhysBone.Components;
 
 using static VRSuya.Core.Unity;
 
+using Avatar = VRSuya.Core.Avatar;
+
 /*
  * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
@@ -333,9 +335,8 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Adjust Humanoid Collider", priority = 1000)]
 		static void AdjustHumanoidCollider() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			if (AvatarInstance.GetVRCAvatarDescriptor()) {
-				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
+			if (Avatar.GetVRCAvatarDescriptor()) {
+				GameObject AvatarObject = Avatar.GetVRCAvatarDescriptor().gameObject;
 				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
 				if (AvatarAnimator) {
 					UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
@@ -391,10 +392,9 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Assign Humanoid Collider", priority = 1000)]
 		static void AssignHumanoidCollider() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			if (AvatarInstance.GetVRCAvatarDescriptor()) {
+			if (Avatar.GetVRCAvatarDescriptor()) {
 				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
-				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
+				GameObject AvatarObject = Avatar.GetVRCAvatarDescriptor().gameObject;
 				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
 				List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 				List<VRCPhysBoneColliderBase> PhysBoneColliderComponets = GetPhysBoneColliderComponents();
@@ -465,10 +465,9 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Remove Hand Collider", priority = 1000)]
 		static void RemoveHandCollider() {
-			VRSuya.Core.Avatar AvatarInstance = new VRSuya.Core.Avatar();
-			if (AvatarInstance.GetVRCAvatarDescriptor()) {
+			if (Avatar.GetVRCAvatarDescriptor()) {
 				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
-				GameObject AvatarObject = AvatarInstance.GetVRCAvatarDescriptor().gameObject;
+				GameObject AvatarObject = Avatar.GetVRCAvatarDescriptor().gameObject;
 				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
 				List<HumanBodyBones> HandBones = new List<HumanBodyBones> {
 					HumanBodyBones.LeftHand, HumanBodyBones.RightHand,

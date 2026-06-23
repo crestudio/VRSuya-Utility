@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-using VRSuya.Core;
+using Animator = VRSuya.Core.Animator;
 
 /*
  * VRSuya Utility
@@ -29,7 +29,6 @@ namespace VRSuya.Utility {
 		[MenuItem("Assets/VRSuya/Animator/Write Defaults On", priority = 1000)]
 		static void RequestAnimatorWriteDefaultsOn() {
 			if (Selection.objects.Length > 0) {
-				Asset AssetInstance = new Asset();
 				int ModifiedCount = 0;
 				try {
 					for (int Index = 0; Index < Selection.objects.Length; Index++) {
@@ -55,7 +54,6 @@ namespace VRSuya.Utility {
 		[MenuItem("Assets/VRSuya/Animator/Write Defaults Off", priority = 1000)]
 		static void RequestAnimatorWriteDefaultsOff() {
 			if (Selection.objects.Length > 0) {
-				Asset AssetInstance = new Asset();
 				int ModifiedCount = 0;
 				try {
 					for (int Index = 0; Index < Selection.objects.Length; Index++) {
@@ -79,8 +77,7 @@ namespace VRSuya.Utility {
 		}
 
 		public static bool ModifyWriteDefaults(AnimatorController TargetAnimator, bool TargetWriteDefaults) {
-			VRSuya.Core.Animator AnimatorInstance = new VRSuya.Core.Animator();
-			AnimatorState[] AllAnimatorStates = AnimatorInstance.GetAllAnimatorStates(TargetAnimator);
+			AnimatorState[] AllAnimatorStates = Animator.GetAllAnimatorStates(TargetAnimator);
 			bool IsModified = false;
 			foreach (AnimatorState TargetState in AllAnimatorStates) {
 				if (TargetState.writeDefaultValues != TargetWriteDefaults) {

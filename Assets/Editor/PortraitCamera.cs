@@ -190,8 +190,7 @@ namespace VRSuya.Utility {
 		}
 
 		static Camera AddNewCamera(string HEXColorCode) {
-			Avatar AvatarInstance = new Avatar();
-			VRC_AvatarDescriptor TargetAvatarDescriptor = AvatarInstance.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor TargetAvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (TargetAvatarDescriptor) {
 				GameObject newGameObject = new GameObject("PortraitCamera");
 				Camera newCameraComponent = newGameObject.AddComponent<Camera>();
