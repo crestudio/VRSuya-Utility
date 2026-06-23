@@ -76,9 +76,9 @@ namespace VRSuya.Utility {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.version != VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_0) {
+				if (TargetPhysBone.version != VRCPhysBoneBase.Version.Version_1_0) {
 					Undo.RegisterCreatedObjectUndo(TargetPhysBone, UndoGroupName);
-					TargetPhysBone.version = VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_0;
+					TargetPhysBone.version = VRCPhysBoneBase.Version.Version_1_0;
 					EditorUtility.SetDirty(TargetPhysBone);
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}
@@ -91,9 +91,9 @@ namespace VRSuya.Utility {
 			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
-				if (TargetPhysBone.version != VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_1) {
+				if (TargetPhysBone.version != VRCPhysBoneBase.Version.Version_1_1) {
 					Undo.RegisterCreatedObjectUndo(TargetPhysBone, UndoGroupName);
-					TargetPhysBone.version = VRC.Dynamics.VRCPhysBoneBase.Version.Version_1_1;
+					TargetPhysBone.version = VRCPhysBoneBase.Version.Version_1_1;
 					EditorUtility.SetDirty(TargetPhysBone);
 					Undo.CollapseUndoOperations(UndoGroupIndex);
 				}

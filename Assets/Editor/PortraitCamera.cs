@@ -192,20 +192,20 @@ namespace VRSuya.Utility {
 		static Camera AddNewCamera(string HEXColorCode) {
 			VRC_AvatarDescriptor TargetAvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
 			if (TargetAvatarDescriptor) {
-				GameObject newGameObject = new GameObject("PortraitCamera");
-				Camera newCameraComponent = newGameObject.AddComponent<Camera>();
-				newCameraComponent.clearFlags = CameraClearFlags.SolidColor;
-				newCameraComponent.backgroundColor = HexToColor(HEXColorCode);
-				newCameraComponent.fieldOfView = 1.0f;
-				newCameraComponent.nearClipPlane = 0.01f;
-				newCameraComponent.renderingPath = RenderingPath.Forward;
-				newGameObject.transform.position = GetCameraPosition(TargetAvatarDescriptor);
-				newGameObject.transform.rotation = GetCameraRotation(TargetAvatarDescriptor);
-				Undo.RegisterCreatedObjectUndo(newGameObject, "Add New PortraitCamera");
-				EditorUtility.SetDirty(newCameraComponent);
+				GameObject NewCameraGameObject = new GameObject("PortraitCamera");
+				Camera NewCameraComponent = NewCameraGameObject.AddComponent<Camera>();
+				NewCameraComponent.clearFlags = CameraClearFlags.SolidColor;
+				NewCameraComponent.backgroundColor = HexToColor(HEXColorCode);
+				NewCameraComponent.fieldOfView = 1.0f;
+				NewCameraComponent.nearClipPlane = 0.01f;
+				NewCameraComponent.renderingPath = RenderingPath.Forward;
+				NewCameraGameObject.transform.position = GetCameraPosition(TargetAvatarDescriptor);
+				NewCameraGameObject.transform.rotation = GetCameraRotation(TargetAvatarDescriptor);
+				Undo.RegisterCreatedObjectUndo(NewCameraGameObject, "Add New PortraitCamera");
+				EditorUtility.SetDirty(NewCameraComponent);
 				SceneView.RepaintAll();
-				ApplyCustomCameraSettings(newCameraComponent);
-				return newCameraComponent;
+				ApplyCustomCameraSettings(NewCameraComponent);
+				return NewCameraComponent;
 			} else {
 				return null;
 			}
