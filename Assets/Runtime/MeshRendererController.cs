@@ -27,7 +27,8 @@ namespace VRSuya.Utility {
 			if (AvatarDescriptor) {
 				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
-				Transform AvatarAnchorOverride = GetAnchorOverride(AvatarGameObject);
+				Transform AvatarAnchorOverride = Avatar.GetAvatarAnchorOverride(AvatarGameObject);
+				if (!AvatarAnchorOverride) AvatarAnchorOverride = GetAnchorOverride(AvatarGameObject);
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);
 				Bounds NewBounds = new Bounds {
 					center = new Vector3(0.0f, 0.0f, 0.0f),
@@ -133,7 +134,7 @@ namespace VRSuya.Utility {
 						Undo.CollapseUndoOperations(UndoGroupIndex);
 					}
 				}
-				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} AnchorOverride");
+				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} Shadow Casting Mode");
 			}
 		}
 
@@ -167,7 +168,7 @@ namespace VRSuya.Utility {
 						Undo.CollapseUndoOperations(UndoGroupIndex);
 					}
 				}
-				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} AnchorOverride");
+				Debug.Log($"[VRSuya] Changed {AvatarGameObject.name} LightProbe Usage Mode");
 			}
 		}
 
