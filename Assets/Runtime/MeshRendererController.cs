@@ -176,7 +176,8 @@ namespace VRSuya.Utility {
 			if (AvatarDescriptor) {
 				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
 				GameObject AvatarGameObject = AvatarDescriptor.gameObject;
-				Transform AvatarAnchorOverride = GetAnchorOverride(AvatarGameObject);
+				Transform AvatarAnchorOverride = Avatar.GetAvatarAnchorOverride(AvatarGameObject);
+				if (!AvatarAnchorOverride) AvatarAnchorOverride = GetAnchorOverride(AvatarGameObject);
 				(SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers, MeshRenderer[] AvatarMeshRenderers) = GetAvatarRenderers(AvatarGameObject);
 				foreach (SkinnedMeshRenderer TargetSkinnedMeshRenderer in AvatarSkinnedMeshRenderers) {
 					if (TargetSkinnedMeshRenderer.probeAnchor != AvatarAnchorOverride) {
@@ -201,26 +202,21 @@ namespace VRSuya.Utility {
 		}
 
 		Transform GetAnchorOverride(GameObject TargetGameObject) {
-			Animator TargetAnimator = TargetGameObject.GetComponent<Animator>();
-			if (TargetAnimator) {
-				Transform TargetHeadTransform = TargetAnimator.GetBoneTransform(HumanBodyBones.Head);
-				if (TargetHeadTransform) {
-					Transform[] ChildTransforms = TargetHeadTransform.GetComponentsInChildren<Transform>(true);
-					if (ChildTransforms.Where(Item => Item.name == "AnchorOverride" && Item.parent == TargetHeadTransform).ToArray().Length > 0) {
-						Transform NewAnchorOverride = ChildTransforms.Where(Item => Item.name == "AnchorOverride" && Item.parent == TargetHeadTransform).ToArray()[0];
-						return NewAnchorOverride;
-					} else {
-						GameObject NewChildAnchorOverride = new GameObject("AnchorOverride");
-						Undo.RegisterCreatedObjectUndo(NewChildAnchorOverride, UndoGroupName);
-						NewChildAnchorOverride.transform.SetParent(TargetHeadTransform, false);
-						return NewChildAnchorOverride.transform;
-					}
+			GameObject TargetHeadGameObject = Avatar.GetHeadGameObject(TargetGameObject);
+			if (TargetHeadGameObject) {
+				Transform TargetHeadTransform = TargetGameObject.transform;
+				Transform[] ChildTransforms = TargetHeadTransform.GetComponentsInChildren<Transform>(true);
+				if (ChildTransforms.Where(Item => Item.name == "AnchorOverride" && Item.parent == TargetHeadTransform).ToArray().Length > 0) {
+					Transform NewAnchorOverride = ChildTransforms.Where(Item => Item.name == "AnchorOverride" && Item.parent == TargetHeadTransform).ToArray()[0];
+					return NewAnchorOverride;
 				} else {
-					return null;
+					GameObject NewChildAnchorOverride = new GameObject("AnchorOverride");
+					Undo.RegisterCreatedObjectUndo(NewChildAnchorOverride, UndoGroupName);
+					NewChildAnchorOverride.transform.SetParent(TargetHeadTransform, false);
+					return NewChildAnchorOverride.transform;
 				}
-			} else {
-				return null;
 			}
+			return null;
 		}
 	}
 }
