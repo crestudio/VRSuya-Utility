@@ -1,12 +1,15 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEditor;
 using UnityEngine;
 
 using VRC.SDKBase;
+
+using static VRSuya.Core.Translator;
+
+using Avatar = VRSuya.Core.Avatar;
 
 /*
  * VRSuya Utility
@@ -19,7 +22,7 @@ namespace VRSuya.Utility {
 	[ExecuteInEditMode]
 	public class AvatarScaler : ScriptableObject {
 
-		public enum Avatar {
+		public enum AvatarType {
 			Airi, Aldina, Angura, Anon, Anri, Ash,
 			Chiffon, Chise, Chocolat, Cygnet,
 			Eku, Emmelie, EYO,
@@ -43,196 +46,198 @@ namespace VRSuya.Utility {
 			// 검색용 신규 아바타 추가 위치
 		}
 
-		static readonly Dictionary<Avatar, float> AvatarEyeHeights = new Dictionary<Avatar, float>() {
-			{ Avatar.Airi, 0.88529f },
-			{ Avatar.Aldina, 0.67435f },
-			{ Avatar.Angura, 0.74367f },
-			{ Avatar.Anon, 0.74478f },
-			{ Avatar.Anri, 0.59518f },
-			{ Avatar.Ash, 0.79229f },
-			{ Avatar.Chiffon, 0.88015f },
-			{ Avatar.Chise, 0.88459f },
-			{ Avatar.Chocolat, 0.88192f },
-			{ Avatar.Cygnet, 0.64929f },
-			{ Avatar.Eku, 0.78992f },
-			{ Avatar.Emmelie, 0.73042f },
-			{ Avatar.EYO, 0.72782f },
-			{ Avatar.Firina, 0.81974f },
-			{ Avatar.Flare, 0.80431f },
-			{ Avatar.Fuzzy, 0.82579f },
-			{ Avatar.Glaze, 0.72178f },
-			{ Avatar.Grus, 0.89232f },
-			{ Avatar.Hakka, 0.75674f },
-			{ Avatar.IMERIS, 0.70637f },
-			{ Avatar.Karin, 0.87956f },
-			{ Avatar.Kikyo, 0.89218f },
-			{ Avatar.Kipfel, 0.92842f },
-			{ Avatar.Kokoa, 0.89105f },
-			{ Avatar.Koyuki, 0.77037f },
-			{ Avatar.KUMALY, 0.81845f },
-			{ Avatar.Kuronatu, 0.65784f },
-			{ Avatar.Lapwing, 0.66969f },
-			{ Avatar.Lazuli, 0.70999f },
-			{ Avatar.Leefa, 0.88699f },
-			{ Avatar.Leeme, 0.70895f },
-			{ Avatar.Lime, 0.89622f },
-			{ Avatar.LUMINA, 0.71797f },
-			{ Avatar.Lunalitt, 0.77447f },
-			{ Avatar.Mafuyu, 0.75831f },
-			{ Avatar.Maki, 0.75799f },
-			{ Avatar.Mamehinata, 0.81672f },
-			{ Avatar.MANUKA, 0.88179f },
-			{ Avatar.Mariel, 0.77157f },
-			{ Avatar.Marron, 0.81774f },
-			{ Avatar.Maya, 0.88458f },
-			{ Avatar.MAYO, 0.78089f },
-			{ Avatar.Merino, 0.73775f },
-			{ Avatar.Miko, 0.87857f },
-			{ Avatar.Milfy, 0.79031f },
-			{ Avatar.Milk, 0.93147f },
-			{ Avatar.Milltina, 0.88457f },
-			{ Avatar.Minahoshi, 0.99447f },
-			{ Avatar.Minase, 0.91609f },
-			{ Avatar.Mint, 0.86175f },
-			{ Avatar.Mir, 0.63818f },
-			{ Avatar.Misaki, 0.66556f },
-			{ Avatar.Mishe, 0.81218f },
-			{ Avatar.Moe, 0.89703f },
-			{ Avatar.Nayu, 0.72969f },
-			{ Avatar.Nehail, 0.69458f },
-			{ Avatar.Nochica, 1.15158f },
-			{ Avatar.Platinum, 0.73878f },
-			{ Avatar.Plum, 0.80421f },
-			{ Avatar.Pochimaru, 2.36568f },
-			{ Avatar.Quiche, 0.70725f },
-			{ Avatar.Rainy, 0.76184f },
-			{ Avatar.Ramune, 0.77587f },
-			{ Avatar.Ramune_Old, 0.79858f },
-			{ Avatar.RINDO, 0.76298f },
-			{ Avatar.Rokona, 0.67214f },
-			{ Avatar.Rue, 0.90979f },
-			{ Avatar.Rurune, 0.71263f },
-			{ Avatar.Rusk, 0.83499f },
-			{ Avatar.SELESTIA, 0.88382f },
-			{ Avatar.Sephira, 0.80346f },
-			{ Avatar.Shami, 1.35346f },
-			{ Avatar.Shinano, 0.89317f },
-			{ Avatar.Shinra, 0.90088f },
-			{ Avatar.SHIRAHA, 0.79584f },
-			{ Avatar.Shiratsume, 0.78347f },
-			{ Avatar.Sio, 0.90201f },
-			{ Avatar.Sue, 0.72883f },
-			{ Avatar.Sugar, 0.76792f },
-			{ Avatar.Suzuhana, 0.75278f },
-			{ Avatar.Tien, 0.83276f },
-			{ Avatar.TubeRose, 0.68368f },
-			{ Avatar.Ukon, 0.88954f },
-			{ Avatar.Usasaki, 0.80831f },
-			{ Avatar.Uzuki, 0.77369f },
-			{ Avatar.VIVH, 0.57581f },
-			{ Avatar.Wolferia, 0.71184f },
-			{ Avatar.Yoll, 0.64192f },
-			{ Avatar.YUGI_MIYO, 0.77583f },
-			{ Avatar.Yuuko, 0.71272f }
+		static readonly Dictionary<AvatarType, float> AvatarEyeHeights = new Dictionary<AvatarType, float>() {
+			{ AvatarType.Airi, 0.88529f },
+			{ AvatarType.Aldina, 0.67435f },
+			{ AvatarType.Angura, 0.74367f },
+			{ AvatarType.Anon, 0.74478f },
+			{ AvatarType.Anri, 0.59518f },
+			{ AvatarType.Ash, 0.79229f },
+			{ AvatarType.Chiffon, 0.88015f },
+			{ AvatarType.Chise, 0.88459f },
+			{ AvatarType.Chocolat, 0.88192f },
+			{ AvatarType.Cygnet, 0.64929f },
+			{ AvatarType.Eku, 0.78992f },
+			{ AvatarType.Emmelie, 0.73042f },
+			{ AvatarType.EYO, 0.72782f },
+			{ AvatarType.Firina, 0.81974f },
+			{ AvatarType.Flare, 0.80431f },
+			{ AvatarType.Fuzzy, 0.82579f },
+			{ AvatarType.Glaze, 0.72178f },
+			{ AvatarType.Grus, 0.89232f },
+			{ AvatarType.Hakka, 0.75674f },
+			{ AvatarType.IMERIS, 0.70637f },
+			{ AvatarType.Karin, 0.87956f },
+			{ AvatarType.Kikyo, 0.89218f },
+			{ AvatarType.Kipfel, 0.92842f },
+			{ AvatarType.Kokoa, 0.89105f },
+			{ AvatarType.Koyuki, 0.77037f },
+			{ AvatarType.KUMALY, 0.81845f },
+			{ AvatarType.Kuronatu, 0.65784f },
+			{ AvatarType.Lapwing, 0.66969f },
+			{ AvatarType.Lazuli, 0.70999f },
+			{ AvatarType.Leefa, 0.88699f },
+			{ AvatarType.Leeme, 0.70895f },
+			{ AvatarType.Lime, 0.89622f },
+			{ AvatarType.LUMINA, 0.71797f },
+			{ AvatarType.Lunalitt, 0.77447f },
+			{ AvatarType.Mafuyu, 0.75831f },
+			{ AvatarType.Maki, 0.75799f },
+			{ AvatarType.Mamehinata, 0.81672f },
+			{ AvatarType.MANUKA, 0.88179f },
+			{ AvatarType.Mariel, 0.77157f },
+			{ AvatarType.Marron, 0.81774f },
+			{ AvatarType.Maya, 0.88458f },
+			{ AvatarType.MAYO, 0.78089f },
+			{ AvatarType.Merino, 0.73775f },
+			{ AvatarType.Miko, 0.87857f },
+			{ AvatarType.Milfy, 0.79031f },
+			{ AvatarType.Milk, 0.93147f },
+			{ AvatarType.Milltina, 0.88457f },
+			{ AvatarType.Minahoshi, 0.99447f },
+			{ AvatarType.Minase, 0.91609f },
+			{ AvatarType.Mint, 0.86175f },
+			{ AvatarType.Mir, 0.63818f },
+			{ AvatarType.Misaki, 0.66556f },
+			{ AvatarType.Mishe, 0.81218f },
+			{ AvatarType.Moe, 0.89703f },
+			{ AvatarType.Nayu, 0.72969f },
+			{ AvatarType.Nehail, 0.69458f },
+			{ AvatarType.Nochica, 1.15158f },
+			{ AvatarType.Platinum, 0.73878f },
+			{ AvatarType.Plum, 0.80421f },
+			{ AvatarType.Pochimaru, 2.36568f },
+			{ AvatarType.Quiche, 0.70725f },
+			{ AvatarType.Rainy, 0.76184f },
+			{ AvatarType.Ramune, 0.77587f },
+			{ AvatarType.Ramune_Old, 0.79858f },
+			{ AvatarType.RINDO, 0.76298f },
+			{ AvatarType.Rokona, 0.67214f },
+			{ AvatarType.Rue, 0.90979f },
+			{ AvatarType.Rurune, 0.71263f },
+			{ AvatarType.Rusk, 0.83499f },
+			{ AvatarType.SELESTIA, 0.88382f },
+			{ AvatarType.Sephira, 0.80346f },
+			{ AvatarType.Shami, 1.35346f },
+			{ AvatarType.Shinano, 0.89317f },
+			{ AvatarType.Shinra, 0.90088f },
+			{ AvatarType.SHIRAHA, 0.79584f },
+			{ AvatarType.Shiratsume, 0.78347f },
+			{ AvatarType.Sio, 0.90201f },
+			{ AvatarType.Sue, 0.72883f },
+			{ AvatarType.Sugar, 0.76792f },
+			{ AvatarType.Suzuhana, 0.75278f },
+			{ AvatarType.Tien, 0.83276f },
+			{ AvatarType.TubeRose, 0.68368f },
+			{ AvatarType.Ukon, 0.88954f },
+			{ AvatarType.Usasaki, 0.80831f },
+			{ AvatarType.Uzuki, 0.77369f },
+			{ AvatarType.VIVH, 0.57581f },
+			{ AvatarType.Wolferia, 0.71184f },
+			{ AvatarType.Yoll, 0.64192f },
+			{ AvatarType.YUGI_MIYO, 0.77583f },
+			{ AvatarType.Yuuko, 0.71272f }
 			// 검색용 신규 아바타 추가 위치
 		};
 
-		static readonly Dictionary<Avatar, string[]> AvatarNames = new Dictionary<Avatar, string[]>() {
-			{ Avatar.Airi, new string[] { "Airi", "아이리", "愛莉" } },
-			{ Avatar.Aldina, new string[] { "Aldina", "알디나", "アルディナ" } },
-			{ Avatar.Angura, new string[] { "Angura", "앙그라", "アングラ" } },
-			{ Avatar.Anon, new string[] { "Anon", "아논", "あのん" } },
-			{ Avatar.Anri, new string[] { "Anri", "안리", "杏里" } },
-			{ Avatar.Ash, new string[] { "Ash", "애쉬", "アッシュ" } },
-			{ Avatar.Chiffon, new string[] { "Chiffon", "쉬폰", "シフォン" } },
-			{ Avatar.Chise, new string[] { "Chise", "치세", "チセ" } },
-			{ Avatar.Chocolat, new string[] { "Chocolat", "쇼콜라", "ショコラ" } },
-			{ Avatar.Cygnet, new string[] { "Cygnet", "시그넷", "シグネット" } },
-			{ Avatar.Eku, new string[] { "Eku", "에쿠", "エク" } },
-			{ Avatar.Emmelie, new string[] { "Emmelie", "에밀리" } },
-			{ Avatar.EYO, new string[] { "EYO", "이요", "イヨ" } },
-			{ Avatar.Firina, new string[] { "Firina", "휘리나", "フィリナ" } },
-			{ Avatar.Flare, new string[] { "Flare", "플레어", "フレア" } },
-			{ Avatar.Fuzzy, new string[] { "Fuzzy", "퍼지", "ファジー" } },
-			{ Avatar.Glaze, new string[] { "Glaze", "글레이즈", "ぐれーず" } },
-			{ Avatar.Grus, new string[] { "Grus", "그루스" } },
-			{ Avatar.Hakka, new string[] { "Hakka", "하카", "薄荷" } },
-			{ Avatar.IMERIS, new string[] { "IMERIS", "이메리스", "イメリス" } },
-			{ Avatar.Karin, new string[] { "Karin", "카린", "カリン" } },
-			{ Avatar.Kikyo, new string[] { "Kikyo", "키쿄", "桔梗" } },
-			{ Avatar.Kipfel, new string[] { "Kipfel", "키펠", "キプフェル" } },
-			{ Avatar.Kokoa, new string[] { "Kokoa", "코코아", "ここあ" } },
-			{ Avatar.Koyuki, new string[] { "Koyuki", "코유키", "狐雪" } },
-			{ Avatar.KUMALY, new string[] { "KUMALY", "쿠마리", "クマリ" } },
-			{ Avatar.Kuronatu, new string[] { "Kuronatu", "쿠로나츠", "くろなつ" } },
-			{ Avatar.Lapwing, new string[] { "Lapwing", "랩윙" } },
-			{ Avatar.Lazuli, new string[] { "Lazuli", "라줄리", "ラズリ" } },
-			{ Avatar.Leefa, new string[] { "Leefa", "리파", "リーファ" } },
-			{ Avatar.Leeme, new string[] { "Leeme", "리메", "リーメ" } },
-			{ Avatar.Lime, new string[] { "Lime", "라임", "ライム" } },
-			{ Avatar.LUMINA, new string[] { "LUMINA", "루미나", "ルミナ" } },
-			{ Avatar.Lunalitt, new string[] { "Lunalitt", "루나릿트", "ルーナリット" } },
-			{ Avatar.Mafuyu, new string[] { "Mafuyu", "마후유", "真冬" } },
-			{ Avatar.Maki, new string[] { "Maki", "마키", "碼希" } },
-			{ Avatar.Mamehinata, new string[] { "Mamehinata", "마메히나타", "まめひなた" } },
-			{ Avatar.MANUKA, new string[] { "MANUKA", "마누카", "マヌカ" } },
-			{ Avatar.Mariel, new string[] { "Mariel", "마리엘", "まりえる" } },
-			{ Avatar.Marron, new string[] { "Marron", "마론", "マロン" } },
-			{ Avatar.Maya, new string[] { "Maya", "마야", "舞夜" } },
-			{ Avatar.MAYO, new string[] { "MAYO", "마요", "まよ" } },
-			{ Avatar.Merino, new string[] { "Merino", "메리노", "メリノ" } },
-			{ Avatar.Miko, new string[] { "Miko", "미코", "ミコ" } },
-			{ Avatar.Milfy, new string[] { "Milfy", "미르피", "ミルフィ" } },
-			{ Avatar.Milk, new string[] { "Milk", "밀크", "ミルク" } },
-			{ Avatar.Milltina, new string[] { "Milltina", "밀티나", "ミルティナ" } },
-			{ Avatar.Minahoshi, new string[] { "Minahoshi", "미나호시", "みなほし" } },
-			{ Avatar.Minase, new string[] { "Minase", "미나세", "水瀬" } },
-			{ Avatar.Mint, new string[] { "Mint", "민트", "ミント" } },
-			{ Avatar.Mir, new string[] { "Mir", "미르", "ミール" } },
-			{ Avatar.Misaki, new string[] { "Misaki", "미사키", "海咲" } },
-			{ Avatar.Mishe, new string[] { "Mishe", "미셰", "ミーシェ" } },
-			{ Avatar.Moe, new string[] { "Moe", "모에", "萌" } },
-			{ Avatar.Nayu, new string[] { "Nayu", "나유", "ナユ" } },
-			{ Avatar.Nehail, new string[] { "Nehail", "네하일", "ネハイル" } },
-			{ Avatar.Nochica, new string[] { "Nochica", "노치카", "ノーチカ" } },
-			{ Avatar.Platinum, new string[] { "Platinum", "플레티늄", "プラチナ" } },
-			{ Avatar.Plum, new string[] { "Plum", "플럼", "プラム" } },
-			{ Avatar.Pochimaru, new string[] { "Pochimaru", "포치마루", "ぽちまる" } },
-			{ Avatar.Quiche, new string[] { "Quiche", "킷슈", "キッシュ" } },
-			{ Avatar.Rainy, new string[] { "Rainy", "레이니", "レイニィ" } },
-			{ Avatar.Ramune, new string[] { "Ramune", "라무네", "ラムネ" } },
-			{ Avatar.Ramune_Old, new string[] { "Ramune", "라무네", "ラムネ" } },
-			{ Avatar.RINDO, new string[] { "RINDO", "린도", "竜胆" } },
-			{ Avatar.Rokona, new string[] { "Rokona", "로코나", "ロコナ" } },
-			{ Avatar.Rue, new string[] { "Rue", "루에", "ルウ" } },
-			{ Avatar.Rurune, new string[] { "Rurune", "루루네", "ルルネ" } },
-			{ Avatar.Rusk, new string[] { "Rusk", "러스크", "ラスク" } },
-			{ Avatar.SELESTIA, new string[] { "SELESTIA", "셀레스티아", "セレスティア" } },
-			{ Avatar.Sephira, new string[] { "Sephira", "세피라", "セフィラ" } },
-			{ Avatar.Shami, new string[] { "Shami", "샤미", "シャミ" } },
-			{ Avatar.Shinano, new string[] { "Shinano", "시나노", "しなの" } },
-			{ Avatar.Shinra, new string[] { "Shinra", "신라", "森羅" } },
-			{ Avatar.SHIRAHA, new string[] { "SHIRAHA", "시라하", "シラハ" } },
-			{ Avatar.Shiratsume, new string[] { "Shiratsume", "시라츠메", "しらつめ" } },
-			{ Avatar.Sio, new string[] { "Sio", "시오", "しお" } },
-			{ Avatar.Sue, new string[] { "Sue", "스우", "透羽" } },
-			{ Avatar.Sugar, new string[] { "Sugar", "슈가", "シュガ" } },
-			{ Avatar.Suzuhana, new string[] { "Suzuhana", "스즈하나", "すずはな" } },
-			{ Avatar.Tien, new string[] { "Tien", "티엔", "ティエン" } },
-			{ Avatar.TubeRose, new string[] { "TubeRose", "튜베로즈" } },
-			{ Avatar.Ukon, new string[] { "Ukon", "우콘", "右近" } },
-			{ Avatar.Usasaki, new string[] { "Usasaki", "우사사키", "うささき" } },
-			{ Avatar.Uzuki, new string[] { "Uzuki", "우즈키", "卯月" } },
-			{ Avatar.VIVH, new string[] { "VIVH", "비브", "ビィブ" } },
-			{ Avatar.Wolferia, new string[] { "Wolferia", "울페리아", "ウルフェリア" } },
-			{ Avatar.Yoll, new string[] { "Yoll", "요루", "ヨル" } },
-			{ Avatar.YUGI_MIYO, new string[] { "YUGI", "MIYO", "유기", "미요", "ユギ", "ミヨ" } },
-			{ Avatar.Yuuko, new string[] { "Yuuko", "유우코", "幽狐" } }
+		static readonly Dictionary<AvatarType, string[]> AvatarNameDictionary = new Dictionary<AvatarType, string[]>() {
+			{ AvatarType.Airi, new string[] { "Airi", "아이리", "愛莉" } },
+			{ AvatarType.Aldina, new string[] { "Aldina", "알디나", "アルディナ" } },
+			{ AvatarType.Angura, new string[] { "Angura", "앙그라", "アングラ" } },
+			{ AvatarType.Anon, new string[] { "Anon", "아논", "あのん" } },
+			{ AvatarType.Anri, new string[] { "Anri", "안리", "杏里" } },
+			{ AvatarType.Ash, new string[] { "Ash", "애쉬", "アッシュ" } },
+			{ AvatarType.Chiffon, new string[] { "Chiffon", "쉬폰", "シフォン" } },
+			{ AvatarType.Chise, new string[] { "Chise", "치세", "チセ" } },
+			{ AvatarType.Chocolat, new string[] { "Chocolat", "쇼콜라", "ショコラ" } },
+			{ AvatarType.Cygnet, new string[] { "Cygnet", "시그넷", "シグネット" } },
+			{ AvatarType.Eku, new string[] { "Eku", "에쿠", "エク" } },
+			{ AvatarType.Emmelie, new string[] { "Emmelie", "에밀리" } },
+			{ AvatarType.EYO, new string[] { "EYO", "이요", "イヨ" } },
+			{ AvatarType.Firina, new string[] { "Firina", "휘리나", "フィリナ" } },
+			{ AvatarType.Flare, new string[] { "Flare", "플레어", "フレア" } },
+			{ AvatarType.Fuzzy, new string[] { "Fuzzy", "퍼지", "ファジー" } },
+			{ AvatarType.Glaze, new string[] { "Glaze", "글레이즈", "ぐれーず" } },
+			{ AvatarType.Grus, new string[] { "Grus", "그루스" } },
+			{ AvatarType.Hakka, new string[] { "Hakka", "하카", "薄荷" } },
+			{ AvatarType.IMERIS, new string[] { "IMERIS", "이메리스", "イメリス" } },
+			{ AvatarType.Karin, new string[] { "Karin", "카린", "カリン" } },
+			{ AvatarType.Kikyo, new string[] { "Kikyo", "키쿄", "桔梗" } },
+			{ AvatarType.Kipfel, new string[] { "Kipfel", "키펠", "キプフェル" } },
+			{ AvatarType.Kokoa, new string[] { "Kokoa", "코코아", "ここあ" } },
+			{ AvatarType.Koyuki, new string[] { "Koyuki", "코유키", "狐雪" } },
+			{ AvatarType.KUMALY, new string[] { "KUMALY", "쿠마리", "クマリ" } },
+			{ AvatarType.Kuronatu, new string[] { "Kuronatu", "쿠로나츠", "くろなつ" } },
+			{ AvatarType.Lapwing, new string[] { "Lapwing", "랩윙" } },
+			{ AvatarType.Lazuli, new string[] { "Lazuli", "라줄리", "ラズリ" } },
+			{ AvatarType.Leefa, new string[] { "Leefa", "리파", "リーファ" } },
+			{ AvatarType.Leeme, new string[] { "Leeme", "리메", "リーメ" } },
+			{ AvatarType.Lime, new string[] { "Lime", "라임", "ライム" } },
+			{ AvatarType.LUMINA, new string[] { "LUMINA", "루미나", "ルミナ" } },
+			{ AvatarType.Lunalitt, new string[] { "Lunalitt", "루나릿트", "ルーナリット" } },
+			{ AvatarType.Mafuyu, new string[] { "Mafuyu", "마후유", "真冬" } },
+			{ AvatarType.Maki, new string[] { "Maki", "마키", "碼希" } },
+			{ AvatarType.Mamehinata, new string[] { "Mamehinata", "마메히나타", "まめひなた" } },
+			{ AvatarType.MANUKA, new string[] { "MANUKA", "마누카", "マヌカ" } },
+			{ AvatarType.Mariel, new string[] { "Mariel", "마리엘", "まりえる" } },
+			{ AvatarType.Marron, new string[] { "Marron", "마론", "マロン" } },
+			{ AvatarType.Maya, new string[] { "Maya", "마야", "舞夜" } },
+			{ AvatarType.MAYO, new string[] { "MAYO", "마요", "まよ" } },
+			{ AvatarType.Merino, new string[] { "Merino", "메리노", "メリノ" } },
+			{ AvatarType.Miko, new string[] { "Miko", "미코", "ミコ" } },
+			{ AvatarType.Milfy, new string[] { "Milfy", "미르피", "ミルフィ" } },
+			{ AvatarType.Milk, new string[] { "Milk", "밀크", "ミルク" } },
+			{ AvatarType.Milltina, new string[] { "Milltina", "밀티나", "ミルティナ" } },
+			{ AvatarType.Minahoshi, new string[] { "Minahoshi", "미나호시", "みなほし" } },
+			{ AvatarType.Minase, new string[] { "Minase", "미나세", "水瀬" } },
+			{ AvatarType.Mint, new string[] { "Mint", "민트", "ミント" } },
+			{ AvatarType.Mir, new string[] { "Mir", "미르", "ミール" } },
+			{ AvatarType.Misaki, new string[] { "Misaki", "미사키", "海咲" } },
+			{ AvatarType.Mishe, new string[] { "Mishe", "미셰", "ミーシェ" } },
+			{ AvatarType.Moe, new string[] { "Moe", "모에", "萌" } },
+			{ AvatarType.Nayu, new string[] { "Nayu", "나유", "ナユ" } },
+			{ AvatarType.Nehail, new string[] { "Nehail", "네하일", "ネハイル" } },
+			{ AvatarType.Nochica, new string[] { "Nochica", "노치카", "ノーチカ" } },
+			{ AvatarType.Platinum, new string[] { "Platinum", "플레티늄", "プラチナ" } },
+			{ AvatarType.Plum, new string[] { "Plum", "플럼", "プラム" } },
+			{ AvatarType.Pochimaru, new string[] { "Pochimaru", "포치마루", "ぽちまる" } },
+			{ AvatarType.Quiche, new string[] { "Quiche", "킷슈", "キッシュ" } },
+			{ AvatarType.Rainy, new string[] { "Rainy", "레이니", "レイニィ" } },
+			{ AvatarType.Ramune, new string[] { "Ramune", "라무네", "ラムネ" } },
+			{ AvatarType.Ramune_Old, new string[] { "Ramune", "라무네", "ラムネ" } },
+			{ AvatarType.RINDO, new string[] { "RINDO", "린도", "竜胆" } },
+			{ AvatarType.Rokona, new string[] { "Rokona", "로코나", "ロコナ" } },
+			{ AvatarType.Rue, new string[] { "Rue", "루에", "ルウ" } },
+			{ AvatarType.Rurune, new string[] { "Rurune", "루루네", "ルルネ" } },
+			{ AvatarType.Rusk, new string[] { "Rusk", "러스크", "ラスク" } },
+			{ AvatarType.SELESTIA, new string[] { "SELESTIA", "셀레스티아", "セレスティア" } },
+			{ AvatarType.Sephira, new string[] { "Sephira", "세피라", "セフィラ" } },
+			{ AvatarType.Shami, new string[] { "Shami", "샤미", "シャミ" } },
+			{ AvatarType.Shinano, new string[] { "Shinano", "시나노", "しなの" } },
+			{ AvatarType.Shinra, new string[] { "Shinra", "신라", "森羅" } },
+			{ AvatarType.SHIRAHA, new string[] { "SHIRAHA", "시라하", "シラハ" } },
+			{ AvatarType.Shiratsume, new string[] { "Shiratsume", "시라츠메", "しらつめ" } },
+			{ AvatarType.Sio, new string[] { "Sio", "시오", "しお" } },
+			{ AvatarType.Sue, new string[] { "Sue", "스우", "透羽" } },
+			{ AvatarType.Sugar, new string[] { "Sugar", "슈가", "シュガ" } },
+			{ AvatarType.Suzuhana, new string[] { "Suzuhana", "스즈하나", "すずはな" } },
+			{ AvatarType.Tien, new string[] { "Tien", "티엔", "ティエン" } },
+			{ AvatarType.TubeRose, new string[] { "TubeRose", "튜베로즈" } },
+			{ AvatarType.Ukon, new string[] { "Ukon", "우콘", "右近" } },
+			{ AvatarType.Usasaki, new string[] { "Usasaki", "우사사키", "うささき" } },
+			{ AvatarType.Uzuki, new string[] { "Uzuki", "우즈키", "卯月" } },
+			{ AvatarType.VIVH, new string[] { "VIVH", "비브", "ビィブ" } },
+			{ AvatarType.Wolferia, new string[] { "Wolferia", "울페리아", "ウルフェリア" } },
+			{ AvatarType.Yoll, new string[] { "Yoll", "요루", "ヨル" } },
+			{ AvatarType.YUGI_MIYO, new string[] { "YUGI", "MIYO", "유기", "미요", "ユギ", "ミヨ" } },
+			{ AvatarType.Yuuko, new string[] { "Yuuko", "유우코", "幽狐" } }
 			// 검색용 신규 아바타 추가 위치
 		};
 
-		public static Avatar CurrentAvatarType = Avatar.MANUKA;
+		public static AvatarType CurrentAvatarType = AvatarType.Shinano;
 		public static bool AutomaticAvatarRecognition = true;
+
+		const string UndoGroupName = "VRSuya AvatarScaler";
 		static int UndoGroupIndex;
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", priority = 1000)]
@@ -243,602 +248,602 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", priority = 1100)]
 		static void SetAvatarTypeAiri() {
-			CurrentAvatarType = Avatar.Airi;
+			CurrentAvatarType = AvatarType.Airi;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Aldina", priority = 1100)]
 		static void SetAvatarTypeAldina() {
-			CurrentAvatarType = Avatar.Aldina;
+			CurrentAvatarType = AvatarType.Aldina;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Angura", priority = 1100)]
 		static void SetAvatarTypeAngura() {
-			CurrentAvatarType = Avatar.Angura;
+			CurrentAvatarType = AvatarType.Angura;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Anon", priority = 1100)]
 		static void SetAvatarTypeAnon() {
-			CurrentAvatarType = Avatar.Anon;
+			CurrentAvatarType = AvatarType.Anon;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Anri", priority = 1100)]
 		static void SetAvatarTypeAnri() {
-			CurrentAvatarType = Avatar.Anri;
+			CurrentAvatarType = AvatarType.Anri;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ash", priority = 1100)]
 		static void SetAvatarTypeAsh() {
-			CurrentAvatarType = Avatar.Ash;
+			CurrentAvatarType = AvatarType.Ash;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", priority = 1100)]
 		static void SetAvatarTypeChiffon() {
-			CurrentAvatarType = Avatar.Chiffon;
+			CurrentAvatarType = AvatarType.Chiffon;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chise", priority = 1100)]
 		static void SetAvatarTypeChise() {
-			CurrentAvatarType = Avatar.Chise;
+			CurrentAvatarType = AvatarType.Chise;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chocolat", priority = 1100)]
 		static void SetAvatarTypeChocolat() {
-			CurrentAvatarType = Avatar.Chocolat;
+			CurrentAvatarType = AvatarType.Chocolat;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Cygnet", priority = 1100)]
 		static void SetAvatarTypeCygnet() {
-			CurrentAvatarType = Avatar.Cygnet;
+			CurrentAvatarType = AvatarType.Cygnet;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Eku", priority = 1100)]
 		static void SetAvatarTypeEku() {
-			CurrentAvatarType = Avatar.Eku;
+			CurrentAvatarType = AvatarType.Eku;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Emmelie", priority = 1100)]
 		static void SetAvatarTypeEmmelie() {
-			CurrentAvatarType = Avatar.Emmelie;
+			CurrentAvatarType = AvatarType.Emmelie;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/EYO", priority = 1100)]
 		static void SetAvatarTypeEYO() {
-			CurrentAvatarType = Avatar.EYO;
+			CurrentAvatarType = AvatarType.EYO;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Firina", priority = 1100)]
 		static void SetAvatarTypeFirina() {
-			CurrentAvatarType = Avatar.Firina;
+			CurrentAvatarType = AvatarType.Firina;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Flare", priority = 1100)]
 		static void SetAvatarTypeFlare() {
-			CurrentAvatarType = Avatar.Flare;
+			CurrentAvatarType = AvatarType.Flare;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Fuzzy", priority = 1100)]
 		static void SetAvatarTypeFuzzy() {
-			CurrentAvatarType = Avatar.Fuzzy;
+			CurrentAvatarType = AvatarType.Fuzzy;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Glaze", priority = 1100)]
 		static void SetAvatarTypeGlaze() {
-			CurrentAvatarType = Avatar.Glaze;
+			CurrentAvatarType = AvatarType.Glaze;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Grus", priority = 1100)]
 		static void SetAvatarTypeGrus() {
-			CurrentAvatarType = Avatar.Grus;
+			CurrentAvatarType = AvatarType.Grus;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Hakka", priority = 1100)]
 		static void SetAvatarTypeHakka() {
-			CurrentAvatarType = Avatar.Hakka;
+			CurrentAvatarType = AvatarType.Hakka;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/IMERIS", priority = 1100)]
 		static void SetAvatarTypeIMERIS() {
-			CurrentAvatarType = Avatar.IMERIS;
+			CurrentAvatarType = AvatarType.IMERIS;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Karin", priority = 1100)]
 		static void SetAvatarTypeKarin() {
-			CurrentAvatarType = Avatar.Karin;
+			CurrentAvatarType = AvatarType.Karin;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kikyo", priority = 1100)]
 		static void SetAvatarTypeKikyo() {
-			CurrentAvatarType = Avatar.Kikyo;
+			CurrentAvatarType = AvatarType.Kikyo;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kipfel", priority = 1100)]
 		static void SetAvatarTypeKipfel() {
-			CurrentAvatarType = Avatar.Kipfel;
+			CurrentAvatarType = AvatarType.Kipfel;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kokoa", priority = 1100)]
 		static void SetAvatarTypeKokoa() {
-			CurrentAvatarType = Avatar.Kokoa;
+			CurrentAvatarType = AvatarType.Kokoa;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Koyuki", priority = 1100)]
 		static void SetAvatarTypeKoyuki() {
-			CurrentAvatarType = Avatar.Koyuki;
+			CurrentAvatarType = AvatarType.Koyuki;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/KUMALY", priority = 1100)]
 		static void SetAvatarTypeKUMALY() {
-			CurrentAvatarType = Avatar.KUMALY;
+			CurrentAvatarType = AvatarType.KUMALY;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kuronatu", priority = 1100)]
 		static void SetAvatarTypeKuronatu() {
-			CurrentAvatarType = Avatar.Kuronatu;
+			CurrentAvatarType = AvatarType.Kuronatu;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lapwing", priority = 1100)]
 		static void SetAvatarTypeLapwing() {
-			CurrentAvatarType = Avatar.Lapwing;
+			CurrentAvatarType = AvatarType.Lapwing;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lazuli", priority = 1100)]
 		static void SetAvatarTypeLazuli() {
-			CurrentAvatarType = Avatar.Lazuli;
+			CurrentAvatarType = AvatarType.Lazuli;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leefa", priority = 1100)]
 		static void SetAvatarTypeLeefa() {
-			CurrentAvatarType = Avatar.Leefa;
+			CurrentAvatarType = AvatarType.Leefa;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leeme", priority = 1100)]
 		static void SetAvatarTypeLeeme() {
-			CurrentAvatarType = Avatar.Leeme;
+			CurrentAvatarType = AvatarType.Leeme;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lime", priority = 1100)]
 		static void SetAvatarTypeLime() {
-			CurrentAvatarType = Avatar.Lime;
+			CurrentAvatarType = AvatarType.Lime;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/LUMINA", priority = 1100)]
 		static void SetAvatarTypeLUMINA() {
-			CurrentAvatarType = Avatar.LUMINA;
+			CurrentAvatarType = AvatarType.LUMINA;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lunalitt", priority = 1100)]
 		static void SetAvatarTypeLunalitt() {
-			CurrentAvatarType = Avatar.Lunalitt;
+			CurrentAvatarType = AvatarType.Lunalitt;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mafuyu", priority = 1100)]
 		static void SetAvatarTypeMafuyu() {
-			CurrentAvatarType = Avatar.Mafuyu;
+			CurrentAvatarType = AvatarType.Mafuyu;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maki", priority = 1100)]
 		static void SetAvatarTypeMaki() {
-			CurrentAvatarType = Avatar.Maki;
+			CurrentAvatarType = AvatarType.Maki;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mamehinata", priority = 1100)]
 		static void SetAvatarTypeMamehinata() {
-			CurrentAvatarType = Avatar.Mamehinata;
+			CurrentAvatarType = AvatarType.Mamehinata;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/MANUKA", priority = 1100)]
 		static void SetAvatarTypeMANUKA() {
-			CurrentAvatarType = Avatar.MANUKA;
+			CurrentAvatarType = AvatarType.MANUKA;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mariel", priority = 1100)]
 		static void SetAvatarTypeMariel() {
-			CurrentAvatarType = Avatar.Mariel;
+			CurrentAvatarType = AvatarType.Mariel;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Marron", priority = 1100)]
 		static void SetAvatarTypeMarron() {
-			CurrentAvatarType = Avatar.Marron;
+			CurrentAvatarType = AvatarType.Marron;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", priority = 1100)]
 		static void SetAvatarTypeMaya() {
-			CurrentAvatarType = Avatar.Maya;
+			CurrentAvatarType = AvatarType.Maya;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/MAYO", priority = 1100)]
 		static void SetAvatarTypeMAYO() {
-			CurrentAvatarType = Avatar.MAYO;
+			CurrentAvatarType = AvatarType.MAYO;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Merino", priority = 1100)]
 		static void SetAvatarTypeMerino() {
-			CurrentAvatarType = Avatar.Merino;
+			CurrentAvatarType = AvatarType.Merino;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", priority = 1100)]
 		static void SetAvatarTypeMiko() {
-			CurrentAvatarType = Avatar.Miko;
+			CurrentAvatarType = AvatarType.Miko;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", priority = 1100)]
 		static void SetAvatarTypeMilfy() {
-			CurrentAvatarType = Avatar.Milfy;
+			CurrentAvatarType = AvatarType.Milfy;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milk", priority = 1100)]
 		static void SetAvatarTypeMilk() {
-			CurrentAvatarType = Avatar.Milk;
+			CurrentAvatarType = AvatarType.Milk;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milltina", priority = 1100)]
 		static void SetAvatarTypeMilltina() {
-			CurrentAvatarType = Avatar.Milltina;
+			CurrentAvatarType = AvatarType.Milltina;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minahoshi", priority = 1100)]
 		static void SetAvatarTypeMinahoshi() {
-			CurrentAvatarType = Avatar.Minahoshi;
+			CurrentAvatarType = AvatarType.Minahoshi;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minase", priority = 1100)]
 		static void SetAvatarTypeMinase() {
-			CurrentAvatarType = Avatar.Minase;
+			CurrentAvatarType = AvatarType.Minase;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mint", priority = 1100)]
 		static void SetAvatarTypeMint() {
-			CurrentAvatarType = Avatar.Mint;
+			CurrentAvatarType = AvatarType.Mint;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mir", priority = 1100)]
 		static void SetAvatarTypeMir() {
-			CurrentAvatarType = Avatar.Mir;
+			CurrentAvatarType = AvatarType.Mir;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Misaki", priority = 1100)]
 		static void SetAvatarTypeMisaki() {
-			CurrentAvatarType = Avatar.Misaki;
+			CurrentAvatarType = AvatarType.Misaki;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mishe", priority = 1100)]
 		static void SetAvatarTypeMishe() {
-			CurrentAvatarType = Avatar.Mishe;
+			CurrentAvatarType = AvatarType.Mishe;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Moe", priority = 1100)]
 		static void SetAvatarTypeMoe() {
-			CurrentAvatarType = Avatar.Moe;
+			CurrentAvatarType = AvatarType.Moe;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nayu", priority = 1100)]
 		static void SetAvatarTypeNayu() {
-			CurrentAvatarType = Avatar.Nayu;
+			CurrentAvatarType = AvatarType.Nayu;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nehail", priority = 1100)]
 		static void SetAvatarTypeNehail() {
-			CurrentAvatarType = Avatar.Nehail;
+			CurrentAvatarType = AvatarType.Nehail;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nochica", priority = 1100)]
 		static void SetAvatarTypeNochica() {
-			CurrentAvatarType = Avatar.Nochica;
+			CurrentAvatarType = AvatarType.Nochica;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Platinum", priority = 1100)]
 		static void SetAvatarTypePlatinum() {
-			CurrentAvatarType = Avatar.Platinum;
+			CurrentAvatarType = AvatarType.Platinum;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Plum", priority = 1100)]
 		static void SetAvatarTypePlum() {
-			CurrentAvatarType = Avatar.Plum;
+			CurrentAvatarType = AvatarType.Plum;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Pochimaru", priority = 1100)]
 		static void SetAvatarTypePochimaru() {
-			CurrentAvatarType = Avatar.Pochimaru;
+			CurrentAvatarType = AvatarType.Pochimaru;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Quiche", priority = 1100)]
 		static void SetAvatarTypeQuiche() {
-			CurrentAvatarType = Avatar.Quiche;
+			CurrentAvatarType = AvatarType.Quiche;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rainy", priority = 1100)]
 		static void SetAvatarTypeRainy() {
-			CurrentAvatarType = Avatar.Rainy;
+			CurrentAvatarType = AvatarType.Rainy;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ramune", priority = 1100)]
 		static void SetAvatarTypeRamune() {
-			CurrentAvatarType = Avatar.Ramune;
+			CurrentAvatarType = AvatarType.Ramune;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ramune(Old)", priority = 1100)]
 		static void SetAvatarTypeRamune_Old() {
-			CurrentAvatarType = Avatar.Ramune_Old;
+			CurrentAvatarType = AvatarType.Ramune_Old;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/RINDO", priority = 1100)]
 		static void SetAvatarTypeRINDO() {
-			CurrentAvatarType = Avatar.RINDO;
+			CurrentAvatarType = AvatarType.RINDO;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rokona", priority = 1100)]
 		static void SetAvatarTypeRokona() {
-			CurrentAvatarType = Avatar.Rokona;
+			CurrentAvatarType = AvatarType.Rokona;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rue", priority = 1100)]
 		static void SetAvatarTypeRue() {
-			CurrentAvatarType = Avatar.Rue;
+			CurrentAvatarType = AvatarType.Rue;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rurune", priority = 1100)]
 		static void SetAvatarTypeRurune() {
-			CurrentAvatarType = Avatar.Rurune;
+			CurrentAvatarType = AvatarType.Rurune;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rusk", priority = 1100)]
 		static void SetAvatarTypeRusk() {
-			CurrentAvatarType = Avatar.Rusk;
+			CurrentAvatarType = AvatarType.Rusk;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/SELESTIA", priority = 1100)]
 		static void SetAvatarTypeSELESTIA() {
-			CurrentAvatarType = Avatar.SELESTIA;
+			CurrentAvatarType = AvatarType.SELESTIA;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sephira", priority = 1100)]
 		static void SetAvatarTypeSephira() {
-			CurrentAvatarType = Avatar.Sephira;
+			CurrentAvatarType = AvatarType.Sephira;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shami", priority = 1100)]
 		static void SetAvatarTypeShami() {
-			CurrentAvatarType = Avatar.Shami;
+			CurrentAvatarType = AvatarType.Shami;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinano", priority = 1100)]
 		static void SetAvatarTypeShinano() {
-			CurrentAvatarType = Avatar.Shinano;
+			CurrentAvatarType = AvatarType.Shinano;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinra", priority = 1100)]
 		static void SetAvatarTypeShinra() {
-			CurrentAvatarType = Avatar.Shinra;
+			CurrentAvatarType = AvatarType.Shinra;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/SHIRAHA", priority = 1100)]
 		static void SetAvatarTypeSHIRAHA() {
-			CurrentAvatarType = Avatar.SHIRAHA;
+			CurrentAvatarType = AvatarType.SHIRAHA;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shiratsume", priority = 1100)]
 		static void SetAvatarTypeShiratsume() {
-			CurrentAvatarType = Avatar.Shiratsume;
+			CurrentAvatarType = AvatarType.Shiratsume;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sio", priority = 1100)]
 		static void SetAvatarTypeSio() {
-			CurrentAvatarType = Avatar.Sio;
+			CurrentAvatarType = AvatarType.Sio;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sue", priority = 1100)]
 		static void SetAvatarTypeSue() {
-			CurrentAvatarType = Avatar.Sue;
+			CurrentAvatarType = AvatarType.Sue;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sugar", priority = 1100)]
 		static void SetAvatarTypeSugar() {
-			CurrentAvatarType = Avatar.Sugar;
+			CurrentAvatarType = AvatarType.Sugar;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Suzuhana", priority = 1100)]
 		static void SetAvatarTypeSuzuhana() {
-			CurrentAvatarType = Avatar.Suzuhana;
+			CurrentAvatarType = AvatarType.Suzuhana;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Tien", priority = 1100)]
 		static void SetAvatarTypeTien() {
-			CurrentAvatarType = Avatar.Tien;
+			CurrentAvatarType = AvatarType.Tien;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/TubeRose", priority = 1100)]
 		static void SetAvatarTypeTubeRose() {
-			CurrentAvatarType = Avatar.TubeRose;
+			CurrentAvatarType = AvatarType.TubeRose;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ukon", priority = 1100)]
 		static void SetAvatarTypeUkon() {
-			CurrentAvatarType = Avatar.Ukon;
+			CurrentAvatarType = AvatarType.Ukon;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Usasaki", priority = 1100)]
 		static void SetAvatarTypeUsasaki() {
-			CurrentAvatarType = Avatar.Usasaki;
+			CurrentAvatarType = AvatarType.Usasaki;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Uzuki", priority = 1100)]
 		static void SetAvatarTypeUzuki() {
-			CurrentAvatarType = Avatar.Uzuki;
+			CurrentAvatarType = AvatarType.Uzuki;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/VIVH", priority = 1100)]
 		static void SetAvatarTypeVIVH() {
-			CurrentAvatarType = Avatar.VIVH;
+			CurrentAvatarType = AvatarType.VIVH;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Wolferia", priority = 1100)]
 		static void SetAvatarTypeWolferia() {
-			CurrentAvatarType = Avatar.Wolferia;
+			CurrentAvatarType = AvatarType.Wolferia;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Yoll", priority = 1100)]
 		static void SetAvatarTypeYoll() {
-			CurrentAvatarType = Avatar.Yoll;
+			CurrentAvatarType = AvatarType.Yoll;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/YUGI MIYO", priority = 1100)]
 		static void SetAvatarTypeYUGI_MIYO() {
-			CurrentAvatarType = Avatar.YUGI_MIYO;
+			CurrentAvatarType = AvatarType.YUGI_MIYO;
 			CheckAvatarMenu();
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/Avatar/Yuuko", priority = 1100)]
 		static void SetAvatarTypeYuuko() {
-			CurrentAvatarType = Avatar.Yuuko;
+			CurrentAvatarType = AvatarType.Yuuko;
 			CheckAvatarMenu();
 		}
 		// 검색용 신규 아바타 추가 위치
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/100cm", priority = 1100)]
 		static void ScaleAvatar100cm() {
-			ScaleAvatar(100);
+			RequestScaleAvatar(100);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/110cm", priority = 1100)]
 		static void ScaleAvatar110cm() {
-			ScaleAvatar(110);
+			RequestScaleAvatar(110);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/120cm", priority = 1100)]
 		static void ScaleAvatar120cm() {
-			ScaleAvatar(120);
+			RequestScaleAvatar(120);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/130cm", priority = 1100)]
 		static void ScaleAvatar130cm() {
-			ScaleAvatar(130);
+			RequestScaleAvatar(130);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/140cm", priority = 1100)]
 		static void ScaleAvatar140cm() {
-			ScaleAvatar(140);
+			RequestScaleAvatar(140);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/150cm", priority = 1100)]
 		static void ScaleAvatar150cm() {
-			ScaleAvatar(150);
+			RequestScaleAvatar(150);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/160cm", priority = 1100)]
 		static void ScaleAvatar160cm() {
-			ScaleAvatar(160);
+			RequestScaleAvatar(160);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/170cm", priority = 1100)]
 		static void ScaleAvatar170cm() {
-			ScaleAvatar(170);
+			RequestScaleAvatar(170);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/180cm", priority = 1100)]
 		static void ScaleAvatar180cm() {
-			ScaleAvatar(180);
+			RequestScaleAvatar(180);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/190cm", priority = 1100)]
 		static void ScaleAvatar190cm() {
-			ScaleAvatar(190);
+			RequestScaleAvatar(190);
 		}
 
 		[MenuItem("Tools/VRSuya/Utility/AvatarScaler/200cm", priority = 1100)]
 		static void ScaleAvatar200cm() {
-			ScaleAvatar(200);
+			RequestScaleAvatar(200);
 		}
 
 		internal static void ScaleAvatarHeight(int TargetAvatarHeight) {
-			ScaleAvatar(TargetAvatarHeight);
+			RequestScaleAvatar(TargetAvatarHeight);
 		}
 
 		static AvatarScaler() {
@@ -847,187 +852,152 @@ namespace VRSuya.Utility {
 
 		static void CheckAvatarMenu() {
 			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Automatic Avatar Recognition", AutomaticAvatarRecognition);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", CurrentAvatarType == Avatar.Airi);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Aldina", CurrentAvatarType == Avatar.Aldina);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Angura", CurrentAvatarType == Avatar.Angura);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Anon", CurrentAvatarType == Avatar.Anon);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Anri", CurrentAvatarType == Avatar.Anri);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ash", CurrentAvatarType == Avatar.Ash);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", CurrentAvatarType == Avatar.Chiffon);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chise", CurrentAvatarType == Avatar.Chise);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chocolat", CurrentAvatarType == Avatar.Chocolat);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Cygnet", CurrentAvatarType == Avatar.Cygnet);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Eku", CurrentAvatarType == Avatar.Eku);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Emmelie", CurrentAvatarType == Avatar.Emmelie);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/EYO", CurrentAvatarType == Avatar.EYO);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Firina", CurrentAvatarType == Avatar.Firina);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Flare", CurrentAvatarType == Avatar.Flare);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Fuzzy", CurrentAvatarType == Avatar.Fuzzy);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Glaze", CurrentAvatarType == Avatar.Glaze);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Grus", CurrentAvatarType == Avatar.Grus);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Hakka", CurrentAvatarType == Avatar.Hakka);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/IMERIS", CurrentAvatarType == Avatar.IMERIS);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Karin", CurrentAvatarType == Avatar.Karin);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kikyo", CurrentAvatarType == Avatar.Kikyo);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kipfel", CurrentAvatarType == Avatar.Kipfel);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kokoa", CurrentAvatarType == Avatar.Kokoa);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Koyuki", CurrentAvatarType == Avatar.Koyuki);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/KUMALY", CurrentAvatarType == Avatar.KUMALY);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kuronatu", CurrentAvatarType == Avatar.Kuronatu);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lapwing", CurrentAvatarType == Avatar.Lapwing);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lazuli", CurrentAvatarType == Avatar.Lazuli);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leefa", CurrentAvatarType == Avatar.Leefa);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leeme", CurrentAvatarType == Avatar.Leeme);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lime", CurrentAvatarType == Avatar.Lime);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/LUMINA", CurrentAvatarType == Avatar.LUMINA);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lunalitt", CurrentAvatarType == Avatar.Lunalitt);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mafuyu", CurrentAvatarType == Avatar.Mafuyu);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maki", CurrentAvatarType == Avatar.Maki);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mamehinata", CurrentAvatarType == Avatar.Mamehinata);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/MANUKA", CurrentAvatarType == Avatar.MANUKA);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mariel", CurrentAvatarType == Avatar.Mariel);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Marron", CurrentAvatarType == Avatar.Marron);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", CurrentAvatarType == Avatar.Maya);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/MAYO", CurrentAvatarType == Avatar.MAYO);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Merino", CurrentAvatarType == Avatar.Merino);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", CurrentAvatarType == Avatar.Miko);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", CurrentAvatarType == Avatar.Milfy);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milk", CurrentAvatarType == Avatar.Milk);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milltina", CurrentAvatarType == Avatar.Milltina);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minahoshi", CurrentAvatarType == Avatar.Minahoshi);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minase", CurrentAvatarType == Avatar.Minase);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mint", CurrentAvatarType == Avatar.Mint);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mir", CurrentAvatarType == Avatar.Mir);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Misaki", CurrentAvatarType == Avatar.Misaki);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mishe", CurrentAvatarType == Avatar.Mishe);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Moe", CurrentAvatarType == Avatar.Moe);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nayu", CurrentAvatarType == Avatar.Nayu);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nehail", CurrentAvatarType == Avatar.Nehail);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nochica", CurrentAvatarType == Avatar.Nochica);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Platinum", CurrentAvatarType == Avatar.Platinum);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Plum", CurrentAvatarType == Avatar.Plum);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Pochimaru", CurrentAvatarType == Avatar.Pochimaru);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Quiche", CurrentAvatarType == Avatar.Quiche);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rainy", CurrentAvatarType == Avatar.Rainy);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ramune", CurrentAvatarType == Avatar.Ramune);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ramune(Old)", CurrentAvatarType == Avatar.Ramune_Old);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/RINDO", CurrentAvatarType == Avatar.RINDO);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rokona", CurrentAvatarType == Avatar.Rokona);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rue", CurrentAvatarType == Avatar.Rue);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rurune", CurrentAvatarType == Avatar.Rurune);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rusk", CurrentAvatarType == Avatar.Rusk);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/SELESTIA", CurrentAvatarType == Avatar.SELESTIA);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sephira", CurrentAvatarType == Avatar.Sephira);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shami", CurrentAvatarType == Avatar.Shami);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinano", CurrentAvatarType == Avatar.Shinano);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinra", CurrentAvatarType == Avatar.Shinra);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/SHIRAHA", CurrentAvatarType == Avatar.SHIRAHA);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shiratsume", CurrentAvatarType == Avatar.Shiratsume);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sio", CurrentAvatarType == Avatar.Sio);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sue", CurrentAvatarType == Avatar.Sue);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sugar", CurrentAvatarType == Avatar.Sugar);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Suzuhana", CurrentAvatarType == Avatar.Suzuhana);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Tien", CurrentAvatarType == Avatar.Tien);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/TubeRose", CurrentAvatarType == Avatar.TubeRose);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ukon", CurrentAvatarType == Avatar.Ukon);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Usasaki", CurrentAvatarType == Avatar.Usasaki);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Uzuki", CurrentAvatarType == Avatar.Uzuki);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/VIVH", CurrentAvatarType == Avatar.VIVH);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Wolferia", CurrentAvatarType == Avatar.Wolferia);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Yoll", CurrentAvatarType == Avatar.Yoll);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/YUGI MIYO", CurrentAvatarType == Avatar.YUGI_MIYO);
-			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Yuuko", CurrentAvatarType == Avatar.Yuuko);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Airi", CurrentAvatarType == AvatarType.Airi);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Aldina", CurrentAvatarType == AvatarType.Aldina);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Angura", CurrentAvatarType == AvatarType.Angura);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Anon", CurrentAvatarType == AvatarType.Anon);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Anri", CurrentAvatarType == AvatarType.Anri);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ash", CurrentAvatarType == AvatarType.Ash);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chiffon", CurrentAvatarType == AvatarType.Chiffon);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chise", CurrentAvatarType == AvatarType.Chise);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Chocolat", CurrentAvatarType == AvatarType.Chocolat);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Cygnet", CurrentAvatarType == AvatarType.Cygnet);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Eku", CurrentAvatarType == AvatarType.Eku);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Emmelie", CurrentAvatarType == AvatarType.Emmelie);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/EYO", CurrentAvatarType == AvatarType.EYO);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Firina", CurrentAvatarType == AvatarType.Firina);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Flare", CurrentAvatarType == AvatarType.Flare);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Fuzzy", CurrentAvatarType == AvatarType.Fuzzy);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Glaze", CurrentAvatarType == AvatarType.Glaze);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Grus", CurrentAvatarType == AvatarType.Grus);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Hakka", CurrentAvatarType == AvatarType.Hakka);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/IMERIS", CurrentAvatarType == AvatarType.IMERIS);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Karin", CurrentAvatarType == AvatarType.Karin);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kikyo", CurrentAvatarType == AvatarType.Kikyo);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kipfel", CurrentAvatarType == AvatarType.Kipfel);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kokoa", CurrentAvatarType == AvatarType.Kokoa);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Koyuki", CurrentAvatarType == AvatarType.Koyuki);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/KUMALY", CurrentAvatarType == AvatarType.KUMALY);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Kuronatu", CurrentAvatarType == AvatarType.Kuronatu);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lapwing", CurrentAvatarType == AvatarType.Lapwing);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lazuli", CurrentAvatarType == AvatarType.Lazuli);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leefa", CurrentAvatarType == AvatarType.Leefa);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Leeme", CurrentAvatarType == AvatarType.Leeme);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lime", CurrentAvatarType == AvatarType.Lime);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/LUMINA", CurrentAvatarType == AvatarType.LUMINA);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Lunalitt", CurrentAvatarType == AvatarType.Lunalitt);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mafuyu", CurrentAvatarType == AvatarType.Mafuyu);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maki", CurrentAvatarType == AvatarType.Maki);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mamehinata", CurrentAvatarType == AvatarType.Mamehinata);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/MANUKA", CurrentAvatarType == AvatarType.MANUKA);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mariel", CurrentAvatarType == AvatarType.Mariel);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Marron", CurrentAvatarType == AvatarType.Marron);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Maya", CurrentAvatarType == AvatarType.Maya);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/MAYO", CurrentAvatarType == AvatarType.MAYO);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Merino", CurrentAvatarType == AvatarType.Merino);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Miko", CurrentAvatarType == AvatarType.Miko);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milfy", CurrentAvatarType == AvatarType.Milfy);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milk", CurrentAvatarType == AvatarType.Milk);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Milltina", CurrentAvatarType == AvatarType.Milltina);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minahoshi", CurrentAvatarType == AvatarType.Minahoshi);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Minase", CurrentAvatarType == AvatarType.Minase);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mint", CurrentAvatarType == AvatarType.Mint);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mir", CurrentAvatarType == AvatarType.Mir);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Misaki", CurrentAvatarType == AvatarType.Misaki);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Mishe", CurrentAvatarType == AvatarType.Mishe);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Moe", CurrentAvatarType == AvatarType.Moe);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nayu", CurrentAvatarType == AvatarType.Nayu);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nehail", CurrentAvatarType == AvatarType.Nehail);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Nochica", CurrentAvatarType == AvatarType.Nochica);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Platinum", CurrentAvatarType == AvatarType.Platinum);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Plum", CurrentAvatarType == AvatarType.Plum);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Pochimaru", CurrentAvatarType == AvatarType.Pochimaru);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Quiche", CurrentAvatarType == AvatarType.Quiche);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rainy", CurrentAvatarType == AvatarType.Rainy);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ramune", CurrentAvatarType == AvatarType.Ramune);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ramune(Old)", CurrentAvatarType == AvatarType.Ramune_Old);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/RINDO", CurrentAvatarType == AvatarType.RINDO);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rokona", CurrentAvatarType == AvatarType.Rokona);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rue", CurrentAvatarType == AvatarType.Rue);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rurune", CurrentAvatarType == AvatarType.Rurune);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Rusk", CurrentAvatarType == AvatarType.Rusk);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/SELESTIA", CurrentAvatarType == AvatarType.SELESTIA);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sephira", CurrentAvatarType == AvatarType.Sephira);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shami", CurrentAvatarType == AvatarType.Shami);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinano", CurrentAvatarType == AvatarType.Shinano);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shinra", CurrentAvatarType == AvatarType.Shinra);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/SHIRAHA", CurrentAvatarType == AvatarType.SHIRAHA);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Shiratsume", CurrentAvatarType == AvatarType.Shiratsume);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sio", CurrentAvatarType == AvatarType.Sio);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sue", CurrentAvatarType == AvatarType.Sue);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Sugar", CurrentAvatarType == AvatarType.Sugar);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Suzuhana", CurrentAvatarType == AvatarType.Suzuhana);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Tien", CurrentAvatarType == AvatarType.Tien);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/TubeRose", CurrentAvatarType == AvatarType.TubeRose);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Ukon", CurrentAvatarType == AvatarType.Ukon);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Usasaki", CurrentAvatarType == AvatarType.Usasaki);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Uzuki", CurrentAvatarType == AvatarType.Uzuki);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/VIVH", CurrentAvatarType == AvatarType.VIVH);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Wolferia", CurrentAvatarType == AvatarType.Wolferia);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Yoll", CurrentAvatarType == AvatarType.Yoll);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/YUGI MIYO", CurrentAvatarType == AvatarType.YUGI_MIYO);
+			Menu.SetChecked("Tools/VRSuya/Utility/AvatarScaler/Avatar/Yuuko", CurrentAvatarType == AvatarType.Yuuko);
 			// 검색용 신규 아바타 추가 위치
 		}
 
-		static void ScaleAvatar(int TargetHeight) {
-			if (GetVRCAvatar().Length > 0) {
-				Undo.IncrementCurrentGroup();
-				Undo.SetCurrentGroupName("VRSuya AvatarScaler");
-				UndoGroupIndex = Undo.GetCurrentGroup();
-				foreach (VRC_AvatarDescriptor TargetAvatarDescriptor in GetVRCAvatar()) {
-					VRC_AvatarDescriptor AvatarDescriptor = TargetAvatarDescriptor;
-					GameObject AvatarObject = AvatarDescriptor.gameObject;
-					Vector3 AvatarViewPosition = AvatarDescriptor.ViewPosition;
-					if (AutomaticAvatarRecognition) CurrentAvatarType = GetCurrentAvatarType(TargetAvatarDescriptor);
-					float TargetEyeHeight = AvatarEyeHeights[CurrentAvatarType] * TargetHeight / 100;
-					float TargetAvatarScale = TargetEyeHeight / AvatarViewPosition.y;
-					ScaleAvatarTransform(AvatarObject, TargetAvatarScale);
-					ScaleAvatarViewPosition(AvatarDescriptor, TargetAvatarScale);
-					Debug.Log($"[VRSuya] Set the height of {AvatarObject.name} avatar to {TargetHeight}cm");
+		public static void RequestScaleAvatar(int TargetHeight) {
+			GameObject[] TargetAvatarGameObjects = Selection.gameObjects;
+			if (TargetAvatarGameObjects.Length == 0) {
+				TargetAvatarGameObjects = Avatar.GetAvatarGameObjects();
+			}
+			if (TargetAvatarGameObjects.Length > 0) {
+				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
+				foreach (GameObject TargetAvatarGameObject in TargetAvatarGameObjects) {
+					ScaleAvatar(TargetAvatarGameObject, TargetHeight);
 				}
-				CheckAvatarMenu();
 				SceneView.RepaintAll();
 			}
 		}
 
-		static Avatar GetCurrentAvatarType(VRC_AvatarDescriptor TargetAvatarDescriptor) {
-			string AvatarName = TargetAvatarDescriptor.gameObject.name;
-			Avatar newCurrentAvatarType = CurrentAvatarType;
-			foreach (var TargetAvatarNames in AvatarNames) {
-				Avatar AvatarType = TargetAvatarNames.Key;
-				string[] AvatarMultiName = TargetAvatarNames.Value;
-				foreach (string MultiName in AvatarMultiName) {
-					if (AvatarName.Contains(MultiName, StringComparison.OrdinalIgnoreCase)) {
-						newCurrentAvatarType = TargetAvatarNames.Key;
-						return newCurrentAvatarType;
+		public static bool ScaleAvatar(GameObject TargetAvatarGameObject, int TargetHeight) {
+			if (!TargetAvatarGameObject) return false;
+			VRC_AvatarDescriptor TargetAvatarDescriptor = TargetAvatarGameObject.GetComponent<VRC_AvatarDescriptor>();
+			if (!TargetAvatarDescriptor) return false;
+			Vector3 AvatarViewPosition = TargetAvatarDescriptor.ViewPosition;
+			AvatarType NewAvatarType = (AutomaticAvatarRecognition) ? GetAvatarType(TargetAvatarGameObject) : CurrentAvatarType;
+			float TargetEyeHeight = AvatarEyeHeights[NewAvatarType] * TargetHeight / 100;
+			float TargetAvatarScale = TargetEyeHeight / AvatarViewPosition.y;
+			ScaleAvatarTransform(TargetAvatarGameObject, TargetAvatarScale);
+			ScaleAvatarViewPosition(TargetAvatarDescriptor, TargetAvatarScale);
+			Debug.Log($"[VRSuya] Set the height of {TargetAvatarGameObject.name} avatar to {TargetHeight}cm");
+			return true;
+		}
+
+		static AvatarType GetAvatarType(GameObject TargetGameObject) {
+			AvatarType NewAvatarType = CurrentAvatarType;
+			foreach (var TargetAvatarNameKeyPair in AvatarNameDictionary) {
+				foreach (string TranslatedName in TargetAvatarNameKeyPair.Value) {
+					if (TargetGameObject.name.Contains(TranslatedName, StringComparison.OrdinalIgnoreCase)) {
+						return TargetAvatarNameKeyPair.Key;
 					}
 				}
 			}
-			return newCurrentAvatarType;
+			return NewAvatarType;
 		}
 
 		static void ScaleAvatarTransform(GameObject TargetAvatar, float TargetScale) {
 			Transform TargetAvatarTransform = TargetAvatar.transform;
-			Undo.RecordObject(TargetAvatarTransform, "Changed Avatar Transform");
+			Undo.RecordObject(TargetAvatarTransform, UndoGroupName);
 			TargetAvatarTransform.localScale = TargetAvatarTransform.localScale * TargetScale;
 			EditorUtility.SetDirty(TargetAvatarTransform);
 			Undo.CollapseUndoOperations(UndoGroupIndex);
 		}
 
 		static void ScaleAvatarViewPosition(VRC_AvatarDescriptor TargetAvatarDescriptor, float TargetScale) {
-			Undo.RecordObject(TargetAvatarDescriptor, "Changed Avatar View Position");
+			Undo.RecordObject(TargetAvatarDescriptor, UndoGroupName);
 			TargetAvatarDescriptor.ViewPosition = TargetAvatarDescriptor.ViewPosition * TargetScale;
 			EditorUtility.SetDirty(TargetAvatarDescriptor);
 			Undo.CollapseUndoOperations(UndoGroupIndex);
-		}
-
-		static VRC_AvatarDescriptor[] GetVRCAvatar() {
-			VRC_AvatarDescriptor[] TargetAvatarDescriptors = GetAvatarDescriptorFromVRCSDKBuilder();
-			if (TargetAvatarDescriptors.Length == 0) TargetAvatarDescriptors = GetAvatarDescriptorFromSelection();
-			if (TargetAvatarDescriptors.Length == 0) TargetAvatarDescriptors = GetAvatarDescriptorFromVRCTool();
-			return TargetAvatarDescriptors;
-		}
-
-		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCSDKBuilder() {
-			return new VRC_AvatarDescriptor[0];
-		}
-
-		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromSelection() {
-			GameObject[] SelectedGameObjects = Selection.gameObjects;
-			if (SelectedGameObjects.Length == 1) {
-				VRC_AvatarDescriptor SelectedVRCAvatarDescriptor = SelectedGameObjects[0].GetComponent<VRC_AvatarDescriptor>();
-				if (SelectedVRCAvatarDescriptor) {
-					return new VRC_AvatarDescriptor[] { SelectedVRCAvatarDescriptor };
-				} else {
-					return new VRC_AvatarDescriptor[0];
-				}
-			} else if (SelectedGameObjects.Length > 1) {
-				VRC_AvatarDescriptor[] SelectedVRCAvatarDescriptor = SelectedGameObjects
-					.Select(SelectedGameObject => SelectedGameObject.GetComponent<VRC_AvatarDescriptor>()).ToArray();
-				return SelectedVRCAvatarDescriptor;
-			} else {
-				return new VRC_AvatarDescriptor[0];
-			}
-		}
-
-		static VRC_AvatarDescriptor[] GetAvatarDescriptorFromVRCTool() {
-			VRC_AvatarDescriptor[] AllVRCAvatarDescriptor = VRC.Tools.FindSceneObjectsOfTypeAll<VRC_AvatarDescriptor>().ToArray();
-			if (AllVRCAvatarDescriptor.Length > 0) {
-				return AllVRCAvatarDescriptor.Where(Avatar => Avatar.gameObject.activeInHierarchy).ToArray();
-			} else {
-				return new VRC_AvatarDescriptor[0];
-			}
 		}
 	}
 
@@ -1044,7 +1014,7 @@ namespace VRSuya.Utility {
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
-			GUILayout.Label("Avatar Height (cm)", EditorStyles.boldLabel);
+			GUILayout.Label(GetTranslatedString("String_AvatarHeight"), EditorStyles.boldLabel);
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 			GUILayout.BeginHorizontal();
@@ -1055,7 +1025,7 @@ namespace VRSuya.Utility {
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
 			EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
-			if (GUILayout.Button("Apply", GUILayout.Width(100))) {
+			if (GUILayout.Button(GetTranslatedString("String_Apply"), GUILayout.Width(100))) {
 				AvatarScaler.ScaleAvatarHeight(TargetAvatarHeight);
 				Close();
 			}
