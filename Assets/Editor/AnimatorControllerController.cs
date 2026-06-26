@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-using Animator = VRSuya.Core.Animator;
+using VRSuya.Core;
 
 /*
  * VRSuya Utility
@@ -77,7 +77,7 @@ namespace VRSuya.Utility {
 		}
 
 		public static bool ModifyWriteDefaults(AnimatorController TargetAnimator, bool TargetWriteDefaults) {
-			AnimatorState[] AllAnimatorStates = Animator.GetAllAnimatorStates(TargetAnimator);
+			AnimatorState[] AllAnimatorStates = AnimatorHelper.GetAllAnimatorStates(TargetAnimator);
 			bool IsModified = false;
 			foreach (AnimatorState TargetState in AllAnimatorStates) {
 				if (TargetState.writeDefaultValues != TargetWriteDefaults) {

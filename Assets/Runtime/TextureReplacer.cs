@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-using static VRSuya.Core.Unity;
+using VRSuya.Core;
 
 /*
  * VRSuya Utility
@@ -60,7 +60,7 @@ namespace VRSuya.Utility {
 		}
 
 		public void RequestUpdateAvatarTextures() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			TargetTextures = CleanupAvatarTextureList();
 			if (AvatarMaterials.Length > 0 && TargetTextures.Count > 0) ChangeTexture2Ds();
 		}

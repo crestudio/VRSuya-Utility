@@ -7,9 +7,8 @@ using UnityEngine;
 
 using VRC.SDKBase;
 
+using VRSuya.Core;
 using static VRSuya.Core.Translator;
-
-using Avatar = VRSuya.Core.Avatar;
 
 /*
  * VRSuya Utility
@@ -948,10 +947,10 @@ namespace VRSuya.Utility {
 		public static void RequestScaleAvatar(int TargetHeight) {
 			GameObject[] TargetAvatarGameObjects = Selection.gameObjects;
 			if (TargetAvatarGameObjects.Length == 0) {
-				TargetAvatarGameObjects = Avatar.GetAvatarGameObjects();
+				TargetAvatarGameObjects = AvatarUtility.GetAvatarGameObjects();
 			}
 			if (TargetAvatarGameObjects.Length > 0) {
-				UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
+				UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 				foreach (GameObject TargetAvatarGameObject in TargetAvatarGameObjects) {
 					ScaleAvatar(TargetAvatarGameObject, TargetHeight);
 				}

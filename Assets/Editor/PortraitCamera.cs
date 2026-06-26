@@ -8,8 +8,7 @@ using UnityEngine.UIElements;
 
 using VRC.SDKBase;
 
-using static VRSuya.Core.Unity;
-using Avatar = VRSuya.Core.Avatar;
+using VRSuya.Core;
 
 /*
  * VRSuya Utility
@@ -190,12 +189,12 @@ namespace VRSuya.Utility {
 		}
 
 		static Camera AddNewCamera(string HEXColorCode) {
-			VRC_AvatarDescriptor TargetAvatarDescriptor = Avatar.GetVRCAvatarDescriptor();
+			VRC_AvatarDescriptor TargetAvatarDescriptor = AvatarUtility.GetAvatarDescriptor();
 			if (TargetAvatarDescriptor) {
 				GameObject NewCameraGameObject = new GameObject("PortraitCamera");
 				Camera NewCameraComponent = NewCameraGameObject.AddComponent<Camera>();
 				NewCameraComponent.clearFlags = CameraClearFlags.SolidColor;
-				NewCameraComponent.backgroundColor = HexToColor(HEXColorCode);
+				NewCameraComponent.backgroundColor = UnityUtility.HexToColor(HEXColorCode);
 				NewCameraComponent.fieldOfView = 1.0f;
 				NewCameraComponent.nearClipPlane = 0.01f;
 				NewCameraComponent.renderingPath = RenderingPath.Forward;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 using VRC.SDK3.Dynamics.PhysBone.Components;
 
-using Avatar = VRSuya.Core.Avatar;
+using VRSuya.Core;
 
 /*
  * VRSuya Utility
@@ -95,7 +95,7 @@ namespace VRSuya.Utility {
 
 		void GetHumanoidTransform() {
 			GameObject TargetGameObject = this.gameObject;
-			GameObject AvatarGameObject = Avatar.GetAvatarGameObject(TargetGameObject);
+			GameObject AvatarGameObject = AvatarUtility.GetAvatarGameObject(TargetGameObject);
 			if (AvatarGameObject) {
 				Animator AvatarAnimator = AvatarGameObject.GetComponent<Animator>();
 				if (AvatarAnimator) {
@@ -107,7 +107,7 @@ namespace VRSuya.Utility {
 		}
 
 		public void GeneratePhysBoneColliders() {
-			UndoGroupIndex = VRSuya.Core.Unity.InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			TopCircle = new Vector3[] { TopCirclePoint_12, TopCirclePoint_3, TopCirclePoint_6, TopCirclePoint_9 };
 			BottomCircle = new Vector3[] { BottomCirclePoint_12, BottomCirclePoint_3, BottomCirclePoint_6, BottomCirclePoint_9 };
 			Transform[] ChildTransforms = this.gameObject.GetComponentsInChildren<Transform>();
@@ -142,7 +142,7 @@ namespace VRSuya.Utility {
 					Undo.RegisterCreatedObjectUndo(NewGameObject, UndoGroupName);
 				}
 
-				VRCPhysBoneCollider NewCollider = VRSuya.Core.Unity.GetOrCreateComponent<VRCPhysBoneCollider>(NewGameObject);
+				VRCPhysBoneCollider NewCollider = UnityUtility.GetOrCreateComponent<VRCPhysBoneCollider>(NewGameObject);
 				Undo.RecordObject(NewCollider, UndoGroupName);
 				NewCollider.rootTransform = ReferenceTransform;
 				NewCollider.shapeType = VRC.Dynamics.VRCPhysBoneColliderBase.ShapeType.Capsule;

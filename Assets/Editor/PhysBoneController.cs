@@ -9,9 +9,7 @@ using UnityEngine.SceneManagement;
 using VRC.Dynamics;
 using VRC.SDK3.Dynamics.PhysBone.Components;
 
-using static VRSuya.Core.Unity;
-
-using Avatar = VRSuya.Core.Avatar;
+using VRSuya.Core;
 
 /*
  * VRSuya Utility
@@ -73,7 +71,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Version/1.0", priority = 1000)]
 		static void ChangePhysBoneVersionTo1_0() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.version != VRCPhysBoneBase.Version.Version_1_0) {
@@ -88,7 +86,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Version/1.1", priority = 1000)]
 		static void ChangePhysBoneVersionTo1_1() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.version != VRCPhysBoneBase.Version.Version_1_1) {
@@ -111,7 +109,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/FoldOut/Closed", priority = 1001)]
 		static void ClosePhysBoneFoldOut() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				bool IsDirty = false;
@@ -132,7 +130,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/FoldOut/Opened", priority = 1000)]
 		static void OpenPhysBoneFoldOut() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				bool IsDirty = false;
@@ -153,7 +151,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Gizmo/Hide", priority = 1001)]
 		static void HidePhysBoneGizmo() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.showGizmos) {
@@ -168,7 +166,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Gizmo/Show", priority = 1000)]
 		static void ShowPhysBoneGizmo() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (!TargetPhysBone.showGizmos) {
@@ -183,7 +181,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Immobile/All Motion", priority = 1000)]
 		static void ChangePhysBoneImmobileToAllMotion() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.immobileType != VRC.Dynamics.VRCPhysBoneBase.ImmobileType.AllMotion) {
@@ -198,7 +196,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Immobile/World", priority = 1000)]
 		static void ChangePhysBoneImmobileToWorld() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.immobileType != VRC.Dynamics.VRCPhysBoneBase.ImmobileType.World) {
@@ -213,7 +211,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Animated/True", priority = 1000)]
 		static void ChangePhysBoneAnimatedToTrue() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (!TargetPhysBone.isAnimated) {
@@ -228,7 +226,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Animated/False", priority = 1001)]
 		static void ChangePhysBoneAnimatedToFalse() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.isAnimated) {
@@ -255,7 +253,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Reset/True", priority = 1000)]
 		static void ChangePhysBoneResetToTrue() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (!TargetPhysBone.resetWhenDisabled) {
@@ -270,7 +268,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Reset/False", priority = 1001)]
 		static void ChangePhysBoneResetToFalse() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.resetWhenDisabled) {
@@ -297,7 +295,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Quest/Remove Colliders", priority = 1000)]
 		static void EmptyPhysBoneColliders() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (TargetPhysBone.colliders.Count > 0) {
@@ -312,7 +310,7 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Quest/Remove Parameter", priority = 1000)]
 		static void EmptyPhysBoneParameter() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 			foreach (VRCPhysBone TargetPhysBone in PhysBoneComponents) {
 				if (!string.IsNullOrEmpty(TargetPhysBone.parameter)) {
@@ -335,14 +333,14 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Adjust Humanoid Collider", priority = 1000)]
 		static void AdjustHumanoidCollider() {
-			if (Avatar.GetVRCAvatarDescriptor()) {
-				GameObject AvatarObject = Avatar.GetVRCAvatarDescriptor().gameObject;
+			if (AvatarUtility.GetAvatarDescriptor()) {
+				GameObject AvatarObject = AvatarUtility.GetAvatarDescriptor().gameObject;
 				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
 				if (AvatarAnimator) {
-					UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+					UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 					foreach (var KeyPair in BoneColliderPair) {
 						GameObject TargetGameObject = AvatarAnimator.GetBoneTransform(KeyPair.Key).gameObject;
-						VRCPhysBoneCollider TargetPhysBoneCollider = GetOrCreateComponent<VRCPhysBoneCollider>(TargetGameObject);
+						VRCPhysBoneCollider TargetPhysBoneCollider = UnityUtility.GetOrCreateComponent<VRCPhysBoneCollider>(TargetGameObject);
 						if (TargetPhysBoneCollider.shapeType != VRCPhysBoneColliderBase.ShapeType.Capsule) {
 							Undo.RegisterCreatedObjectUndo(TargetPhysBoneCollider, UndoGroupName);
 							TargetPhysBoneCollider.shapeType = VRCPhysBoneColliderBase.ShapeType.Capsule;
@@ -392,9 +390,9 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Assign Humanoid Collider", priority = 1000)]
 		static void AssignHumanoidCollider() {
-			if (Avatar.GetVRCAvatarDescriptor()) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
-				GameObject AvatarObject = Avatar.GetVRCAvatarDescriptor().gameObject;
+			if (AvatarUtility.GetAvatarDescriptor()) {
+				UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
+				GameObject AvatarObject = AvatarUtility.GetAvatarDescriptor().gameObject;
 				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
 				List<VRCPhysBone> PhysBoneComponents = GetPhysBoneComponents();
 				List<VRCPhysBoneColliderBase> PhysBoneColliderComponets = GetPhysBoneColliderComponents();
@@ -465,9 +463,9 @@ namespace VRSuya.Utility {
 
 		[MenuItem("Tools/VRSuya/Utility/PhysBone/Collider/Remove Hand Collider", priority = 1000)]
 		static void RemoveHandCollider() {
-			if (Avatar.GetVRCAvatarDescriptor()) {
-				UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
-				GameObject AvatarObject = Avatar.GetVRCAvatarDescriptor().gameObject;
+			if (AvatarUtility.GetAvatarDescriptor()) {
+				UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
+				GameObject AvatarObject = AvatarUtility.GetAvatarDescriptor().gameObject;
 				Animator AvatarAnimator = AvatarObject.GetComponent<Animator>();
 				List<HumanBodyBones> HandBones = new List<HumanBodyBones> {
 					HumanBodyBones.LeftHand, HumanBodyBones.RightHand,

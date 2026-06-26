@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-using static VRSuya.Core.Unity;
+using VRSuya.Core;
+
 using Random = UnityEngine.Random;
 
 /*
@@ -111,7 +112,7 @@ namespace VRSuya.Utility {
 		}
 
 		public void RequestSetMaterialShadeColor() {
-			UndoGroupIndex = InitializeUndoGroup(UndoGroupName);
+			UndoGroupIndex = UnityUtility.InitializeUndoGroup(UndoGroupName);
 			foreach (Material TargetMaterial in TargetMaterials) {
 				if (TargetMaterial) {
 					if (GetShaderType(TargetMaterial) == "lilToon") {
@@ -139,7 +140,7 @@ namespace VRSuya.Utility {
 		ColorDelta GetNewColorDelta() {
 			string NewColorDeltaName = (TargetMaterial) ? TargetMaterial.name : $"ColorGenerator_{Random.Range(1000, 10000)}";
 			ShadeType NewShadeType = ShadeType.Body;
-			string NewReferenceColor = ColorToHex(ShadeColor1);
+			string NewReferenceColor = UnityUtility.ColorToHex(ShadeColor1);
 			Vector3 NewColorDelta1 = GetHSVColorDelta(ShadeColor1, ShadeColor2);
 			Vector3 NewColorDelta2 = GetHSVColorDelta(ShadeColor2, ShadeColor3);
 			Vector3 NewColorDelta3 = GetHSVColorDelta(ShadeColor3, ShadeColor4);
@@ -221,7 +222,7 @@ namespace VRSuya.Utility {
 		}
 
 		public void UpdateColor() {
-			ShadeColor1 = HexToColor(TargetColorDelta.ReferenceColor);
+			ShadeColor1 = UnityUtility.HexToColor(TargetColorDelta.ReferenceColor);
 			ShadeColor2 = GetDeltaColor(ShadeColor1, TargetColorDelta.ColorDelta1, false);
 			ShadeColor3 = GetDeltaColor(ShadeColor2, TargetColorDelta.ColorDelta2, false);
 			ShadeColor4 = GetDeltaColor(ShadeColor3, TargetColorDelta.ColorDelta3, false);
@@ -230,8 +231,8 @@ namespace VRSuya.Utility {
 		}
 
 		Vector3 GetHSVColorDelta(Color OriginalColor, Color TargetColor) {
-			Vector3 OriginalHSV = ConvertRGBToHSV(OriginalColor);
-			Vector3 TargetHSV = ConvertRGBToHSV(TargetColor);
+			Vector3 OriginalHSV = UnityUtility.ConvertRGBToHSV(OriginalColor);
+			Vector3 TargetHSV = UnityUtility.ConvertRGBToHSV(TargetColor);
 			float DeltaH = Mathf.Round((TargetHSV.x - OriginalHSV.x) * 360);
 			if (DeltaH > 180f) {
 				DeltaH = DeltaH - 360f;
@@ -248,7 +249,7 @@ namespace VRSuya.Utility {
 		}
 
 		static Color GetDeltaColor(Color TargetColor, Vector3 TargetDelta, bool Backward) {
-			Vector3 TargetHSV = ConvertRGBToHSV(TargetColor);
+			Vector3 TargetHSV = UnityUtility.ConvertRGBToHSV(TargetColor);
 			Vector3 UnityDeltaHSV = ConvertHSVtoUnityHSV(TargetDelta);
 			float NewH = (!Backward) ? TargetHSV.x + UnityDeltaHSV.x : TargetHSV.x - UnityDeltaHSV.x;
 			float NewS = (!Backward) ? TargetHSV.y + UnityDeltaHSV.y : TargetHSV.y - UnityDeltaHSV.y;
