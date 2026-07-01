@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEditor;
 
-using Object = UnityEngine.Object;
+using static VRSuya.Core.Translator;
 
 /*
  * VRSuya Utility
@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 namespace VRSuya.Utility {
 
 	[InitializeOnLoad]
-	public class AnimatorView : MonoBehaviour {
+	public class AnimatorView : Editor {
 
 		static Dictionary<SceneView, string> SceneViewModes = new Dictionary<SceneView, string>();
 
@@ -101,50 +101,55 @@ namespace VRSuya.Utility {
 			public static Vector3 TargetOffset = Vector3.zero;
 			public static float TargetSceneZoom = 0.2f;
 
+			const float BorderX = 15f;
+
 			[MenuItem("Tools/VRSuya/Utility/AnimatorView", priority = 1000)]
 			static void CreateWindow() {
-				AnimatorViewEditor AppWindow = GetWindowWithRect<AnimatorViewEditor>(new Rect(0, 0, 230, 180), true, "VRSuya AnimatorView");
+				AnimatorViewEditor AppWindow = GetWindowWithRect<AnimatorViewEditor>(new Rect(0, 0, 240, 180), true, "VRSuya AnimatorView");
 			}
 
 			void OnGUI() {
 				EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 				GUILayout.BeginHorizontal();
+				GUILayout.Space(BorderX);
 				GUILayout.FlexibleSpace();
-				GUILayout.Label("Track the GameObject", EditorStyles.boldLabel);
+				GUILayout.Label(GetTranslatedString("String_FollowGameObject"), EditorStyles.boldLabel);
 				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				IsSceneViewLocked = EditorGUILayout.Toggle("Active", IsSceneViewLocked, GUILayout.Width(200));
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
+				IsSceneViewLocked = EditorGUILayout.ToggleLeft(GetTranslatedString("String_Active"), IsSceneViewLocked);
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				IsRotationLocked = EditorGUILayout.Toggle("Rotation Lock", IsRotationLocked, GUILayout.Width(200));
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
+				IsRotationLocked = EditorGUILayout.ToggleLeft(GetTranslatedString("String_LockRotation"), IsRotationLocked);
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				TargetGameObject = EditorGUILayout.ObjectField(GUIContent.none, TargetGameObject, typeof(GameObject), true, GUILayout.Width(200));
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
+				TargetGameObject = EditorGUILayout.ObjectField(GUIContent.none, TargetGameObject, typeof(GameObject), true);
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				TargetOffset = EditorGUILayout.Vector3Field(GUIContent.none, TargetOffset, GUILayout.Width(200));
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
+				TargetOffset = EditorGUILayout.Vector3Field(GUIContent.none, TargetOffset);
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				TargetSceneZoom = EditorGUILayout.Slider(GUIContent.none, TargetSceneZoom, 0.0f, 1.5f, GUILayout.Width(200));
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
+				TargetSceneZoom = EditorGUILayout.Slider(GUIContent.none, TargetSceneZoom, 0.0f, 1.5f);
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				GUILayout.BeginHorizontal();
+				GUILayout.Space(BorderX);
 				GUILayout.FlexibleSpace();
-				EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
-				if (GUILayout.Button("Close", GUILayout.Width(100))) {
+				if (GUILayout.Button(GetTranslatedString("String_Close"), GUILayout.Width(100))) {
 					Close();
 				}
 				GUILayout.FlexibleSpace();
+				GUILayout.Space(BorderX);
 				GUILayout.EndHorizontal();
 				EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 			}
