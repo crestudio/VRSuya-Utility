@@ -202,7 +202,9 @@ namespace VRSuya.Utility {
 				Undo.RegisterCreatedObjectUndo(NewCameraGameObject, "Add New PortraitCamera");
 				EditorUtility.SetDirty(NewCameraComponent);
 				SceneView.RepaintAll();
-				ApplyCustomCameraSettings(NewCameraComponent);
+				// ApplyCustomCameraSettings(NewCameraComponent);
+				Selection.objects = new Object[] { NewCameraGameObject };
+				Selection.activeGameObject = NewCameraGameObject;
 				return NewCameraComponent;
 			} else {
 				return null;
