@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Linq;
+﻿using System.Linq;
 
 using UnityEditor;
 using UnityEditor.Animations;
@@ -96,4 +95,3 @@ namespace VRSuya.Utility {
 		}
 	}
 }
-#endif

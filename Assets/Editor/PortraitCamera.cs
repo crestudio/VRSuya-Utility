@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 
 using UnityEditor;
@@ -17,7 +16,7 @@ using VRSuya.Core;
 
 namespace VRSuya.Utility {
 
-	public class PortraitCamera : MonoBehaviour {
+	public class PortraitCamera : Editor {
 
 		enum ColorType {
 			Levin, Macchiato,
@@ -263,4 +262,3 @@ namespace VRSuya.Utility {
 		}
 	}
 }
-#endif

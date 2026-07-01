@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+using VRC.SDKBase;
 using VRC.SDK3.Dynamics.PhysBone.Components;
 
 using VRSuya.Core;
@@ -18,7 +19,8 @@ namespace VRSuya.Utility {
 
 	[ExecuteInEditMode]
 	[AddComponentMenu("VRSuya/VRSuya SkirtColliderGenerator")]
-	public class SkirtColliderGenerator : MonoBehaviour {
+	[HelpURL("https://vrsuya.booth.pm/")]
+	public class SkirtColliderGenerator : MonoBehaviour, IEditorOnly {
 
 		public Vector3 TopCirclePoint_12 = new Vector3(0f, 0.976f, 0.0865f);
 		public Vector3 TopCirclePoint_3 = new Vector3(0.069f, 0.98f, 0.028f);

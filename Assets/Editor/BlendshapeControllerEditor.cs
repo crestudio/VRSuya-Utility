@@ -19,6 +19,8 @@ namespace VRSuya.Utility {
 
 		List<string> ExceedLimitBlendshape = new List<string>();
 
+		const string UndoGroupName = "VRSuya BlendshapeController";
+
 		void OnEnable() {
 			SerializedTargetSkinnedMeshRenderer = serializedObject.FindProperty("TargetSkinnedMeshRenderer");
 			SerializedTargetAnimator = serializedObject.FindProperty("TargetAnimator");
@@ -45,7 +47,7 @@ namespace VRSuya.Utility {
 					float NewValue = EditorGUILayout.Slider(CurrentValue, 0, 100);
 					EditorGUILayout.EndHorizontal();
 					if (EditorGUI.EndChangeCheck()) {
-						Undo.RecordObject(Instance.TargetSkinnedMeshRenderer, "Changed Blendshape");
+						Undo.RecordObject(Instance.TargetSkinnedMeshRenderer, UndoGroupName);
 						Instance.TargetSkinnedMeshRenderer.SetBlendShapeWeight(Instance.BlendShapeList.Values.ElementAt(Index), NewValue);
 						EditorUtility.SetDirty(Instance.TargetSkinnedMeshRenderer);
 					}

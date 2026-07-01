@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEditor;
+﻿using UnityEditor;
 
 /*
  * VRSuya Utility
@@ -41,4 +40,3 @@ namespace VRSuya.Utility {
 		}
 	}
 }
-#endif

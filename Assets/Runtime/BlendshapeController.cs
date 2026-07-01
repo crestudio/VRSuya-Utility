@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
 
+using VRC.SDKBase;
+
 /*
  * VRSuya Utility
  * Contact : vrsuya@gmail.com // Twitter : https://twitter.com/VRSuya
@@ -15,7 +17,8 @@ using UnityEditor.Animations;
 namespace VRSuya.Utility {
 
 	[AddComponentMenu("VRSuya/VRSuya BlendshapeViewer")]
-	public class BlendshapeController : MonoBehaviour {
+	[HelpURL("https://vrsuya.booth.pm/")]
+	public class BlendshapeController : MonoBehaviour, IEditorOnly {
 
 		public SkinnedMeshRenderer TargetSkinnedMeshRenderer = null;
 		public Animator TargetAnimator = null;

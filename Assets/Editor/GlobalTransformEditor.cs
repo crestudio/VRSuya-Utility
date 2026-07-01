@@ -12,6 +12,8 @@ namespace VRSuya.Utility {
 	[CanEditMultipleObjects]
 	public class GlobalTransformEditor : Editor {
 
+		const string UndoGroupName = "VRSuya Global Transform";
+
 		public override void OnInspectorGUI() {
 			GlobalTransform TargetGlobalTransform = (GlobalTransform)target;
 			Transform TargetTransformComponent = TargetGlobalTransform.transform;
@@ -22,7 +24,7 @@ namespace VRSuya.Utility {
 			Vector3 CurrentGlobalRotation = TargetTransformComponent.eulerAngles;
 			Vector3 NewGlobalRotation = EditorGUILayout.Vector3Field("Rotation", CurrentGlobalRotation);
 			if (EditorGUI.EndChangeCheck()) {
-				Undo.RecordObject(TargetTransformComponent, "VRSuya Global Transform");
+				Undo.RecordObject(TargetTransformComponent, UndoGroupName);
 				TargetTransformComponent.position = NewGlobalPosition;
 				TargetTransformComponent.eulerAngles = NewGlobalRotation;
 				EditorUtility.SetDirty(TargetTransformComponent);

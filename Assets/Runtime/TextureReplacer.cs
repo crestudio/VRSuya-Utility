@@ -6,6 +6,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+using VRC.SDKBase;
+
 using VRSuya.Core;
 
 /*
@@ -17,7 +19,8 @@ namespace VRSuya.Utility {
 
 	[ExecuteInEditMode]
 	[AddComponentMenu("VRSuya/VRSuya TextureReplacer")]
-	public class TextureReplacer : MonoBehaviour {
+	[HelpURL("https://vrsuya.booth.pm/")]
+	public class TextureReplacer : MonoBehaviour, IEditorOnly {
 
 		[Serializable]
 		public struct TextureExpression {
@@ -122,7 +125,7 @@ namespace VRSuya.Utility {
 		}
 
 		void ChangeTexture2Ds() {
-			int ChangedCount = 0;
+			int ModifiedCount = 0;
 			Texture2D[] TargetTexture2Ds = TargetTextures.Select(TargetTexture => TargetTexture.BeforeTexture).ToArray();
 			foreach (Material TargetMaterial in AvatarMaterials) {
 				if (TargetMaterial) {
@@ -141,14 +144,14 @@ namespace VRSuya.Utility {
 									TargetMaterial.SetTexture(PropertyName, newTexture2D);
 									EditorUtility.SetDirty(TargetMaterial);
 									Undo.CollapseUndoOperations(UndoGroupIndex);
-									ChangedCount++;
+									ModifiedCount++;
 								}
 							}
 						}
 					}
 				}
 			}
-			Debug.Log($"[VRSuya] {ChangedCount} textures have been replaced");
+			Debug.Log($"[VRSuya] {ModifiedCount} textures have been replaced");
 		}
 	}
 }
